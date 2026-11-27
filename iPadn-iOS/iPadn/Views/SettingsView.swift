@@ -342,7 +342,7 @@ struct SettingsView: View {
                 // One compact row: the icon as chosen in 应用图标 (in the appearance
                 // it currently shows), with the name, version and description beside it.
                 HStack(alignment: .center, spacing: 14) {
-                    Image(icons.selected.preview).resizable().scaledToFit().frame(width: 52, height: 52)
+                    Image("SettingsLogo").resizable().scaledToFit().frame(width: 52, height: 52)
                         .clipShape(RoundedRectangle(cornerRadius: 52 * UX.iconCorner, style: .continuous))
                         .environment(\.colorScheme, iconScheme)
                         .accessibilityHidden(true)
