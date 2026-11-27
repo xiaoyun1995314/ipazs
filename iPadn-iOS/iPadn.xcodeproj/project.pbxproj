@@ -2205,8 +2205,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
-				PRODUCT_NAME = ipazs;
-				EXECUTABLE_NAME = ipazs;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2255,8 +2254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
-				PRODUCT_NAME = ipazs;
-				EXECUTABLE_NAME = ipazs;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2316,7 +2314,7 @@
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				GENERATE_INFOPLIST_FILE = YES;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/ipazs";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				SWIFT_INCLUDE_PATHS = (
 					"$(inherited)",
@@ -2347,7 +2345,7 @@
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				GENERATE_INFOPLIST_FILE = YES;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/ipazs";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				SWIFT_INCLUDE_PATHS = (
 					"$(inherited)",
@@ -2406,7 +2404,7 @@
 			packageProductDependencies = (
 				0507EAB0D89D8F0B76FF0550,
 			);
-			productName = ipazs;
+			productName = iPadn;
 			productReference = DEF93E8F8AC229A0D98BBEFA;
 			productType = "com.apple.product-type.application";
 		};
