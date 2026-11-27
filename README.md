@@ -345,17 +345,8 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 <sub>❤️ ❤️ ❤️</sub>
 
 ipazs **免费、开源、没有广告**。<br>
-如果它帮你省下了时间，或者你只是喜欢这个项目，欢迎请作者喝杯咖啡 ☕<br>
+如果它帮你省下了时间，或者你只是喜欢这个项目<br>
 你的鼓励是持续更新的动力。
-
-<a href="https://afdian.com/a/mengangs"><img src="https://img.shields.io/badge/%E7%88%B1%E5%8F%91%E7%94%B5-%E8%AF%B7%E4%BD%9C%E8%80%85%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-6759A8?style=for-the-badge&logo=buymeacoffee&logoColor=white&labelColor=2E3136" alt="爱发电"></a>
-<img src="https://img.shields.io/badge/USDT-BEP20-2D8A68?style=for-the-badge&logo=tether&logoColor=white&labelColor=2E3136" alt="USDT BEP20">
-
-| 爱发电（支付宝、微信） | USDT（BNB Smart Chain / BEP20） |
-| :---: | :---: |
-| [**afdian.com/a/mengangs**](https://afdian.com/a/mengangs)<br><sub>可按月赞助，也可一次性支持</sub> | <img src="docs/images/usdt-bep20.png" width="180" alt="USDT 收款二维码"><br><code>0x5f0cff7587b9fc305f9fa626135789bd5100818e</code> |
-
-<sub>转账 USDT 前请核对网络为 BEP20、地址完全一致，其他网络或币种转入可能无法找回。<br>在 ipazs「账号 › 设置 › 支持 ipazs」中也可以扫码或复制地址。<br>点个 Star、加入官方 Telegram 频道或帮忙改进翻译，同样是很大的支持。</sub>
 
 </div>
 
