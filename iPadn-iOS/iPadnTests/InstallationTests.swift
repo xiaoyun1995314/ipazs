@@ -16,7 +16,7 @@ final class InstallationTests: XCTestCase {
         let components = try XCTUnwrap(URLComponents(url: url, resolvingAgainstBaseURL: false))
         XCTAssertEqual(components.scheme, "https")
         XCTAssertEqual(components.host, "github.com")
-        XCTAssertEqual(components.path, "/mengangs/ipadn")
+        XCTAssertEqual(components.path, "/xiaoyun1995314/ipazs")
         XCTAssertEqual(components.fragment, "安装下载的应用")
         XCTAssertTrue(url.absoluteString.utf8.allSatisfy { $0 < 128 })
     }

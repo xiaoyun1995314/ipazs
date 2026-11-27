@@ -220,7 +220,7 @@ final class CoreTests: XCTestCase {
     }
 
     func testAppReleaseParsedFromGitHub() throws {
-        let json = ###"{"tag_name":"v1.7.0","html_url":"https://github.com/mengangs/ipadn/releases/tag/v1.7.0","draft":false,"prerelease":false,"published_at":"2026-10-16T08:00:00Z","body":"## 1.7.0\n- 关注应用\n\n验证：设备 Release 编译与 IPA 检查通过。","assets":[{"name":"iPadn-1.7.0-unsigned.ipa.sha256","browser_download_url":"https://github.com/x.sha256","size":90},{"name":"iPadn-1.7.0-unsigned.ipa","browser_download_url":"https://github.com/mengangs/ipadn/releases/download/v1.7.0/iPadn-1.7.0-unsigned.ipa","size":52000000}]}"###
+        let json = ###"{"tag_name":"v1.7.0","html_url":"https://github.com/xiaoyun1995314/ipazs/releases/tag/v1.7.0","draft":false,"prerelease":false,"published_at":"2026-10-16T08:00:00Z","body":"## 1.7.0\n- 关注应用\n\n验证：设备 Release 编译与 IPA 检查通过。","assets":[{"name":"iPadn-1.7.0-unsigned.ipa.sha256","browser_download_url":"https://github.com/x.sha256","size":90},{"name":"iPadn-1.7.0-unsigned.ipa","browser_download_url":"https://github.com/xiaoyun1995314/ipazs/releases/download/v1.7.0/iPadn-1.7.0-unsigned.ipa","size":52000000}]}"###
         let release = try XCTUnwrap(AppUpdateService.parse(Data(json.utf8)))
         XCTAssertEqual(release.version, "1.7.0")
         XCTAssertEqual(release.notes, "## 1.7.0\n- 关注应用")
@@ -237,7 +237,7 @@ final class CoreTests: XCTestCase {
 
         // When GitHub lists `-lite-unsigned.ipa` alphabetically before `-unsigned.ipa`,
         // `package` must still resolve to Standard while `litePackage` captures Lite.
-        let dualJSON = ###"{"tag_name":"v2.2.1","html_url":"https://github.com/mengangs/ipadn/releases/tag/v2.2.1","draft":false,"prerelease":false,"published_at":"2026-11-18T10:00:00Z","body":"## iPadn 2.2.1\n- Fix","assets":[{"name":"build-info.json","browser_download_url":"https://github.com/mengangs/ipadn/releases/download/v2.2.1/build-info.json","size":240},{"name":"iPadn-2.2.1-lite-unsigned.ipa","browser_download_url":"https://github.com/mengangs/ipadn/releases/download/v2.2.1/iPadn-2.2.1-lite-unsigned.ipa","size":49800000},{"name":"iPadn-2.2.1-lite-unsigned.ipa.sha256","browser_download_url":"https://github.com/x-lite.sha256","size":95},{"name":"iPadn-2.2.1-unsigned.ipa","browser_download_url":"https://github.com/mengangs/ipadn/releases/download/v2.2.1/iPadn-2.2.1-unsigned.ipa","size":50742804}]}"###
+        let dualJSON = ###"{"tag_name":"v2.2.1","html_url":"https://github.com/xiaoyun1995314/ipazs/releases/tag/v2.2.1","draft":false,"prerelease":false,"published_at":"2026-11-18T10:00:00Z","body":"## iPadn 2.2.1\n- Fix","assets":[{"name":"build-info.json","browser_download_url":"https://github.com/xiaoyun1995314/ipazs/releases/download/v2.2.1/build-info.json","size":240},{"name":"iPadn-2.2.1-lite-unsigned.ipa","browser_download_url":"https://github.com/xiaoyun1995314/ipazs/releases/download/v2.2.1/iPadn-2.2.1-lite-unsigned.ipa","size":49800000},{"name":"iPadn-2.2.1-lite-unsigned.ipa.sha256","browser_download_url":"https://github.com/x-lite.sha256","size":95},{"name":"iPadn-2.2.1-unsigned.ipa","browser_download_url":"https://github.com/xiaoyun1995314/ipazs/releases/download/v2.2.1/iPadn-2.2.1-unsigned.ipa","size":50742804}]}"###
         let dual = try XCTUnwrap(AppUpdateService.parse(Data(dualJSON.utf8)))
         XCTAssertTrue(dual.hasBothVariants)
         XCTAssertEqual(dual.package?.lastPathComponent, "iPadn-2.2.1-unsigned.ipa")
@@ -257,17 +257,17 @@ final class CoreTests: XCTestCase {
     }
 
     func testReleaseNotesBecomeBlocksWithoutTheVersionTitle() {
-        let notes = "## iPadn 1.7.1\n\n适用于 iOS 17。\n\n### 改进\n\n- 外观默认跟随系统\n* 更新提醒\n\n更早版本见 [Releases](https://github.com/mengangs/ipadn/releases)。"
+        let notes = "## iPadn 1.7.1\n\n适用于 iOS 17。\n\n### 改进\n\n- 外观默认跟随系统\n* 更新提醒\n\n更早版本见 [Releases](https://github.com/xiaoyun1995314/ipazs/releases)。"
         XCTAssertEqual(AppUpdateService.blocks(notes, version: "1.7.1"), [
             .paragraph("适用于 iOS 17。"), .heading("改进"), .bullet("外观默认跟随系统"), .bullet("更新提醒"),
-            .paragraph("更早版本见 [Releases](https://github.com/mengangs/ipadn/releases)。")
+            .paragraph("更早版本见 [Releases](https://github.com/xiaoyun1995314/ipazs/releases)。")
         ])
         // A heading that is not the version title is kept.
         XCTAssertEqual(AppUpdateService.blocks("### 新功能\n- A", version: "1.7.1"), [.heading("新功能"), .bullet("A")])
     }
 
     func testDownloadedUpdatePackageIsKeptOnlyWhenComplete() throws {
-        let page = try XCTUnwrap(URL(string: "https://github.com/mengangs/ipadn/releases/tag/v9.9.9"))
+        let page = try XCTUnwrap(URL(string: "https://github.com/xiaoyun1995314/ipazs/releases/tag/v9.9.9"))
         var release = AppRelease(version: "9.9.9", notes: "", page: page, package: page, packageSize: 4, published: nil)
         AppUpdateService.removeDownloads()
         defer { AppUpdateService.removeDownloads() }

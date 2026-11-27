@@ -94,7 +94,7 @@ final class ServiceResponseTests: XCTestCase {
     private func feed(_ entries: String) -> Data {
         Data((#"<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">"# + entries + "</feed>").utf8)
     }
-    private func entry(_ version: String, repository: String = "mengangs/ipadn") -> String {
+    private func entry(_ version: String, repository: String = "xiaoyun1995314/ipazs") -> String {
         """
         <entry><id>tag:github.com,2008:Repository/1/v\(version)</id>
         <updated>2026-11-08T10:00:00Z</updated><title>iPadn v\(version)</title>
@@ -107,8 +107,8 @@ final class ServiceResponseTests: XCTestCase {
         let data = feed(entry("1.7.3") + entry("2.0.0-beta.1") + entry("9.0.0", repository: "other/project") + entry("1.7.4"))
         let release = try XCTUnwrap(AppReleaseFeed.parse(data))
         XCTAssertEqual(release.version, "1.7.4")
-        XCTAssertEqual(release.package?.absoluteString, "https://github.com/mengangs/ipadn/releases/download/v1.7.4/iPadn-1.7.4-unsigned.ipa")
-        XCTAssertEqual(release.litePackage?.absoluteString, "https://github.com/mengangs/ipadn/releases/download/v1.7.4/iPadn-1.7.4-lite-unsigned.ipa")
+        XCTAssertEqual(release.package?.absoluteString, "https://github.com/xiaoyun1995314/ipazs/releases/download/v1.7.4/iPadn-1.7.4-unsigned.ipa")
+        XCTAssertEqual(release.litePackage?.absoluteString, "https://github.com/xiaoyun1995314/ipazs/releases/download/v1.7.4/iPadn-1.7.4-lite-unsigned.ipa")
         XCTAssertTrue(release.notes.contains("登录修复"))
         XCTAssertTrue(release.notes.contains("A & B"))
         XCTAssertNotNil(release.published)
@@ -121,7 +121,7 @@ final class ServiceResponseTests: XCTestCase {
         let data = feed(entry("1.7.4"))
         UpdateResponseProtocol.set { request in
             if request.url?.host == "api.github.com" { return (403, Data(#"{"message":"API rate limit exceeded"}"#.utf8), ["X-RateLimit-Remaining": "0"]) }
-            XCTAssertEqual(request.url?.absoluteString, "https://github.com/mengangs/ipadn/releases.atom")
+            XCTAssertEqual(request.url?.absoluteString, "https://github.com/xiaoyun1995314/ipazs/releases.atom")
             return (200, data, [:])
         }
         defer { UpdateResponseProtocol.set(nil) }
