@@ -348,7 +348,7 @@ struct SettingsView: View {
                         .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 3) {
                         HStack(alignment: .firstTextBaseline, spacing: 6) {
-                            Text(verbatim: "iPadn").font(.headline)
+                            Text(verbatim: "ipazs").font(.headline)
                             Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
                                 .font(.subheadline).foregroundStyle(.secondary)
                         }

@@ -15,15 +15,15 @@ enum LocalInstallationIdentityFactory {
             let root: [String: Any] = [
                 "PayloadType": "com.apple.security.root", "PayloadVersion": 1,
                 "PayloadIdentifier": "app.local.iPadn.installation.root." + identifier.uuidString,
-                "PayloadUUID": identifier.uuidString, "PayloadDisplayName": AppText.text("iPadn 本机安装 CA"),
-                "PayloadDescription": AppText.text("仅用于信任此设备上 iPadn 创建的安装服务器。"),
+                "PayloadUUID": identifier.uuidString, "PayloadDisplayName": AppText.text("ipazs 本机安装 CA"),
+                "PayloadDescription": AppText.text("仅用于信任此设备上 ipazs 创建的安装服务器。"),
                 "PayloadCertificateFileName": "iPadn-local-root.cer", "PayloadContent": rootCertificate
             ]
             return try PropertyListSerialization.data(fromPropertyList: [
                 "PayloadType": "Configuration", "PayloadVersion": 1,
                 "PayloadIdentifier": "app.local.iPadn.installation." + identifier.uuidString,
-                "PayloadUUID": UUID().uuidString, "PayloadDisplayName": AppText.text("iPadn 本机安装证书"),
-                "PayloadDescription": AppText.text("由此设备上的 iPadn 创建。安装后在设置中为该 CA 启用完全信任，才能使用本机 HTTPS 安装。"),
+                "PayloadUUID": UUID().uuidString, "PayloadDisplayName": AppText.text("ipazs 本机安装证书"),
+                "PayloadDescription": AppText.text("由此设备上的 ipazs 创建。安装后在设置中为该 CA 启用完全信任，才能使用本机 HTTPS 安装。"),
                 "PayloadContent": [root]
             ], format: .xml, options: 0)
         }
@@ -32,8 +32,8 @@ enum LocalInstallationIdentityFactory {
         let ca = try key(), server = try key()
         let caPublic = try publicBytes(ca), serverPublic = try publicBytes(server)
         let identifier = UUID()
-        let issuer = name("iPadn Local CA " + String(identifier.uuidString.prefix(8)))
-        let subject = name("iPadn Local Installation")
+        let issuer = name("ipazs Local CA " + String(identifier.uuidString.prefix(8)))
+        let subject = name("ipazs Local Installation")
         let now = Date()
         // A small backdating allowance handles clocks changing during setup.
         let caCertificate = try certificate(publicKey: caPublic, signingKey: ca, issuer: issuer, subject: issuer,
