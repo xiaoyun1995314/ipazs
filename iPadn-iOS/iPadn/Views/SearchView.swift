@@ -38,21 +38,9 @@ struct SearchView: View {
                     }
                     .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) { regionPicker; platformPicker }
+                    HStack(spacing: 8) { regionPicker; platformPicker; purchasedChip }
                 }
                 .listRowInsets(EdgeInsets(top: 2, leading: 0, bottom: 8, trailing: 0))
-                Button { viewingPurchased = PurchasedRoute() } label: {
-                    HStack(spacing: 12) {
-                        Image(systemName: "bag.fill").font(.headline).foregroundStyle(.tint).frame(width: 28)
-                        Text("已购").font(.body)
-                        Spacer()
-                        Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.tertiary)
-                    }
-                    .padding(.vertical, 6)
-                    .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
             }
             .listRowBackground(Color.clear).listRowSeparator(.hidden)
 
@@ -241,6 +229,20 @@ struct SearchView: View {
             }
         } label: { chip(store.settings.store.platform.title, symbol: store.settings.store.platform.symbol) }
         .accessibilityLabel("应用平台：\(store.settings.store.platform.title)")
+    }
+    private var purchasedChip: some View {
+        Button { viewingPurchased = PurchasedRoute() } label: {
+            HStack(spacing: 5) {
+                Image(systemName: "bag.fill").font(.caption.weight(.semibold))
+                Text("已购").font(.subheadline.weight(.medium))
+            }
+            .foregroundStyle(.primary)
+            .padding(.horizontal, 12).frame(minHeight: 32)
+            .background(Color(.secondarySystemGroupedBackground), in: Capsule())
+            .overlay(Capsule().stroke(Color(.separator), lineWidth: 0.5))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("已购项目")
     }
 }
 
