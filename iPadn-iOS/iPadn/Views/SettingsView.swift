@@ -390,7 +390,7 @@ struct SettingsView: View {
                 Link("项目与更新", destination: SupportLinks.releases)
                 Link(destination: SupportLinks.sourceHome) {
                     HStack {
-                        Label("软件源主页", systemImage: "globe")
+                        Label("訫云资源官网", systemImage: "globe")
                         Spacer()
                         Image(systemName: "chevron.right").foregroundStyle(.secondary)
                     }
