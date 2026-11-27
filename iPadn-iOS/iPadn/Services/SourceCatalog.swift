@@ -46,16 +46,42 @@ struct SourceApp: Identifiable, Hashable {
     let sourceID: String
     let sourceTitle: String
 
-    /// 按 URL 后缀嗅探：.ipa 结尾为直链，其余按网页处理。
+    /// 按 URL 后缀嗅探：http(s) 的 .ipa 结尾为直链，其余按网页处理。
+    /// nsk-sign://web?url= 等自定义 scheme 解出嵌套网页地址后走内部浏览器。
     var linkKind: SourceLinkKind {
-        let path = downloadURL.path.lowercased()
-        if path.hasSuffix(".ipa") { return .directIPA }
-        // 带查询参数时剥离后再判断
-        if let q = downloadURL.absoluteString.lastIndex(of: "?") {
-            let head = String(downloadURL.absoluteString[..<q]).lowercased()
+        let scheme = downloadURL.scheme?.lowercased() ?? ""
+        // 非 http(s)（nsk-sign:// 等自定义 scheme）一律当网页，解出嵌套地址。
+        guard scheme == "http" || scheme == "https" else { return .webpage }
+        let absolute = downloadURL.absoluteString.lowercased()
+        if absolute.hasSuffix(".ipa") { return .directIPA }
+        if let q = absolute.lastIndex(of: "?") {
+            let head = String(absolute[..<q])
             if head.hasSuffix(".ipa") { return .directIPA }
         }
         return .webpage
+    }
+
+    /// 真正用于打开/下载的 URL：解出 nsk-sign://web?url= 等 scheme 里的嵌套地址；
+    /// http(s) 原样返回；其余返回 nil（无法直接打开）。
+    var resolvedWebURL: URL? {
+        let absolute = downloadURL.absoluteString
+        if let scheme = downloadURL.scheme?.lowercased(), scheme == "http" || scheme == "https" {
+            return downloadURL
+        }
+        // nsk-sign://web?url=<encoded> 或 nsk-sign://web?<encoded>
+        if let components = URLComponents(url: downloadURL, resolvingAgainstBaseURL: false),
+           let raw = components.queryItems?.first(where: { $0.name == "url" })?.value {
+            return URL(string: raw) ?? URL(string: raw.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? raw)
+        }
+        // 兜底：整串当作 url 参数
+        if let q = absolute.firstIndex(of: "?"), absolute.hasSuffix(")") == false {
+            let tail = String(absolute[absolute.index(after: q)...])
+            if tail.lowercased().hasPrefix("url=") {
+                let v = String(tail.dropFirst(4))
+                return URL(string: v)
+            }
+        }
+        return nil
     }
 
     func asStoreApp() -> StoreApp {

@@ -169,7 +169,12 @@ struct SourcesView: View {
                     SourceAppRow(app: app) {
                         switch app.linkKind {
                         case .directIPA: sources.enqueue(app)
-                        case .webpage: browsing = BrowserLink(url: app.downloadURL)
+                        case .webpage:
+                            if let url = app.resolvedWebURL {
+                                browsing = BrowserLink(url: url)
+                            } else {
+                                store.errorMessage = "该链接类型无法在应用内打开：\(app.downloadURL.absoluteString)"
+                            }
                         }
                     }
                 }
