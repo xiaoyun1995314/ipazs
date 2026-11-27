@@ -295,6 +295,7 @@ struct RootView: View {
     }
 
     private let searchDestination = Destination(id: .search, title: "搜索", symbol: "magnifyingglass", kind: .tabSearch)
+    private let sourcesDestination = Destination(id: .sources, title: "发现", symbol: "square.stack.3d.up.fill", kind: .tabSearch)
     private let downloadsDestination = Destination(id: .downloads, title: "下载", symbol: "arrow.down.circle.fill", kind: .tabDownloads)
     private let packagesDestination = Destination(id: .packages, title: "应用包", symbol: "shippingbox.fill", kind: .tabPackages)
     private let purchasedDestination = Destination(id: .purchased, title: "已购", symbol: "bag.fill", kind: .tabPurchased)
@@ -302,7 +303,7 @@ struct RootView: View {
 
     /// 应用包 sits between 下载 and 已购, and only exists while 专业模式 is on.
     private var destinations: [Destination] {
-        var list: [Destination] = [searchDestination, downloadsDestination]
+        var list: [Destination] = [searchDestination, sourcesDestination, downloadsDestination]
         if store.settings.proMode {
             list.append(packagesDestination)
         }
@@ -361,6 +362,7 @@ struct RootView: View {
                     Group {
                         switch activeTab {
                         case .search: pageStack(.search)
+                        case .sources: pageStack(.sources)
                         case .downloads: pageStack(.downloads)
                         case .packages: pageStack(.packages)
                         case .purchased: pageStack(.purchased)
@@ -376,6 +378,9 @@ struct RootView: View {
                     pageStack(.search)
                         .tabItem { tabLabel(searchDestination) }
                         .tag(TabID.search)
+                    pageStack(.sources)
+                        .tabItem { tabLabel(sourcesDestination) }
+                        .tag(TabID.sources)
                     pageStack(.downloads)
                         .tabItem { tabLabel(downloadsDestination) }
                         .badge(downloadsBadge)
@@ -598,6 +603,7 @@ struct RootView: View {
     @ViewBuilder private func page(_ id: TabID) -> some View {
         switch id {
         case .search: SearchView()
+        case .sources: SourcesView(sources: store.sources)
         case .downloads: DownloadsView()
         case .packages: PackagesView()
         case .purchased: PurchasedView()

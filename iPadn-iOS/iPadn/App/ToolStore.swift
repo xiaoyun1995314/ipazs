@@ -146,7 +146,7 @@ struct UndoNotice: Identifiable {
 /// bind directly to `TabID`, while `selection` stays derived from the active
 /// `tabOrder` for vector-icon indexing and legacy integer callers.
 enum TabID: String, CaseIterable, Hashable, Sendable {
-    case search, downloads, packages, purchased, accounts
+    case search, sources, downloads, packages, purchased, accounts
 }
 
 enum AccountRoute: Hashable, Codable {
@@ -260,6 +260,7 @@ final class ToolStore: ObservableObject {
     let metadataStore = VersionMetadataStore()
     let downloads: DownloadManager
     let installation = InstallationService()
+    let sources = SourceManager()
     let packageFileRemovals = PackageFileRemovalStore.shared
     lazy var apple = AppleService(signer: signer)
     @Published var settings: ToolSettings {
@@ -452,6 +453,7 @@ final class ToolStore: ObservableObject {
         }
         if ["https://api.scripting.fun/ipa-plist", "https://xiaobai.app/install"].contains(settings.plistServer) { settings.plistServer = "" }
         downloads.configure(settings)
+        sources.attach(self)
         // Restore the decryption log once per process; runs that did not survive
         // the last launch are re-labelled "interrupted" there.
         DecryptRecordStore.shared.load()

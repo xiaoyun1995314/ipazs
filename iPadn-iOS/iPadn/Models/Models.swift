@@ -450,13 +450,15 @@ struct ToolSettings: Codable, Equatable {
     ]
     /// 2 once the iosdump source was offered to lists saved before it existed.
     var versionSourcesSchema = 2
+    /// 用户添加的第三方软件源（AltStore appstore.json）。
+    var sources: [AppStoreSource] = []
 
     init() { }
     private enum CodingKeys: String, CodingKey {
         case store, maxConcurrentDownloads, maxQueuedDownloads, searchLimit, notifications
         case useSignerCache, appearance, plistServer, versionSources, localInstallation, localInstallHost
         case automaticInstallation, updateNotifications, proMode, watchNotifications, searchRegions, priceRegions, baseCurrency, appUpdateCheck, targetPrices
-        case appearanceSchema, compatibleDownloadMode, nativeInstallation, versionSourcesSchema, appLock, appLockDelay, showDiscover, showAppScreenshots, showAppReviews
+        case appearanceSchema, compatibleDownloadMode, nativeInstallation, versionSourcesSchema, appLock, appLockDelay, showDiscover, showAppScreenshots, showAppReviews, sources
         case wifiOnlyDownloads, autoInstall
         case downloadLiveActivity, showHistoryIcons, prioritizeDelistedSearchResults, directTranslation
     }
@@ -522,6 +524,7 @@ struct ToolSettings: Codable, Equatable {
             versionSources.append(VersionSource.iosDump)
         }
         versionSourcesSchema = 2
+        sources = try values.decodeIfPresent([AppStoreSource].self, forKey: .sources) ?? sources
     }
 }
 
