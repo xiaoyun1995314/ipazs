@@ -106,8 +106,10 @@ private struct AccountsListContent: View {
                     NavigationLink(value: AccountRoute.wifiTransfer) { Label("Wi‑Fi 传输", systemImage: "laptopcomputer.and.arrow.down") }
                         .accessibilityIdentifier("account.wifi-transfer")
                 }
+#if canImport(TestFlightKit)
                 NavigationLink(value: AccountRoute.testFlight) { Label("TestFlight", systemImage: "airplane") }
                     .accessibilityIdentifier("account.testflight")
+#endif
                 NavigationLink(value: AccountRoute.settings(.root)) {
                     AccountSettingsRow(store: store)
                 }
