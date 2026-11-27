@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/images/icon.png" width="120" alt="iPadn">
+<img src="docs/images/icon.png" width="120" alt="ipazs">
 
-# iPadn
+# ipazs
 
 **在 iPhone 和 iPad 上搜索、下载、安装你拥有的 App。**
 支持 iPhone、iPad、Apple TV 与 Mac 应用，包括历史版本与已下架应用。
@@ -16,13 +16,13 @@
 [![许可证](https://img.shields.io/github/license/mengangs/ipadn?label=%E8%AE%B8%E5%8F%AF%E8%AF%81&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
 
 <p>
-  <a href="#支持-ipadn"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81%20iPadn-%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%20%C2%B7%20%E8%AF%B7%E4%BD%9C%E8%80%85%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-B0436E?style=for-the-badge&logo=githubsponsors&logoColor=white&labelColor=2E3136" alt="支持 iPadn"></a>
+  <a href="#支持-ipadn"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81%20ipazs-%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%20%C2%B7%20%E8%AF%B7%E4%BD%9C%E8%80%85%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-B0436E?style=for-the-badge&logo=githubsponsors&logoColor=white&labelColor=2E3136" alt="支持 ipazs"></a>
   <a href="https://afdian.com/a/mengangs"><img src="https://img.shields.io/badge/%E7%88%B1%E5%8F%91%E7%94%B5-%E8%B5%9E%E5%8A%A9%E6%94%AF%E6%8C%81-6759A8?style=for-the-badge&logo=buymeacoffee&logoColor=white&labelColor=2E3136" alt="爱发电赞助"></a>
 </p>
 
 **简体中文** · [English](README_EN.md)
 
-[下载](https://github.com/mengangs/ipadn/releases/latest) · [Telegram 官方频道](https://t.me/ipadn_official) · ❤️ [**支持 iPadn**](#支持-ipadn) · [TestFlight 说明](#testflight-实验性新功能) · [安装下载的应用](#安装下载的应用) · [常见问题](#常见问题)
+[下载](https://github.com/mengangs/ipadn/releases/latest) · [Telegram 官方频道](https://t.me/ipadn_official) · ❤️ [**支持 ipazs**](#支持-ipadn) · [TestFlight 说明](#testflight-实验性新功能) · [安装下载的应用](#安装下载的应用) · [常见问题](#常见问题)
 
 </div>
 
@@ -75,7 +75,7 @@
 
 ## 2.3.1 更新
 
-- **修复 iOS 16 闪退并恢复完整兼容（感谢 [@tageniu](https://github.com/tageniu) 在 PR #108 的贡献）**：将最低部署目标恢复为 **iOS 16.0**，对 `Symbols` / `Translation` / `ActivityKit` 保持弱链接与可用性防护，修复 iOS 16 PKCS#12 证书导入兼容性、Xcode `SigningCapability.swift` 工程引用与 `iPadnLiveActivity` 扩展双端编译问题。
+- **修复 iOS 16 闪退并恢复完整兼容（感谢 [@tageniu](https://github.com/tageniu) 在 PR #108 的贡献）**：将最低部署目标恢复为 **iOS 16.0**，对 `Symbols` / `Translation` / `ActivityKit` 保持弱链接与可用性防护，修复 iOS 16 PKCS#12 证书导入兼容性、Xcode `SigningCapability.swift` 工程引用与 `ipazsLiveActivity` 扩展双端编译问题。
 - **优化历史版本快速滚动与账号切换流畅度（已缓存与未缓存长列表）**：抽取独立无锁缩略图缓存 `VersionIconCache`，将 IPA Range 请求改写为无锁竞争的分块 `URLSessionDataDelegate` 传输、`RemoteZip` 解析移出主线程并按字节前缀过滤，扁平化详情页单层 `LazyVStack` 并隔离 `AccountsView` 与 `NoticeCenter`（账号页内切换就地即时反馈、全局提示改轻量化胶囊），消除快速滑动卡死白屏与切号卡顿。
 - **跨区下载失败诊断与一键切换账号（`2059` / `1010`）**：仅在下载实际失败后核验账号地区与搜索商店区差异（绝不预拦截可下载应用），在弹窗中提示精简地区原因，并提供 **「切换并重试」** 或 **「切换账号」** 快捷按钮。
 - **TestFlight / CI 稳定性提升**：自适应放宽冷启动 `SAPSigner` 初始化超时上限。
@@ -85,9 +85,9 @@
 > **从 v2.2.1 到 v2.3.0 的跨度说明**：自 GitHub 上一个正式版 **v2.2.1** 发布以来，我们在本地持续完成了 **20+ 次功能研发与底层重构迭代**，现统一合并发布 **v2.3.0**。除了从零打造的 **TestFlight 模块**，也囊括了应用内更新选择器、本地化名称展示与社区体系迁移。
 
 - **🆕 TestFlight 主页、下载与原生安装（实验性新功能）**：在「账号 › TestFlight」从零构建原生 Store 风格页面，按「测试中 / 平台不兼容 / 以往测试」分类浏览、搜索并多账号切换；支持实时速度与 ETA 进度条下载、SINF 注入与 `InstallCoordinator` 统一安装（原生安装可免解密免重签直装运行），并接入专业模式「应用包」与 `FairPlayCore` 解密定位；内置 `TFNet` 网络三模式、代理失败自动直连旁路、DoH/Fake-IP 预检及严格脱敏的轮转诊断日志。
-- **⬆️ 应用内更新弹窗升级（`AppUpdateView`）**：当发现 iPadn 新版本时，直接在应用内提示并支持一键切换 **标准版 / 精简版**、核对体积与更新说明后下载。
+- **⬆️ 应用内更新弹窗升级（`AppUpdateView`）**：当发现 ipazs 新版本时，直接在应用内提示并支持一键切换 **标准版 / 精简版**、核对体积与更新说明后下载。
 - **🌏 本地化名称与界面打磨**：TestFlight、商店列表、「下载」及专业模式「应用包」列表全面支持中文等本地化应用名称显示；补充包体详情元数据与一键复制 `Bundle ID`，优化滚动性能与视觉质感。
-- **📢 接入官方 Telegram 频道（11 种语言同步）**：在「账号 › 设置 › 支持 iPadn」下方及支持详情页加入 [官方 Telegram 频道](https://t.me/ipadn_official) 入口；继续保持免费开源，新版优先于频道发布，GitHub Issues 停止受理并保留历史只读归档。
+- **📢 接入官方 Telegram 频道（11 种语言同步）**：在「账号 › 设置 › 支持 ipazs」下方及支持详情页加入 [官方 Telegram 频道](https://t.me/ipadn_official) 入口；继续保持免费开源，新版优先于频道发布，GitHub Issues 停止受理并保留历史只读归档。
 - ⚠️ **实验性与免责提醒**：TestFlight 为全新开发功能，受 Apple 服务端策略、测试资格与网络规则影响，存在一定不稳定性；仅建议管理个人合法授权的测试应用，建议先用备用账号体验，详见下方 [TestFlight 实验性新功能](#testflight-实验性新功能) 说明。
 - 继续提供标准版和精简版，支持 iOS / iPadOS 16 及更新版本。
 
@@ -103,7 +103,7 @@
 | 🕘 **历史版本** | 查看每个版本的版本号、日期、IPA 安装包大小、对应版本图标和更新说明并下载旧版本，也可以直接输入版本 ID。长按版本行可复制版本号或版本 ID；大字体下自动纵向排版。无法取得大小时显示「—」，不会套用最新版的大小。图标按需从对应 IPA 的主图标 PNG 读取并缓存（可在外观与图标设置关闭读取以节省流量），无法提取时显示占位，不套用当前商店图标；仅含 Assets.car 的版本暂不支持。已下载的应用可以「保留此版本」，不再提醒更新。 |
 | ⬇️ **下载管理** | 后台下载，随时暂停、继续、重试，实时显示速度与剩余时间；锁屏和灵动岛同步显示进度。可以只在 Wi‑Fi 下下载，也可以下载完成后自动安装。卡片侧滑可删除或分享，点其他位置收起；分享文件名包含应用名和版本号。删除支持 5 秒撤销倒计时，下载完成后进度环变为勾号和「安装」。长按仍使用系统菜单，重复点当前标签页回到顶部。任务详情中能查看安装包声明的权限、扩展、语言等信息。 |
 | 🔔 **更新提醒** | 已下载的应用有新版本时在列表里提示，后台检查后还会发送通知。 |
-| ⬆️ **iPadn 自动更新提醒** | 有新版本时在「设置」中提示并发送通知，可以直接在 App 内查看更新内容、下载新安装包，交给你的签名工具安装。 |
+| ⬆️ **ipazs 自动更新提醒** | 有新版本时在「设置」中提示并发送通知，可以直接在 App 内查看更新内容、下载新安装包，交给你的签名工具安装。 |
 | 👀 **关注应用** | 关注感兴趣的应用，有新版本、降价、限免或下架时提醒你，并记录价格走势。 |
 | 🌏 **多地区比价** | 对比应用和内购项目（含订阅）在各个国家或地区的价格，按你选的货币换算后从低到高排列，对比的地区可以自己选。 |
 | 📲 **一键安装** | 下载完成后点「安装」即可，无需描述文件或证书，并实时显示安装进度。 |
@@ -115,28 +115,28 @@
 | 📦 **已下架应用** | 只要你曾经获取过，下架应用不仅能通过 App ID 找到并下载，用名称或别名关键词搜索时也会结合目录与本机记录匹配，并可在设置开启优先排在前排显示。 |
 | 👥 **多个账号** | 保存多个 Apple 账号（邮箱或手机号），一键切换。 |
 | 🎮 **Apple Arcade** | 订阅了 Apple Arcade 的账号可以下载 Arcade 游戏。 |
-| 🔒 **应用锁** | 用面容 ID、触控 ID 或密码锁住 iPadn，多任务界面中也会隐藏内容。 |
+| 🔒 **应用锁** | 用面容 ID、触控 ID 或密码锁住 ipazs，多任务界面中也会隐藏内容。 |
 | 🧭 **小组件与快捷指令** | 主屏幕和锁屏小组件快速打开搜索、下载、已购和更新检查；快捷指令可以下载应用、检查更新、查看下载进度、关注应用等。 |
 | 🧰 **专业模式与解码** | 启用「专业模式」后解锁「应用包」页、下载安装包内容浏览与提取、双版本对比、账号令牌/设备标识管理，以及本机 FairPlay SINF IPA 解密与逐架构校验（默认关闭）。 |
 | 🛡️ **备份与维护** | 支持明文与 AES-256-GCM 密码加密的完整导出及导入预览（设置、关注、版本来源、Apple 会话凭证与 StoreProof），含存储清理与无敏诊断导出。 |
 
 界面参考 App Store 设计，外观默认跟随系统、图标默认深色（都可在设置中更改），支持动态字体和 iPad 侧栏，还可以在设置中更换应用图标。
 
-**界面语言**：简体中文、繁體中文、English、日本語、한국어、Русский、Español、Français、Deutsch、Português (Brasil)、العربية，阿拉伯语使用从右到左的排版。iPadn 跟随系统语言，也可以在「设置 › iPadn › 语言」中单独设置。英文由社区贡献者完善，其他语言为机器辅助翻译，欢迎在 [官方 Telegram 频道](https://t.me/ipadn_official) 或 Pull Request 中纠错。
+**界面语言**：简体中文、繁體中文、English、日本語、한국어、Русский、Español、Français、Deutsch、Português (Brasil)、العربية，阿拉伯语使用从右到左的排版。ipazs 跟随系统语言，也可以在「设置 › ipazs › 语言」中单独设置。英文由社区贡献者完善，其他语言为机器辅助翻译，欢迎在 [官方 Telegram 频道](https://t.me/ipadn_official) 或 Pull Request 中纠错。
 
 ## 开始使用
 
 > 需要 **iOS / iPadOS 16** 或更新版本。
 
-1. 在 [Releases](https://github.com/mengangs/ipadn/releases/latest) 下载最新的 `iPadn-版本号-unsigned.ipa`。签名工具或免费账号的 App ID 数量有限时，可以改用精简版 `iPadn-版本号-lite-unsigned.ipa`：只需 1 个 App ID，但没有灵动岛进度和小组件。
+1. 在 [Releases](https://github.com/mengangs/ipadn/releases/latest) 下载最新的 `ipazs-版本号-unsigned.ipa`。签名工具或免费账号的 App ID 数量有限时，可以改用精简版 `ipazs-版本号-lite-unsigned.ipa`：只需 1 个 App ID，但没有灵动岛进度和小组件。
 2. 用你常用的签名工具签名后安装到设备上。
-3. 打开 iPadn，在「账号」中登录 Apple 账号。需要双重认证时，输入受信任设备上显示的 6 位验证码。
+3. 打开 ipazs，在「账号」中登录 Apple 账号。需要双重认证时，输入受信任设备上显示的 6 位验证码。
 
-> iPadn 不在 App Store 上架，发布的安装包未签名，需要自行签名。
+> ipazs 不在 App Store 上架，发布的安装包未签名，需要自行签名。
 
 ### 在签名工具中添加源
 
-SideStore、AltStore、Feather 等支持 AltStore 源的签名工具，可以添加下面的地址。添加后在工具里就能安装 iPadn，有新版本时也能直接在工具里更新，不用再手动下载安装包。
+SideStore、AltStore、Feather 等支持 AltStore 源的签名工具，可以添加下面的地址。添加后在工具里就能安装 ipazs，有新版本时也能直接在工具里更新，不用再手动下载安装包。
 
 ```
 https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
@@ -162,9 +162,9 @@ https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
 
 ## 安装下载的应用
 
-手动安装时，点下载卡片上的「安装」，按所选安装方式完成操作；网页安装方式需要在系统弹窗中确认，完成前请保持 iPadn 打开。
+手动安装时，点下载卡片上的「安装」，按所选安装方式完成操作；网页安装方式需要在系统弹窗中确认，完成前请保持 ipazs 打开。
 
-开启「下载完成后自动安装」并选择「原生安装」后，完成的任务会依次直接安装，无需再次确认；需事先完成配对并保持 LocalDevVPN 连接。下载到安装期间使用静音音频维持后台运行，锁屏和灵动岛可显示下载、处理和安装状态（标准版，需开启实时活动）。后台运行仍受 iOS 限制，不能保证被系统终止后继续；未完成的任务会在重新打开 iPadn 后恢复处理。其他安装方式仍需回到 iPadn，由安装页和系统提示完成。
+开启「下载完成后自动安装」并选择「原生安装」后，完成的任务会依次直接安装，无需再次确认；需事先完成配对并保持 LocalDevVPN 连接。下载到安装期间使用静音音频维持后台运行，锁屏和灵动岛可显示下载、处理和安装状态（标准版，需开启实时活动）。后台运行仍受 iOS 限制，不能保证被系统终止后继续；未完成的任务会在重新打开 ipazs 后恢复处理。其他安装方式仍需回到 ipazs，由安装页和系统提示完成。
 
 在「账号 › 设置 › 安装设置」中可以选择安装方式：
 
@@ -175,9 +175,9 @@ https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
 | **本机证书** | 一键安装没有弹出安装窗口时（例如在 LiveContainer 中运行） | 在安装设置中创建证书，安装描述文件，并在「设置 › 通用 › 关于本机 › 证书信任设置」中开启信任 |
 | **代理服务** | 已在使用 Surge、Loon 等工具 | 自己的清单服务地址与代理规则 |
 
-使用本机证书安装时，系统会提示「ipadn.localtest.me 想要安装…」，这是 iPadn 在本机提供的安装服务。使用 Surge、Loon、Shadowrocket 等代理工具时，不用关闭代理，只需添加直连（DIRECT）规则：一键安装为 `api.palera.in`，本机证书为 `ipadn.localtest.me`。
+使用本机证书安装时，系统会提示「ipadn.localtest.me 想要安装…」，这是 ipazs 在本机提供的安装服务。使用 Surge、Loon、Shadowrocket 等代理工具时，不用关闭代理，只需添加直连（DIRECT）规则：一键安装为 `api.palera.in`，本机证书为 `ipadn.localtest.me`。
 
-安装时会显示进度：系统开始安装、安装包传输百分比和传输完成。如果点「安装」后没有出现系统安装窗口，可以点「在 Safari 中安装」，在 Safari 中确认后回到 iPadn 等待完成。
+安装时会显示进度：系统开始安装、安装包传输百分比和传输完成。如果点「安装」后没有出现系统安装窗口，可以点「在 Safari 中安装」，在 Safari 中确认后回到 ipazs 等待完成。
 
 一键安装、本机证书和代理服务使用的系统网页安装通道不能覆盖 App Store 已装的同一应用，需要覆盖时请用「原生安装」。
 
@@ -191,12 +191,12 @@ https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
 
 **2. 配对（只需一次）**
 
-- **iOS / iPadOS 27 及更新版本，不需要电脑**：在「安装设置 › 原生安装」中点按「在本机配对」，iPadn 会打开引导页。按提示打开「设置 › 隐私与安全性 › 开发者模式」，点按「与 iPadn 配对」，输入 iPadn 显示的配对码。配对码同时显示在灵动岛、锁屏和通知中，不用切回 iPadn。需要先开启开发者模式；看不到这个开关时，说明设备上还没有用开发者证书签名的应用，用企业证书签名时可能不会出现。
-- **iOS 17.4 – 26**：在电脑上用 [idevice_pair](https://github.com/jkcoxson/idevice_pair) 连接设备，生成「远程配对（RPPairing）」文件，放进「文件 › 我的 iPhone › iPadn」，在「原生安装」页 iPadn 会自动导入；也可以点「导入配对文件」从其他位置选取。电脑只需要用这一次，之后安装都不再需要电脑。
+- **iOS / iPadOS 27 及更新版本，不需要电脑**：在「安装设置 › 原生安装」中点按「在本机配对」，ipazs 会打开引导页。按提示打开「设置 › 隐私与安全性 › 开发者模式」，点按「与 ipazs 配对」，输入 ipazs 显示的配对码。配对码同时显示在灵动岛、锁屏和通知中，不用切回 ipazs。需要先开启开发者模式；看不到这个开关时，说明设备上还没有用开发者证书签名的应用，用企业证书签名时可能不会出现。
+- **iOS 17.4 – 26**：在电脑上用 [idevice_pair](https://github.com/jkcoxson/idevice_pair) 连接设备，生成「远程配对（RPPairing）」文件，放进「文件 › 我的 iPhone › ipazs」，在「原生安装」页 ipazs 会自动导入；也可以点「导入配对文件」从其他位置选取。电脑只需要用这一次，之后安装都不再需要电脑。
 
 **3. 检查连接**
 
-在 LocalDevVPN 中连接后，回到 iPadn 点「检查连接」，显示连接正常即可安装。
+在 LocalDevVPN 中连接后，回到 ipazs 点「检查连接」，显示连接正常即可安装。
 
 修改锁屏密码、系统还原或在电脑上取消信任后，配对会失效，需要重新配对。配对文件相当于这台设备的连接凭据，不要分享给他人。
 
@@ -208,7 +208,7 @@ https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
 2. 打开应用详情，点「获取 PKG」。
 3. 下载完成后点分享按钮，通过隔空投送或「文件」传到 Mac 上安装。
 
-第一次下载 Mac 应用时，iPadn 会额外下载约 47 MB 的组件，之后会重复使用。开发者在官网提供的 DMG / PKG / ZIP 也可以在详情页直接下载。
+第一次下载 Mac 应用时，ipazs 会额外下载约 47 MB 的组件，之后会重复使用。开发者在官网提供的 DMG / PKG / ZIP 也可以在详情页直接下载。
 
 ## TestFlight 实验性新功能
 
@@ -255,7 +255,7 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 <details>
 <summary><b>在 LiveContainer 中无法导入导出文件，或一键安装没有反应？</b></summary>
 
-在 LiveContainer 里长按 iPadn，打开设置中的「修复文件导入」（Fix File Picker）。之后就能导入导出安装包和诊断信息，一键安装也能弹出系统安装窗口。
+在 LiveContainer 里长按 ipazs，打开设置中的「修复文件导入」（Fix File Picker）。之后就能导入导出安装包和诊断信息，一键安装也能弹出系统安装窗口。
 </details>
 
 <details>
@@ -275,7 +275,7 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 
 原生安装使用的是系统自带的安装服务，和电脑装 App 用的是同一个，它只接受已经配对、受信任的连接。iOS 27 之前，苹果只允许电脑通过数据线发起这种配对（手机上点「信任此电脑」并输入密码），手机上的 App 无法自己发起，所以需要先在电脑上生成配对文件。iOS 27 在「开发者模式」中加入了在手机上配对的入口，因此可以直接用「在本机配对」。
 
-电脑只需要用一次。配对文件导入 iPadn 后会一直有效，只有修改锁屏密码、还原系统，或在电脑上取消信任后才需要重新生成。iOS 17.4 以下没有这套连接方式，无法使用原生安装。
+电脑只需要用一次。配对文件导入 ipazs 后会一直有效，只有修改锁屏密码、还原系统，或在电脑上取消信任后才需要重新生成。iOS 17.4 以下没有这套连接方式，无法使用原生安装。
 </details>
 
 <details>
@@ -287,17 +287,17 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 </details>
 
 <details>
-<summary><b>在本机配对时看不到配对码，或「设置」里没有「与 iPadn 配对」？</b></summary>
+<summary><b>在本机配对时看不到配对码，或「设置」里没有「与 ipazs 配对」？</b></summary>
 
 - 本机配对需要 iOS / iPadOS 27 及更新版本，并且已开启「开发者模式」。
-- 点「在本机配对」后再去「设置」，配对期间 iPadn 会在后台保持运行；配对码显示在灵动岛、锁屏和通知中。请在「设置 › iPadn」中允许通知和「实时活动」。
+- 点「在本机配对」后再去「设置」，配对期间 ipazs 会在后台保持运行；配对码显示在灵动岛、锁屏和通知中。请在「设置 › ipazs」中允许通知和「实时活动」。
 - 等待超过 5 分钟会自动停止，重新点「在本机配对」即可。
 </details>
 
 <details>
 <summary><b>下载或获取应用时要求输入验证码，但没有收到？</b></summary>
 
-- iPadn 会先替你向 Apple 请求验证码，验证码只发到登录了同一 Apple 账户的 iPhone、iPad 或 Mac，不发短信。设备上出现「Apple 账户登录请求」时点「允许」。
+- ipazs 会先替你向 Apple 请求验证码，验证码只发到登录了同一 Apple 账户的 iPhone、iPad 或 Mac，不发短信。设备上出现「Apple 账户登录请求」时点「允许」。
 - 没有出现时，可以在那台设备的「设置 › [你的姓名] › 登录与安全 › 获取验证码」中手动获取，同样可用。
 - 可以点「重新发送验证码」，频繁请求时 Apple 可能会暂时不发送。
 - 获取免费应用也要求验证，通常是 Apple 账户开启了免费下载需要密码。可以在登录了该账户的设备上打开「设置 › 媒体与购买项目 › 密码设置」关闭；开着「使用面容 ID 购买」时没有这个选项。
@@ -307,13 +307,13 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 <details>
 <summary><b>点「获取」后要转一会才开始下载？</b></summary>
 
-每次请求都要先在本机完成 Apple 要求的签名。刚打开 iPadn 或闲置超过 5 分钟后，签名组件需要重新加载几秒；从没下载过的应用还要先领取许可，多两次 Apple 请求。iPadn 打开应用详情页时会提前准备签名组件，下载操作也会排在后台任务前面。
+每次请求都要先在本机完成 Apple 要求的签名。刚打开 ipazs 或闲置超过 5 分钟后，签名组件需要重新加载几秒；从没下载过的应用还要先领取许可，多两次 Apple 请求。ipazs 打开应用详情页时会提前准备签名组件，下载操作也会排在后台任务前面。
 </details>
 
 <details>
 <summary><b>下载到 100% 后又从头开始？</b></summary>
 
-部分签名方式下，系统后台下载服务无法把文件存进 iPadn，只能改用应用内下载从头再下。iPadn 每次安装后第一次启动会先用一个很小的文件检测，检测到问题就直接改用应用内下载，不会再下两遍。应用内下载时请保持 iPadn 在前台，退到后台约 30 秒后会暂停。更换签名后可以在「设置 › 下载」点「重新尝试后台下载」。
+部分签名方式下，系统后台下载服务无法把文件存进 ipazs，只能改用应用内下载从头再下。ipazs 每次安装后第一次启动会先用一个很小的文件检测，检测到问题就直接改用应用内下载，不会再下两遍。应用内下载时请保持 ipazs 在前台，退到后台约 30 秒后会暂停。更换签名后可以在「设置 › 下载」点「重新尝试后台下载」。
 </details>
 
 <details>
@@ -360,13 +360,13 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 不会。移除账号只清除该账号的登录信息和已购记录。
 </details>
 
-## 支持 iPadn
+## 支持 ipazs
 
 <div align="center">
 
 <sub>❤️ ❤️ ❤️</sub>
 
-iPadn **免费、开源、没有广告**。<br>
+ipazs **免费、开源、没有广告**。<br>
 如果它帮你省下了时间，或者你只是喜欢这个项目，欢迎请作者喝杯咖啡 ☕<br>
 你的鼓励是持续更新的动力。
 
@@ -377,30 +377,30 @@ iPadn **免费、开源、没有广告**。<br>
 | :---: | :---: |
 | [**afdian.com/a/mengangs**](https://afdian.com/a/mengangs)<br><sub>可按月赞助，也可一次性支持</sub> | <img src="docs/images/usdt-bep20.png" width="180" alt="USDT 收款二维码"><br><code>0x5f0cff7587b9fc305f9fa626135789bd5100818e</code> |
 
-<sub>转账 USDT 前请核对网络为 BEP20、地址完全一致，其他网络或币种转入可能无法找回。<br>在 iPadn「账号 › 设置 › 支持 iPadn」中也可以扫码或复制地址。<br>点个 Star、加入官方 Telegram 频道或帮忙改进翻译，同样是很大的支持。</sub>
+<sub>转账 USDT 前请核对网络为 BEP20、地址完全一致，其他网络或币种转入可能无法找回。<br>在 ipazs「账号 › 设置 › 支持 ipazs」中也可以扫码或复制地址。<br>点个 Star、加入官方 Telegram 频道或帮忙改进翻译，同样是很大的支持。</sub>
 
 </div>
 
 ## 官方频道与反馈说明
 
 - **官方 Telegram 频道**：👉 [**https://t.me/ipadn_official**](https://t.me/ipadn_official)
-- **开源与发布节奏**：iPadn 继续保持**免费开源**，GitHub 仍会同步更新与发布源码；新版本安装包与源码归档会优先发布在官方 Telegram 频道（GitHub 同步略慢一步）。
+- **开源与发布节奏**：ipazs 继续保持**免费开源**，GitHub 仍会同步更新与发布源码；新版本安装包与源码归档会优先发布在官方 Telegram 频道（GitHub 同步略慢一步）。
 - **为什么关闭 GitHub Issues（仅保留历史归档）**：由于作者个人维护精力有限，分散在 GitHub Issues 与社区之间回复容易遗漏，也较难实时核对网络/配对/账号上下文。因此 **GitHub Issues 已停止受理新提交，原有历史 Issues（#1–#106）完整保留为只读归档以便检索参考**；所有新版本交流、TestFlight 问题排查与 BUG 反馈请前往官方 Telegram 频道**对应版本贴文评论区**提交（反馈时建议附上设备型号、系统版本、复现步骤，以及「账号 › 设置 › 备份与维护 › 导出诊断信息」生成的文件——内含严格脱敏处理，不含密码与凭据）。
-- **参与翻译与自编译**：界面文字位于 [`Localizable.xcstrings`](iPadn-iOS/iPadn/Resources/Localizable.xcstrings)，欢迎提交 Pull Request 改进翻译；自行编译步骤见 [BUILDING.md](iPadn-iOS/BUILDING.md)。
+- **参与翻译与自编译**：界面文字位于 [`Localizable.xcstrings`](ipazs-iOS/ipazs/Resources/Localizable.xcstrings)，欢迎提交 Pull Request 改进翻译；自行编译步骤见 [BUILDING.md](ipazs-iOS/BUILDING.md)。
 
 ## 致谢
 
 - [kylefmohr](https://github.com/kylefmohr) 贡献了英文翻译（[#35](https://github.com/mengangs/ipadn/pull/35)）。
-- 感谢所有提交问题和建议的用户，以及 iPadn 使用的开源项目，详见[第三方组件与许可](iPadn-iOS/THIRD_PARTY_NOTICES.md)。
+- 感谢所有提交问题和建议的用户，以及 ipazs 使用的开源项目，详见[第三方组件与许可](ipazs-iOS/THIRD_PARTY_NOTICES.md)。
 
 ## 更多
 
 - [更新内容](RELEASE_NOTES.md)
-- [自行编译](iPadn-iOS/BUILDING.md)
-- [第三方组件与许可](iPadn-iOS/THIRD_PARTY_NOTICES.md)
+- [自行编译](ipazs-iOS/BUILDING.md)
+- [第三方组件与许可](ipazs-iOS/THIRD_PARTY_NOTICES.md)
 
 ## 许可证
 
-iPadn 以 [GPL-2.0-or-later](LICENSE) 发布：你可以自由使用、修改和再分发，分发修改版时需要同样开放源代码。
+ipazs 以 [GPL-2.0-or-later](LICENSE) 发布：你可以自由使用、修改和再分发，分发修改版时需要同样开放源代码。
 
-<sub>iPadn 与 Apple Inc. 无关，仅限合法授权应用下载、个人技术研究及本人测试版管理。实验性 TestFlight 功能及相关网络/账号操作风险由使用者自行承担。</sub>
+<sub>ipazs 与 Apple Inc. 无关，仅限合法授权应用下载、个人技术研究及本人测试版管理。实验性 TestFlight 功能及相关网络/账号操作风险由使用者自行承担。</sub>
