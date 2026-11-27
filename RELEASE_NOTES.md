@@ -26,7 +26,7 @@
 
 ## ipazs 2.3.5
 
-**目录 / Contents**：[简体中文](#-核心修复与优化) · [TestFlight 说明与免责](#-testflight-实验性说明与免责声明) · [English](#english) · [TestFlight Notice](#testflight-experimental-notice--disclaimer)
+**目录 / Contents**：[简体中文](#-核心修复与优化) · [TestFlight 说明与免责](#-testflight-实验性说明与免责声明) · [TestFlight Notice](#testflight-experimental-notice--disclaimer)
 
 本次为 **v2.3.5** 稳定性修复与体验升级版：根治 **iOS 16.0–16.2 强链接符号闪退**、**iOS 27.2 beta 2 历史版本加载闪退** 与 **iPadOS 全屏/专业模式导航栏异常**；**TestFlight 现支持切换下载 Apple TV 等多平台测试包**并统一展示单色客户端标识，同时修复大型/多变体游戏误报「产物校验失败，已清理」及详情页顶部虚化异常；在「设置 › 外观与图标」开放**自定义全部 177 个 Apple 商店地区**（支持搜索筛选、勾选、拖拽排序与国旗展示）；并修复 FairPlay 高熵插件误拒、登录 `5020`/2FA 提示、未购免费应用首次获取旧版报错与「应用包」批量导入打断问题。安装包均未签名，请使用自用签名工具签名后安装。
 
@@ -66,43 +66,5 @@
 - `iPadn-2.3.5-unsigned.ipa`：标准版，含实时活动（灵动岛、锁屏进度）与桌面小组件扩展，签名需要 2 个 App ID。
 - `iPadn-2.3.5-lite-unsigned.ipa`：精简版，移除扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能完全一致。
 - SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`。
-
----
-
-### English
-
-**v2.3.5** delivers key stability fixes and highly requested improvements: eliminates **iOS 16.0–16.2 strong-linked symbol crashes**, **iOS 27.2 beta 2 version-history crashes**, and **iPadOS full-screen / Pro mode toolbar & navigation bugs**; adds **multi-platform TestFlight downloads (including Apple TV)** with monochrome client badges, fixes false validation rejections on large/multi-variant games, and polishes the TestFlight detail top blur; opens a searchable, reorderable **177-region Storefront picker** under Settings › Appearance & icon; and resolves FairPlay high-entropy false rejections, login `5020`/2FA messaging, first-time free-app license retries, and multi-IPA batch import interruptions. Both packages are unsigned—sign with your own tool before installing.
-
-#### Fixes & Improvements Since v2.3.4
-
-- **Fix iOS 16/27 Crashes & iPadOS Pro Mode Navigation**
-  - Removes strong-linked iOS 17+/18+ `UnevenRoundedRectangle` and all `.onGeometryChange` usages in favor of backward-compatible paths and geometry observers, resolving launch and view crashes on iOS 16.0 / 16.0.2 / 16.2.
-  - Fixes a crash on iOS 27.2 beta 2 when loading version history on App Detail by stabilizing row layout priorities and shimmer geometry change thresholds.
-  - Fixes missing titles, broken navigation, and leaked cross-tab toolbars in iPadOS full-screen & Pro mode by isolating a single active `NavigationStack` per tab.
-- **TestFlight Apple TV Support, Validation & Hero Blur Fix**
-  - Adds platform switching (`iOS` / `Apple TV`, etc.) on TestFlight detail pages to download Apple TV (tvOS) beta IPAs alongside iOS builds, indexed cleanly per `(bundle, platform)`.
-  - Places monochrome platform icons beside the monochrome TestFlight icon across **Downloads**, **Packages**, **Storage**, **Package Info**, and **Decryption Detail**; displays source, client platform, and accurate minimum OS (e.g., `tvOS`) in task & package details; hides the Install button and skips Auto-Install for Apple TV IPAs just like regular App Store Apple TV downloads.
-  - Fixes false "validation failed, cleaned up" errors on large or multi-variant TestFlight games via streaming Mach-O header prefix reads, FAT 32/64-bit `cryptid` inspection, accurate SINF replacement counting, and `packages.full`-first variant selection.
-  - Eliminates the light top-edge blur band on TestFlight detail pages using opaque hero blur and native navigation bar appearance syncing.
-- **Customizable 177 Storefront Regions with Search & Reorder**
-  - Adds **Settings › Appearance & icon › Storefront Regions** covering all **177** Apple App Store regions (including `AF` and `LI`).
-  - Supports instant search by localized name, English name, or ISO‑2 code (with exact ISO‑2 matches ranked first), tap-to-toggle, drag-to-reorder, flag + code display, and one-tap **Reset to Defaults**.
-- **FairPlay, Login/License Retry & Batch Import Fixes**
-  - Fixes on-device FairPlay decryption falsely rejecting legitimate high-entropy plugin binaries (such as `_codecs_cn`) by accepting verified decrypted instruction streams.
-  - Improves App Store sign-in `5020` / 2FA messaging and adds staged `SAPSigner` failure diagnostics.
-  - Automatically invalidates stale version caches and performs short backoff retries after acquiring a free app license so first-time older-version fetches no longer fail on transient `9610` delays.
-  - Fixes multi-IPA batch import in **Packages** prematurely opening a detail sheet mid-batch, adding live `(done/total)` progress, batch completion toast, and a dismissible error banner.
-
-#### GitHub Issues Archive
-- **GitHub Issues Read-Only**: Please post support questions, TestFlight diagnostics, and bug reports on GitHub Issues.
-
-#### TestFlight Experimental Notice & Disclaimer
-- TestFlight download and native installation in `v2.3.x` are **experimental** and depend on Apple server behavior, active per-account invitations, proxy/DNS setup, and device pairing state. Testing with a secondary Apple Account first is recommended, and never share pairing files, tokens, or unencrypted backups (see [README_EN — TestFlight Experimental](README_EN.md#testflight-experimental)).
-- Released under [GPL-2.0-or-later](LICENSE) for authorized personal testing, backups, and research; unaffiliated with Apple Inc., with all account or data risks assumed by the user.
-
-#### Packages
-- `iPadn-2.3.5-unsigned.ipa`: Standard build with Live Activities & Widgets (requires 2 App IDs).
-- `iPadn-2.3.5-lite-unsigned.ipa`: Lite build without extensions (requires 1 App ID; identical core features).
-- AltStore / SideStore / Feather repo: `https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`.
 
 更早版本的更新内容见 [Releases](https://github.com/xiaoyun1995314/ipazs/releases)。
