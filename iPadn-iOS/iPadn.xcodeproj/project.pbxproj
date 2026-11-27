@@ -2206,6 +2206,7 @@
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				EXECUTABLE_NAME = ipazs;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2255,6 +2256,7 @@
 			buildSettings = {
 				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				EXECUTABLE_NAME = ipazs;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2314,7 +2316,7 @@
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				GENERATE_INFOPLIST_FILE = YES;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/ipazs";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				SWIFT_INCLUDE_PATHS = (
 					"$(inherited)",
@@ -2345,7 +2347,7 @@
 				DEVELOPMENT_TEAM = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				GENERATE_INFOPLIST_FILE = YES;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadn.app/ipazs";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				SWIFT_INCLUDE_PATHS = (
 					"$(inherited)",

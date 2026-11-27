@@ -136,7 +136,7 @@ base = {"IPHONEOS_DEPLOYMENT_TARGET": "16.0", "SDKROOT": "iphoneos", "SWIFT_VERS
         "GCC_C_LANGUAGE_STANDARD": "gnu17", "CLANG_CXX_LANGUAGE_STANDARD": "gnu++20",
         "SWIFT_STRICT_CONCURRENCY": "targeted", "ENABLE_USER_SCRIPT_SANDBOXING": "YES"}
 project_configs = configs("Project", base, {"SWIFT_COMPILATION_MODE": "wholemodule", "VALIDATE_PRODUCT": "YES"})
-app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazs", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
+app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazs", "PRODUCT_NAME": "$(TARGET_NAME)", "EXECUTABLE_NAME": "ipazs", "CODE_SIGN_STYLE": "Automatic",
                 "DEVELOPMENT_TEAM": "", "TARGETED_DEVICE_FAMILY": "1,2", "INFOPLIST_FILE": "iPadn/Info.plist",
                 "GENERATE_INFOPLIST_FILE": "NO", "MARKETING_VERSION": "2.3.5", "CURRENT_PROJECT_VERSION": "41",
                 "SWIFT_EMIT_LOC_STRINGS": "YES", "LOCALIZATION_PREFERS_STRING_CATALOGS": "YES",
@@ -154,7 +154,7 @@ app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazs", "PRODUCT_NAME": 
                 "OTHER_LDFLAGS": ["$(inherited)", "-weak_framework", "Translation", "$(IPADN_MACPKG_LDFLAGS)", "$(IPADN_NATIVE_LDFLAGS)"]}
 test_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazsTests", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
                  "DEVELOPMENT_TEAM": "", "TARGETED_DEVICE_FAMILY": "1,2", "GENERATE_INFOPLIST_FILE": "YES",
-                 "TEST_HOST": "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn", "BUNDLE_LOADER": "$(TEST_HOST)",
+                 "TEST_HOST": "$(BUILT_PRODUCTS_DIR)/iPadn.app/ipazs", "BUNDLE_LOADER": "$(TEST_HOST)",
                  "SWIFT_INCLUDE_PATHS": ["$(inherited)", "$(SRCROOT)/FairPlayCore/include"],
                  "HEADER_SEARCH_PATHS": ["$(inherited)", "$(SRCROOT)/FairPlayCore/include"],
                  "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"]}
