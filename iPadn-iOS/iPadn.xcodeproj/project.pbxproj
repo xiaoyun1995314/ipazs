@@ -1702,18 +1702,9 @@
 			isa = PBXBuildFile;
 			productRef = F7DFB174695B0A1A0FA95C8C;
 		};
-		F6EC9C8BB7C6FFCE2F7C5533 = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "Vendor/AppleAuth";
-		};
 		EE4AA7BC2A1B9AFE2FC641F1 = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = TestFlightKit;
-		};
-		BA0619389C37363069D08817 = {
-			isa = XCSwiftPackageProductDependency;
-			package = F6EC9C8BB7C6FFCE2F7C5533;
-			productName = AppleAuth;
 		};
 		A1966647F322B78313D4AA7A = {
 			isa = XCSwiftPackageProductDependency;
@@ -2832,7 +2823,6 @@
 			);
 			packageReferences = (
 				9BC77B6C9BFAFB5749CF4757,
-				F6EC9C8BB7C6FFCE2F7C5533,
 				EE4AA7BC2A1B9AFE2FC641F1,
 			);
 		};

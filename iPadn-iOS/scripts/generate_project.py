@@ -105,13 +105,11 @@ test_package = add("ZIPFoundation/Tests", "XCSwiftPackageProductDependency", pac
 app_framework = add("ZIPFoundation/AppBuild", "PBXBuildFile", productRef=app_package)
 test_framework = add("ZIPFoundation/TestBuild", "PBXBuildFile", productRef=test_package)
 
-# Local SwiftPM packages: AppleAuth (private binary GSA/Store/TestFlight core) and
-# TestFlightKit (the TF catalog/login/download logic). App links TestFlightKit, which
-# pulls AppleAuth transitively; this makes `canImport(TestFlightKit)` true so the TF UI
-# compiles in.
-apple_auth_package = add("VendorAppleAuth", "XCLocalSwiftPackageReference", relativePath="Vendor/AppleAuth")
+# Local SwiftPM package: TestFlightKit (TF catalog/login/download logic). Its own
+# Package.swift declares a local path dependency on Vendor/AppleAuth (the private GSA/
+# Store/TestFlight C++ core), so AppleAuth comes through transitively. Linking
+# TestFlightKit makes `canImport(TestFlightKit)` true and the TF UI compiles in.
 tf_kit_package = add("TestFlightKit", "XCLocalSwiftPackageReference", relativePath="TestFlightKit")
-apple_auth_product = add("AppleAuth/App", "XCSwiftPackageProductDependency", package=apple_auth_package, productName="AppleAuth")
 tf_kit_product = add("TestFlightKit/App", "XCSwiftPackageProductDependency", package=tf_kit_package, productName="TestFlightKit")
 tf_kit_framework = add("TestFlightKit/AppBuild", "PBXBuildFile", productRef=tf_kit_product)
 app_group = add("AppGroup", "PBXGroup", children=app_files, path="iPadn", sourceTree="<group>")
@@ -225,7 +223,7 @@ project_id = add("Project", "PBXProject", attributes={"BuildIndependentTargetsIn
     # while the Chinese source strings stay the keys of the string catalogs.
     buildConfigurationList=project_configs, compatibilityVersion="Xcode 14.0", developmentRegion=OPTIONS.development_language,
     hasScannedForEncodings="0", knownRegions=["zh-Hans", "en", "zh-Hant", "ja", "ko", "ru", "es", "fr", "de", "pt-BR", "ar", "Base"], mainGroup=root_group, productRefGroup=products,
-    projectDirPath="", projectRoot="", targets=[app_id, test_id, ui_id, extension_id], packageReferences=[package, apple_auth_package, tf_kit_package])
+    projectDirPath="", projectRoot="", targets=[app_id, test_id, ui_id, extension_id], packageReferences=[package, tf_kit_package])
 
 def render(value, indent=0):
     tab = "\t" * indent
