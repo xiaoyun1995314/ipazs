@@ -452,6 +452,9 @@ struct ToolSettings: Codable, Equatable {
     var versionSourcesSchema = 2
     /// 用户添加的第三方软件源（AltStore appstore.json）。
     var sources: [AppStoreSource] = []
+    /// 内置软件源开关（默认开启）与可修改地址。
+    var builtinSourceEnabled = true
+    var builtinSourceURL = "https://xiaoyun1995314.github.io/my-source/appstore.json"
 
     init() { }
     private enum CodingKeys: String, CodingKey {
@@ -460,7 +463,7 @@ struct ToolSettings: Codable, Equatable {
         case automaticInstallation, updateNotifications, proMode, watchNotifications, searchRegions, priceRegions, baseCurrency, appUpdateCheck, targetPrices
         case appearanceSchema, compatibleDownloadMode, nativeInstallation, versionSourcesSchema, appLock, appLockDelay, showDiscover, showAppScreenshots, showAppReviews, sources
         case wifiOnlyDownloads, autoInstall
-        case downloadLiveActivity, showHistoryIcons, prioritizeDelistedSearchResults, directTranslation
+        case downloadLiveActivity, showHistoryIcons, prioritizeDelistedSearchResults, directTranslation, builtinSourceEnabled, builtinSourceURL
     }
     init(from decoder: Decoder) throws {
         self.init()
@@ -525,6 +528,8 @@ struct ToolSettings: Codable, Equatable {
         }
         versionSourcesSchema = 2
         sources = try values.decodeIfPresent([AppStoreSource].self, forKey: .sources) ?? sources
+        builtinSourceEnabled = try values.decodeIfPresent(Bool.self, forKey: .builtinSourceEnabled) ?? builtinSourceEnabled
+        builtinSourceURL = try values.decodeIfPresent(String.self, forKey: .builtinSourceURL) ?? builtinSourceURL
     }
 }
 

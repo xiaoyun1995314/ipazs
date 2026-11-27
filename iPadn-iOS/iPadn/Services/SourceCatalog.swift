@@ -13,11 +13,11 @@ struct AppStoreSource: Codable, Identifiable, Equatable, Hashable {
     /// 软件源 JSON 地址（appstore.json）。
     var url: String
     /// 源图标地址（源 JSON 的 iconURL / sidebarIcon）。
-    var iconURL: URL?
+    var iconURL: URL? = nil
     /// 最近一次成功同步时间。
-    var lastSynced: Date?
+    var lastSynced: Date? = nil
     /// 最近一次同步出错信息。
-    var syncError: String?
+    var syncError: String? = nil
     /// 源内应用数量（最近一次同步）。
     var appCount: Int = 0
 
@@ -25,6 +25,11 @@ struct AppStoreSource: Codable, Identifiable, Equatable, Hashable {
 }
 
 /// 源内的一个应用条目，转换为现有 StoreApp 供下载/展示。
+enum SourceLinkKind: Hashable {
+    case directIPA   // .ipa 直链：直接下载进队列
+    case webpage     // 网页：App 内打开
+}
+
 struct SourceApp: Identifiable, Hashable {
     let id: String
     let name: String
@@ -40,6 +45,18 @@ struct SourceApp: Identifiable, Hashable {
     let minimumOS: String?
     let sourceID: String
     let sourceTitle: String
+
+    /// 按 URL 后缀嗅探：.ipa 结尾为直链，其余按网页处理。
+    var linkKind: SourceLinkKind {
+        let path = downloadURL.path.lowercased()
+        if path.hasSuffix(".ipa") { return .directIPA }
+        // 带查询参数时剥离后再判断
+        if let q = downloadURL.absoluteString.lastIndex(of: "?") {
+            let head = String(downloadURL.absoluteString[..<q]).lowercased()
+            if head.hasSuffix(".ipa") { return .directIPA }
+        }
+        return .webpage
+    }
 
     func asStoreApp() -> StoreApp {
         var app = StoreApp(id: id, name: name, bundleID: bundleID, version: version, iconURL: iconURL)

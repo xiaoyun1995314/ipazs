@@ -11,6 +11,8 @@ struct SourcesView: View {
     @State private var addError: String?
     @State private var adding = false
     @State private var expandedSource: String?
+    @State private var browsing: BrowserLink?
+    @State private var showingBuiltinSettings = false
 
     var body: some View {
         ScrollView {
@@ -93,9 +95,26 @@ struct SourcesView: View {
             HStack {
                 Text("全部软件源").font(.headline)
                 Spacer()
-                Text("\(sources.sources.count) 个").font(.subheadline).foregroundStyle(.secondary)
+                Text("\(sources.sources.count + (sources.builtin != nil ? 1 : 0)) 个").font(.subheadline).foregroundStyle(.secondary)
             }
-            if sources.sources.isEmpty {
+            // 内置软件源置顶
+            if let builtin = sources.builtin {
+                SourceRow(
+                    source: builtin,
+                    busy: sources.syncing.contains(SourceManager.builtinID),
+                    expanded: expandedSource == SourceManager.builtinID,
+                    onRefresh: { Task { await sources.syncBuiltin() } },
+                    onRemove: {},
+                    isBuiltin: true,
+                    onBuiltinSettings: { showingBuiltinSettings = true },
+                    onToggle: {
+                        withAnimation {
+                            expandedSource = (expandedSource == SourceManager.builtinID) ? nil : SourceManager.builtinID
+                        }
+                    }
+                )
+            }
+            if sources.sources.isEmpty && sources.builtin == nil {
                 emptySources
             } else {
                 ForEach(sources.sources) { source in
@@ -105,6 +124,7 @@ struct SourcesView: View {
                         expanded: expandedSource == source.id,
                         onRefresh: { Task { await sources.sync(sourceID: source.id) } },
                         onRemove: { sources.removeSource(source.id) },
+                        isBuiltin: false,
                         onToggle: {
                             withAnimation {
                                 expandedSource = (expandedSource == source.id) ? nil : source.id
@@ -148,10 +168,19 @@ struct SourcesView: View {
             } else {
                 ForEach(list) { app in
                     SourceAppRow(app: app) {
-                        sources.enqueue(app)
+                        switch app.linkKind {
+                        case .directIPA: sources.enqueue(app)
+                        case .webpage: browsing = BrowserLink(url: app.downloadURL)
+                        }
                     }
                 }
             }
+        }
+        .sheet(item: $browsing) { link in
+            WebBrowserView(url: link.url)
+        }
+        .sheet(isPresented: $showingBuiltinSettings) {
+            BuiltinSourceSettingsView()
         }
     }
 
@@ -217,6 +246,8 @@ private struct SourceRow: View {
     let expanded: Bool
     let onRefresh: () -> Void
     let onRemove: () -> Void
+    var isBuiltin = false
+    var onBuiltinSettings: (() -> Void)?
     let onToggle: () -> Void
 
     var body: some View {
@@ -256,8 +287,14 @@ private struct SourceRow: View {
                     }
                     .disabled(busy)
                     Spacer()
-                    Button(role: .destructive, action: onRemove) {
-                        Label("删除", systemImage: "trash")
+                    if isBuiltin {
+                        Button { onBuiltinSettings?() } label: {
+                            Label("设置", systemImage: "gearshape")
+                        }
+                    } else {
+                        Button(role: .destructive, action: onRemove) {
+                            Label("删除", systemImage: "trash")
+                        }
                     }
                 }
                 .font(.subheadline)
@@ -297,9 +334,18 @@ private struct SourceAppRow: View {
                     .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Image(systemName: "arrow.down.circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(.tint)
+                switch app.linkKind {
+                case .directIPA:
+                    VStack(spacing: 2) {
+                        Image(systemName: "arrow.down.circle.fill").font(.title3).foregroundStyle(.tint)
+                        Text("下载").font(.caption2).foregroundStyle(.secondary)
+                    }
+                case .webpage:
+                    VStack(spacing: 2) {
+                        Image(systemName: "globe").font(.title3).foregroundStyle(.tint)
+                        Text("访问").font(.caption2).foregroundStyle(.secondary)
+                    }
+                }
             }
             .contentShape(Rectangle())
         }
@@ -307,4 +353,10 @@ private struct SourceAppRow: View {
         .padding(12)
         .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
+}
+
+/// 网页链接的 Identifiable 包装，供 sheet(item:) 使用。
+struct BrowserLink: Identifiable {
+    let id = UUID()
+    let url: URL
 }

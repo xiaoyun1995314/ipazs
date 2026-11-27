@@ -13,11 +13,33 @@ final class SourceManager: ObservableObject {
     @Published var searchText = ""
     @Published private(set) var lastSyncedAt: Date?
 
+    // MARK: - 内置软件源（置顶，开关控制）
+    static let builtinID = "builtin-source"
+    @Published var builtin: AppStoreSource?
+    @Published var builtinApps: [SourceApp] = []
+
     private weak var store: ToolStore?
 
     func attach(_ store: ToolStore) {
         self.store = store
         self.sources = store.settings.sources
+        reloadBuiltin()
+    }
+
+    /// 根据 settings 重建内置源占位（标题/地址来自设置，应用靠同步填充）。
+    func reloadBuiltin() {
+        guard let store else { return }
+        if store.settings.builtinSourceEnabled {
+            var b = AppStoreSource(id: Self.builtinID, title: "内置软件源", url: store.settings.builtinSourceURL)
+            b.iconURL = builtin?.iconURL
+            b.lastSynced = builtin?.lastSynced
+            b.syncError = builtin?.syncError
+            b.appCount = builtinApps.count
+            builtin = b
+        } else {
+            builtin = nil
+            builtinApps = []
+        }
     }
 
     private func persist() {
@@ -75,16 +97,41 @@ final class SourceManager: ObservableObject {
 
     func syncAll() async {
         await withTaskGroup(of: Void.self) { group in
+            if store?.settings.builtinSourceEnabled == true {
+                group.addTask { await self.syncBuiltin() }
+            }
             for s in sources {
                 group.addTask { await self.sync(sourceID: s.id) }
             }
         }
     }
 
+    /// 同步内置软件源。
+    func syncBuiltin() async {
+        guard let store, store.settings.builtinSourceEnabled else { return }
+        let url = store.settings.builtinSourceURL
+        syncing.insert(Self.builtinID)
+        defer { syncing.remove(Self.builtinID) }
+        do {
+            let result = try await SourceCatalog.fetch(urlString: url)
+            var b = AppStoreSource(id: Self.builtinID, title: result.title, url: url)
+            b.iconURL = result.iconURL
+            b.lastSynced = Date()
+            b.appCount = result.apps.count
+            builtin = b
+            builtinApps = result.apps
+            lastSyncedAt = Date()
+        } catch {
+            var b = AppStoreSource(id: Self.builtinID, title: "内置软件源", url: url)
+            b.syncError = error.localizedDescription
+            builtin = b
+        }
+    }
+
     // MARK: - 聚合
 
     var allApps: [SourceApp] {
-        appsBySource.values.flatMap { $0 }
+        builtinApps + appsBySource.values.flatMap { $0 }
     }
 
     var filteredApps: [SourceApp] {

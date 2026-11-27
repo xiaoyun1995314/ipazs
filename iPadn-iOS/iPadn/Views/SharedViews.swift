@@ -291,24 +291,19 @@ struct RootView: View {
         let id: TabID
         let title: LocalizedStringKey
         let symbol: String
-        let kind: RevealAnimationKind
+        let kind: RevealAnimationKind?
     }
 
     private let searchDestination = Destination(id: .search, title: "搜索", symbol: "magnifyingglass", kind: .tabSearch)
-    private let sourcesDestination = Destination(id: .sources, title: "发现", symbol: "square.stack.3d.up.fill", kind: .tabSearch)
+    private let sourcesDestination = Destination(id: .sources, title: "发现", symbol: "globe", kind: nil)
     private let downloadsDestination = Destination(id: .downloads, title: "下载", symbol: "arrow.down.circle.fill", kind: .tabDownloads)
     private let packagesDestination = Destination(id: .packages, title: "应用包", symbol: "shippingbox.fill", kind: .tabPackages)
     private let purchasedDestination = Destination(id: .purchased, title: "已购", symbol: "bag.fill", kind: .tabPurchased)
     private let accountsDestination = Destination(id: .accounts, title: "账号", symbol: "person.crop.circle.fill", kind: .tabAccount)
 
-    /// 应用包 sits between 下载 and 已购, and only exists while 专业模式 is on.
+    /// 底部标签：搜索 / 发现 / 下载 / 应用包 / 账号；已购改为搜索页内入口。
     private var destinations: [Destination] {
-        var list: [Destination] = [searchDestination, sourcesDestination, downloadsDestination]
-        if store.settings.proMode {
-            list.append(packagesDestination)
-        }
-        list.append(contentsOf: [purchasedDestination, accountsDestination])
-        return list
+        [searchDestination, sourcesDestination, downloadsDestination, packagesDestination, accountsDestination]
     }
 
     private var tabOrder: [TabID] { destinations.map(\.id) }
@@ -385,14 +380,9 @@ struct RootView: View {
                         .tabItem { tabLabel(downloadsDestination) }
                         .badge(downloadsBadge)
                         .tag(TabID.downloads)
-                    if store.settings.proMode {
-                        pageStack(.packages)
-                            .tabItem { tabLabel(packagesDestination) }
-                            .tag(TabID.packages)
-                    }
-                    pageStack(.purchased)
-                        .tabItem { tabLabel(purchasedDestination) }
-                        .tag(TabID.purchased)
+                    pageStack(.packages)
+                        .tabItem { tabLabel(packagesDestination) }
+                        .tag(TabID.packages)
                     pageStack(.accounts)
                         .tabItem { tabLabel(accountsDestination) }
                         .badge(store.appUpdate != nil ? 1 : 0)
@@ -405,7 +395,7 @@ struct RootView: View {
                         selected: tabs.selection,
                         selectedID: tabs.id,
                         reduceMotion: reduceMotion,
-                        kinds: destinations.map(\.kind),
+                        kinds: destinations.compactMap(\.kind),
                         enableVectorIcons: !vectorTabBarUnavailable,
                         onVectorFallback: { vectorTabBarUnavailable = true }
                     )
@@ -594,7 +584,7 @@ struct RootView: View {
         }
     }
     @ViewBuilder private func tabLabel(_ item: Destination) -> some View {
-        if !vectorTabBarUnavailable, RevealAnimationLibrary.syncLoad(item.kind) != nil {
+        if let kind = item.kind, !vectorTabBarUnavailable, RevealAnimationLibrary.syncLoad(kind) != nil {
             Label { Text(item.title) } icon: { Image(uiImage: TabVectorIconView.placeholderImage) }
         } else {
             Label(item.title, systemImage: item.symbol)

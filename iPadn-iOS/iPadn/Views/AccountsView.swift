@@ -100,6 +100,8 @@ private struct AccountsListContent: View {
                 }
             }
             Section {
+                // 内置软件源开关：开=显示，关=隐藏，默认开启
+                BuiltinSourceToggleRow()
                 if InstalledAppsView.isSupported {
                     NavigationLink(value: AccountRoute.installedApps) { Label("本机应用", systemImage: "iphone") }
                         .accessibilityIdentifier("accounts.installed-apps")
@@ -484,6 +486,36 @@ struct ExistingAccountVerificationView: View {
                 issue = error.localizedDescription
                 code = ""
             }
+        }
+    }
+}
+
+// MARK: - 内置软件源开关（账号页本机应用上方）
+
+private struct BuiltinSourceToggleRow: View {
+    @EnvironmentObject private var store: ToolStore
+    @State private var showingSettings = false
+
+    var body: some View {
+        HStack {
+            Button { showingSettings = true } label: {
+                Label("内置软件源", systemImage: "globe")
+                Spacer()
+                Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.tertiary)
+            }
+            .buttonStyle(.plain)
+            Toggle("", isOn: Binding(
+                get: { store.settings.builtinSourceEnabled },
+                set: { on in
+                    store.settings.builtinSourceEnabled = on
+                    store.sources.reloadBuiltin()
+                    if on { Task { await store.sources.syncBuiltin() } }
+                }
+            ))
+            .labelsHidden()
+        }
+        .sheet(isPresented: $showingSettings) {
+            BuiltinSourceSettingsView()
         }
     }
 }

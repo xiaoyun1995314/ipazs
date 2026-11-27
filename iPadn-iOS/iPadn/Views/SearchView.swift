@@ -1,5 +1,8 @@
 import SwiftUI
 
+/// 搜索页 push「已购」的占位路由。
+struct PurchasedRoute: Hashable {}
+
 /// App Store-style search: title with the account avatar on one line, a
 /// capsule search bar under it, filter chips, recent
 /// searches as suggestions, and result rows with a "获取" capsule.
@@ -9,6 +12,7 @@ struct SearchView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var confirmClear = false
     @State private var viewingFavorite: StoreApp?
+    @State private var viewingPurchased: PurchasedRoute?
     @State private var headerAway = false
     @State private var searchCardWidth: CGFloat = 0
     @State private var recentHeaderWidth: CGFloat = 0
@@ -37,6 +41,18 @@ struct SearchView: View {
                     HStack(spacing: 8) { regionPicker; platformPicker }
                 }
                 .listRowInsets(EdgeInsets(top: 2, leading: 0, bottom: 8, trailing: 0))
+                Button { viewingPurchased = PurchasedRoute() } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "bag.fill").font(.headline).foregroundStyle(.tint).frame(width: 28)
+                        Text("已购").font(.body)
+                        Spacer()
+                        Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.tertiary)
+                    }
+                    .padding(.vertical, 6)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
             }
             .listRowBackground(Color.clear).listRowSeparator(.hidden)
 
@@ -78,6 +94,7 @@ struct SearchView: View {
         .toolPage()
         .rootTabBar("搜索", headerScrolledAway: headerAway)
         .compatibleNavigationDestination(item: $viewingFavorite) { app in AppDetailView(app: app) }
+        .compatibleNavigationDestination(item: $viewingPurchased) { _ in PurchasedView() }
         .task { await store.loadNameCatalog() }
         .task { await store.checkWatched() }
         .task { await store.ensureOwnedLoaded() }
