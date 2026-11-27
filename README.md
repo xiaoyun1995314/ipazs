@@ -7,7 +7,7 @@
 **在 iPhone 和 iPad 上搜索、下载、安装你拥有的 App。**
 支持 iPhone、iPad、Apple TV 与 Mac 应用，包括历史版本与已下架应用。
 
-✨ **v2.3.5 修复 iOS 16/27 闪退与 iPadOS 导航 · TestFlight 支持 Apple TV 多平台与校验修复 · 自定义 177 商店地区 · FairPlay/登录/批量导入修复** · 📢 **反馈与问题请在 GitHub Issues 提交**
+✨ **v2.4.0 新增「发现软件」第三方软件源 · 内置源置顶带开关与可改地址 · 源链接分下载/访问（含 nsk-sign）· 底部五标签图标与标签错位修复** · 📢 **反馈与问题请在 GitHub Issues 提交**
 
 [![最新版本](https://img.shields.io/github/v/release/xiaoyun1995314/ipazs?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC&logo=github&logoColor=white&labelColor=2E3136&color=3A6EA5)](https://github.com/xiaoyun1995314/ipazs/releases/latest)
 [![下载量](https://img.shields.io/github/downloads/xiaoyun1995314/ipazs/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&logo=icloud&logoColor=white&labelColor=2E3136&color=2D8A68)](https://github.com/xiaoyun1995314/ipazs/releases)
@@ -52,6 +52,20 @@
 - 已云编译成功，设备 IPA 二进制确认编入 TFLogin / TFAPI / TFDownload / TFSINF / TFProducts 及 GSA 登录、store-cookies、PET 登录全套符号。
 
 > ⚠️ 真机待验收：Linux 无 Xcode，GSA 登录与 TF 拉包只能在真机签名后实测，请先用备用 Apple 账号体验，勿分享配对文件与令牌。模拟器测试为已知无关失败项，不影响设备 IPA。
+
+---
+
+## 2.4.0 发现软件与软件源更新
+
+- **新增「发现软件」页**：底部标签新增「发现」，可浏览已同步软件源聚合出的全部应用，并支持全局搜索。
+- **第三方软件源管理**：可添加 AltStore / SideStore 格式的 `appstore.json` 软件源，自动拉取源内应用；支持单个源刷新、删除与全量同步。
+- **内置软件源置顶**：「账号」页「本机应用」上方新增内置软件源开关，内置源在发现页置顶显示，开启后自动同步，可在设置页修改地址、随时开启 / 关闭；关闭再开启自动重新同步。
+- **源链接类型识别**：`.ipa` 直链显示「下载」直接入队；网页 / 网盘 / `nsk-sign://web?url=` 等链接显示「访问」，在 App 内 WKWebView 浏览器打开，不再跳出应用。
+- **底部标签栏调整**：底部为五个标签（搜索 / 发现 / 下载 / 应用包 / 账号），统一显示系统图标；「已购」移至搜索页「中国 / iOS」筛选条右侧，以胶囊按钮入口进入。
+- **修复标签点击错位**：修正标签顺序解析，点「发现」「应用包」不再误跳至下载页。
+- **修复内置源重开问题**：关闭再开启后应用列表、图标正常显示，并保留缓存自动重拉；网络图标加载增加浏览器 UA，提升第三方图床兼容性。
+
+两个未签名 IPA：完整版（含灵动岛扩展，需两个 App ID）`ipazs-full-2.4.0.ipa`、lite 版（单 App ID）`ipazs-lite-2.4.0.ipa`。签名源：`https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`。
 
 ---
 
