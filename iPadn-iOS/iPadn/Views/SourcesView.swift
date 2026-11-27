@@ -253,7 +253,7 @@ private struct SourceRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: onToggle) {
                 HStack(spacing: 12) {
-                    sourceIcon
+                    AppIcon(url: source.iconURL, size: 48)
                     VStack(alignment: .leading, spacing: 3) {
                         Text(source.title).font(.headline)
                         if busy {
