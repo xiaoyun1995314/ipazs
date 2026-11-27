@@ -64,9 +64,9 @@ struct SourcesView: View {
                 .disabled(!sources.syncing.isEmpty)
             }
             HStack(spacing: 0) {
-                statBlock(sources.sources.count, "订阅")
+                statBlock(sources.sources.count + (sources.builtin != nil ? 1 : 0), "订阅")
                 Divider().frame(height: 34)
-                statBlock(sources.sources.filter { $0.lastSynced != nil }.count, "已同步")
+                statBlock((sources.sources + (sources.builtin.map { [$0] } ?? [])).filter { $0.lastSynced != nil }.count, "已同步")
                 Divider().frame(height: 34)
                 statBlock(sources.allApps.count, "应用")
             }
@@ -154,13 +154,12 @@ struct SourcesView: View {
 
     private var appsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            if !sources.sources.isEmpty {
+            // 应用聚合列表含内置源，搜索框/列表都基于 allApps。
+            if !sources.allApps.isEmpty {
                 SearchInput(text: $sources.searchText, placeholder: "搜索所有软件源", capsule: true)
             }
             let list = sources.filteredApps
-            if sources.sources.isEmpty {
-                EmptyView()
-            } else if list.isEmpty {
+            if list.isEmpty {
                 Text(sources.searchText.isEmpty ? "正在同步应用…" : "没有匹配的应用")
                     .font(.subheadline).foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity)
@@ -254,7 +253,7 @@ private struct SourceRow: View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: onToggle) {
                 HStack(spacing: 12) {
-                    AppIcon(url: source.iconURL, size: 48)
+                    sourceIcon
                     VStack(alignment: .leading, spacing: 3) {
                         Text(source.title).font(.headline)
                         if busy {

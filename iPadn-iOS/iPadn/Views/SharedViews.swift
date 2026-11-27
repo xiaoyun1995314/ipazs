@@ -57,8 +57,18 @@ enum IconCache {
             if let task = pending[key] { return await task.value }
             let task = Task.detached(priority: .utility) { () -> UIImage? in
                 let data: Data?
-                if url.isFileURL { data = try? Data(contentsOf: url) }
-                else { data = try? await URLSession.shared.data(from: url).0 }
+                if url.isFileURL {
+                    data = try? Data(contentsOf: url)
+                } else {
+                    var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 20)
+                    request.setValue("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15", forHTTPHeaderField: "User-Agent")
+                    if let (body, response) = try? await URLSession.shared.data(for: request),
+                       (response as? HTTPURLResponse)?.statusCode ?? 200 == 200 {
+                        data = body
+                    } else {
+                        data = nil
+                    }
+                }
                 guard let data, let image = UIImage(data: data) else { return nil }
                 return await image.byPreparingThumbnail(ofSize: CGSize(width: side, height: side)) ?? image
             }
