@@ -30,15 +30,20 @@ final class SourceManager: ObservableObject {
     func reloadBuiltin() {
         guard let store else { return }
         if store.settings.builtinSourceEnabled {
-            var b = AppStoreSource(id: Self.builtinID, title: "内置软件源", url: store.settings.builtinSourceURL)
+            var b = AppStoreSource(id: Self.builtinID, title: builtin?.title ?? "内置软件源", url: store.settings.builtinSourceURL)
+            // 保留上次同步到的图标/时间，避免重开瞬间空白；应用缓存也保留。
             b.iconURL = builtin?.iconURL
             b.lastSynced = builtin?.lastSynced
             b.syncError = builtin?.syncError
             b.appCount = builtinApps.count
             builtin = b
+            // 重新开启且尚未同步过时，后台拉一次。
+            if builtinApps.isEmpty {
+                Task { await syncBuiltin() }
+            }
         } else {
             builtin = nil
-            builtinApps = []
+            // 保留 builtinApps 缓存，下次开启不必空窗。
         }
     }
 

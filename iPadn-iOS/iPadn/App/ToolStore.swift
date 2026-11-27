@@ -296,10 +296,8 @@ final class ToolStore: ObservableObject {
     let tabs = TabState()
     let accountNav = AccountNavigation()
     var tabOrder: [TabID] {
-        var order: [TabID] = [.search, .downloads]
-        if settings.proMode { order.append(.packages) }
-        order.append(contentsOf: [.purchased, .accounts])
-        return order
+        // 底部标签：搜索 / 发现 / 下载 / 应用包 / 账号；已购为搜索页内入口。
+        [.search, .sources, .downloads, .packages, .accounts]
     }
     func selectTab(_ id: TabID) {
         tabs.select(id, in: tabOrder)

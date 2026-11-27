@@ -395,8 +395,8 @@ struct RootView: View {
                         selected: tabs.selection,
                         selectedID: tabs.id,
                         reduceMotion: reduceMotion,
-                        kinds: destinations.compactMap(\.kind),
-                        enableVectorIcons: !vectorTabBarUnavailable,
+                        kinds: [],
+                        enableVectorIcons: false,
                         onVectorFallback: { vectorTabBarUnavailable = true }
                     )
                 }
@@ -584,11 +584,7 @@ struct RootView: View {
         }
     }
     @ViewBuilder private func tabLabel(_ item: Destination) -> some View {
-        if let kind = item.kind, !vectorTabBarUnavailable, RevealAnimationLibrary.syncLoad(kind) != nil {
-            Label { Text(item.title) } icon: { Image(uiImage: TabVectorIconView.placeholderImage) }
-        } else {
-            Label(item.title, systemImage: item.symbol)
-        }
+        Label(item.title, systemImage: item.symbol)
     }
     @ViewBuilder private func page(_ id: TabID) -> some View {
         switch id {

@@ -53,21 +53,15 @@ struct BuiltinSourceSettingsView: View {
                         Label("保存", systemImage: "square.and.arrow.down")
                     }
                     .disabled(editing && draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    // 开 / 关
-                    Button {
-                        store.settings.builtinSourceEnabled = true
-                        store.sources.reloadBuiltin()
-                        Task { await store.sources.syncBuiltin() }
-                    } label: {
-                        Label("开", systemImage: enabled ? "checkmark.circle.fill" : "circle")
-                    }
-                    Button {
-                        store.settings.builtinSourceEnabled = false
-                        store.sources.reloadBuiltin()
-                    } label: {
-                        Label("关", systemImage: !enabled ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(.secondary)
-                    }
+                    // 开 / 关：标准开关
+                    Toggle("启用内置软件源", isOn: Binding(
+                        get: { enabled },
+                        set: { on in
+                            store.settings.builtinSourceEnabled = on
+                            store.sources.reloadBuiltin()
+                            if on { Task { await store.sources.syncBuiltin() } }
+                        }
+                    ))
                 } header: {
                     Text("操作")
                 }
