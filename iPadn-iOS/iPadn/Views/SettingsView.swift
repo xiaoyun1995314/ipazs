@@ -389,12 +389,6 @@ struct SettingsView: View {
                     }
                 Link("项目与更新", destination: SupportLinks.releases)
             }
-            Section {
-                NavigationLink(value: AccountRoute.support) { SupportRow() }
-                    .accessibilityIdentifier("settings.support")
-                Link(destination: SupportLinks.telegram) { TelegramChannelRow() }
-                    .accessibilityIdentifier("settings.telegram")
-            }
             }
         }
         .compatibleOnChange(of: store.settings.directTranslation) { on in
