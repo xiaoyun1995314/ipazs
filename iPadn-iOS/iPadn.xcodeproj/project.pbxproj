@@ -1089,16 +1089,6 @@
 			isa = PBXBuildFile;
 			fileRef = 3A47D75DC1A27D9B3FD97B04;
 		};
-		7353FA7C4AD68B3D602432BC = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.swift;
-			path = "../TestFlightKit/SigningCapability.swift";
-			sourceTree = "<group>";
-		};
-		602C803087A12AEA20D12013 = {
-			isa = PBXBuildFile;
-			fileRef = 7353FA7C4AD68B3D602432BC;
-		};
 		D05E572A50390E96676EFEC2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = folder;
@@ -1712,6 +1702,28 @@
 			isa = PBXBuildFile;
 			productRef = F7DFB174695B0A1A0FA95C8C;
 		};
+		F6EC9C8BB7C6FFCE2F7C5533 = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "Vendor/AppleAuth";
+		};
+		EE4AA7BC2A1B9AFE2FC641F1 = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = TestFlightKit;
+		};
+		BA0619389C37363069D08817 = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6EC9C8BB7C6FFCE2F7C5533;
+			productName = AppleAuth;
+		};
+		A1966647F322B78313D4AA7A = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE4AA7BC2A1B9AFE2FC641F1;
+			productName = TestFlightKit;
+		};
+		FBB0AAA487F509339967ECCE = {
+			isa = PBXBuildFile;
+			productRef = A1966647F322B78313D4AA7A;
+		};
 		A5660BF89DD2D657048780AB = {
 			isa = PBXGroup;
 			children = (
@@ -1822,7 +1834,6 @@
 				8FFC3DA4E441E51F10BB4BDD,
 				8A4DEA75A35CD9D1C0FF762C,
 				3A47D75DC1A27D9B3FD97B04,
-				7353FA7C4AD68B3D602432BC,
 				D05E572A50390E96676EFEC2,
 				BDA25E943027C6B038C43D07,
 				8FEB83A29956DE0B59952846,
@@ -2027,7 +2038,6 @@
 				6A154E22B7CCF6928D3D30BF,
 				5B8632E80D35F5043533FD9E,
 				048737C92F69EE7792D86FB8,
-				602C803087A12AEA20D12013,
 				A1F4EF592471EABF4786BF74,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2077,6 +2087,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2952C57168E56459E1915B,
+				FBB0AAA487F509339967ECCE,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2405,6 +2416,7 @@
 			name = iPadn;
 			packageProductDependencies = (
 				0507EAB0D89D8F0B76FF0550,
+				A1966647F322B78313D4AA7A,
 			);
 			productName = iPadn;
 			productReference = DEF93E8F8AC229A0D98BBEFA;
@@ -2820,6 +2832,8 @@
 			);
 			packageReferences = (
 				9BC77B6C9BFAFB5749CF4757,
+				F6EC9C8BB7C6FFCE2F7C5533,
+				EE4AA7BC2A1B9AFE2FC641F1,
 			);
 		};
 	};

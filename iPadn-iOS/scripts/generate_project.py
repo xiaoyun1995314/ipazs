@@ -47,12 +47,8 @@ for path in sorted((ROOT / "iPadn").rglob("*.swift"), key=lambda path: tuple(par
     reference = add("File/" + relative, "PBXFileReference", lastKnownFileType="sourcecode.swift", path=relative, sourceTree="<group>")
     app_files.append(reference)
     sources.append(add("Build/" + relative, "PBXBuildFile", fileRef=reference))
-# Xcode builds use the same entitlement resolver as the xtool package.
-signing_capability = "../TestFlightKit/SigningCapability.swift"
-reference = add("File/" + signing_capability, "PBXFileReference", lastKnownFileType="sourcecode.swift",
-                path=signing_capability, sourceTree="<group>")
-app_files.append(reference)
-sources.append(add("Build/" + signing_capability, "PBXBuildFile", fileRef=reference))
+# SigningCapability.swift ships inside the TestFlightKit local package; it must not be
+# compiled twice, so it is no longer added to the app target sources here.
 resources = []
 # String catalogs hold every user-facing string. The source language stays
 # Chinese (the keys are the Chinese text); English is translated in the catalog.
@@ -108,6 +104,16 @@ app_package = add("ZIPFoundation/App", "XCSwiftPackageProductDependency", packag
 test_package = add("ZIPFoundation/Tests", "XCSwiftPackageProductDependency", package=package, productName="ZIPFoundation")
 app_framework = add("ZIPFoundation/AppBuild", "PBXBuildFile", productRef=app_package)
 test_framework = add("ZIPFoundation/TestBuild", "PBXBuildFile", productRef=test_package)
+
+# Local SwiftPM packages: AppleAuth (private binary GSA/Store/TestFlight core) and
+# TestFlightKit (the TF catalog/login/download logic). App links TestFlightKit, which
+# pulls AppleAuth transitively; this makes `canImport(TestFlightKit)` true so the TF UI
+# compiles in.
+apple_auth_package = add("VendorAppleAuth", "XCLocalSwiftPackageReference", relativePath="Vendor/AppleAuth")
+tf_kit_package = add("TestFlightKit", "XCLocalSwiftPackageReference", relativePath="TestFlightKit")
+apple_auth_product = add("AppleAuth/App", "XCSwiftPackageProductDependency", package=apple_auth_package, productName="AppleAuth")
+tf_kit_product = add("TestFlightKit/App", "XCSwiftPackageProductDependency", package=tf_kit_package, productName="TestFlightKit")
+tf_kit_framework = add("TestFlightKit/AppBuild", "PBXBuildFile", productRef=tf_kit_product)
 app_group = add("AppGroup", "PBXGroup", children=app_files, path="iPadn", sourceTree="<group>")
 fairplay_group = add("FairPlayGroup", "PBXGroup", children=fairplay_files, path="FairPlayCore", sourceTree="<group>")
 test_group = add("TestGroup", "PBXGroup", children=test_files, path="iPadnTests", sourceTree="<group>")
@@ -115,7 +121,7 @@ products = add("Products", "PBXGroup", children=[app_product, test_product], nam
 root_group = add("MainGroup", "PBXGroup", children=[app_group, fairplay_group, test_group, products], sourceTree="<group>")
 app_sources = add("AppSources", "PBXSourcesBuildPhase", buildActionMask="2147483647", files=sources, runOnlyForDeploymentPostprocessing="0")
 app_resources = add("AppResources", "PBXResourcesBuildPhase", buildActionMask="2147483647", files=resources, runOnlyForDeploymentPostprocessing="0")
-app_frameworks = add("AppFrameworks", "PBXFrameworksBuildPhase", buildActionMask="2147483647", files=[app_framework], runOnlyForDeploymentPostprocessing="0")
+app_frameworks = add("AppFrameworks", "PBXFrameworksBuildPhase", buildActionMask="2147483647", files=[app_framework, tf_kit_framework], runOnlyForDeploymentPostprocessing="0")
 runtime_manifest_files = sorted(json.loads((ROOT / "vendor/SAPRuntime/manifest.json").read_text(encoding="utf-8"))["files"])
 assemble = add("AssembleWASM", "PBXShellScriptBuildPhase", buildActionMask="2147483647", files=[],
                inputPaths=["$(SRCROOT)/scripts/assemble_runtime.py", "$(SRCROOT)/vendor/SAPRuntime"],
@@ -163,7 +169,7 @@ test_configs = configs("Tests", test_settings)
 proxy = add("TestProxy", "PBXContainerItemProxy", containerPortal=uid("Project"), proxyType="1", remoteGlobalIDString=app_id, remoteInfo="iPadn")
 dependency = add("TestDependency", "PBXTargetDependency", target=app_id, targetProxy=proxy)
 add("AppTarget", "PBXNativeTarget", buildConfigurationList=app_configs, buildPhases=[assemble, app_sources, app_frameworks, app_resources],
-    buildRules=[], dependencies=[], name="iPadn", packageProductDependencies=[app_package], productName="iPadn",
+    buildRules=[], dependencies=[], name="iPadn", packageProductDependencies=[app_package, tf_kit_product], productName="iPadn",
     productReference=app_product, productType="com.apple.product-type.application")
 add("TestTarget", "PBXNativeTarget", buildConfigurationList=test_configs, buildPhases=[tests_sources, tests_frameworks, tests_resources],
     buildRules=[], dependencies=[dependency], name="iPadnTests", packageProductDependencies=[test_package], productName="iPadnTests",
@@ -219,7 +225,7 @@ project_id = add("Project", "PBXProject", attributes={"BuildIndependentTargetsIn
     # while the Chinese source strings stay the keys of the string catalogs.
     buildConfigurationList=project_configs, compatibilityVersion="Xcode 14.0", developmentRegion=OPTIONS.development_language,
     hasScannedForEncodings="0", knownRegions=["zh-Hans", "en", "zh-Hant", "ja", "ko", "ru", "es", "fr", "de", "pt-BR", "ar", "Base"], mainGroup=root_group, productRefGroup=products,
-    projectDirPath="", projectRoot="", targets=[app_id, test_id, ui_id, extension_id], packageReferences=[package])
+    projectDirPath="", projectRoot="", targets=[app_id, test_id, ui_id, extension_id], packageReferences=[package, apple_auth_package, tf_kit_package])
 
 def render(value, indent=0):
     tab = "\t" * indent
