@@ -15,9 +15,6 @@
 [![许可证](https://img.shields.io/github/license/xiaoyun1995314/ipazs?label=%E8%AE%B8%E5%8F%AF%E8%AF%81&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
 
 <p>
-  <a href="#支持-ipadn"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81%20ipazs-%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%20%C2%B7%20%E8%AF%B7%E4%BD%9C%E8%80%85%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-B0436E?style=for-the-badge&logo=githubsponsors&logoColor=white&labelColor=2E3136" alt="支持 ipazs"></a>
-  <a href="https://afdian.com/a/mengangs"><img src="https://img.shields.io/badge/%E7%88%B1%E5%8F%91%E7%94%B5-%E8%B5%9E%E5%8A%A9%E6%94%AF%E6%8C%81-6759A8?style=for-the-badge&logo=buymeacoffee&logoColor=white&labelColor=2E3136" alt="爱发电赞助"></a>
-</p>
 
 **简体中文** · [English](README_EN.md)
 
@@ -43,6 +40,30 @@
 </p>
 
 ---
+## 2.3.5 更新优化更新没有提高版本
+
+- **## TestFlight 登录 / 拉包接入（本轮更新）
+
+本版在原工程自带 TestFlightKit 的基础上，补入 AppleAuth 本地 SPM 二进制模块，使 TestFlight 页从「不可用」变为可登录：支持 Apple ID（GSA）登录、拉取账号名下测试 App 列表、选择测试包下载。
+
+- 接入 AppleAuth（本地 xcframework，含设备 arm64 + 模拟器 arm64），经 TestFlightKit 本地包传递依赖。
+- 移植 TFZipShim，补齐 SINF 解包所需的 tf_zip_* / tf_add_sinf 等 C 符号，解决链接阶段 symbol not found。
+- AppleAuth Device 新增 importAccount，对齐 TFLogin 的会话导入。
+- 已云编译成功，设备 IPA 二进制确认编入 TFLogin / TFAPI / TFDownload / TFSINF / TFProducts 及 GSA 登录、store-cookies、PET 登录全套符号。
+
+> ⚠️ 真机待验收：Linux 无 Xcode，GSA 登录与 TF 拉包只能在真机签名后实测，请先用备用 Apple 账号体验，勿分享配对文件与令牌。模拟器测试为已知无关失败项，不影响设备 IPA。
+
+---
+
+## 品牌化说明（此前）
+
+本次更新：
+- 应用名统一为 ipazs（桌面名、内部名）
+- Bundle ID 改为 app.local.ipazs
+- 立体图标 = iOS 标志；扁平图标 = 訫云 S 标（整图）
+- 设置页新增「訫云资源官网」按钮，点击进入软件源主页
+
+两个未签名 IPA：完整版（含灵动岛扩展，需两个 App ID）`ipazs-full-2.3.5.ipa`、lite 版（单 App ID）`ipazs-lite-2.3.5.ipa`。签名源：`https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`。
 
 ## 2.3.5 更新
 
@@ -50,48 +71,6 @@
 - **TestFlight 支持 Apple TV 多平台下载、校验修复与详情页视觉优化**：详情页支持切换并下载 Apple TV（tvOS）等测试包（按平台独立索引，互不覆盖）；全应用在单色 TestFlight 图标旁并列展示单色客户端标识并在任务/包体详情显示对应客户端与最低系统版本，Apple TV 测试包下载后不显示「安装」且不触发自动安装；流式读取 Mach-O 头部与 FAT 32/64 位 `cryptid` 校验修复大型/多变体游戏误报「产物校验失败，已清理」；修复详情页顶部浅色虚化断层异常。
 - **自定义 177 个 Apple 商店地区**：在「设置 › 外观与图标 › 商店地区」开放管理全部 177 个商店地区，支持中英文名称与 ISO‑2 代码搜索筛选、点击勾选、拖拽排序、国旗展示及「恢复默认」。
 - **修复 FairPlay 高熵解密误拒、首次获取旧版报错与批量导入体验**：放行经反汇编确认的高熵插件（如 `_codecs_cn`）；完善登录 `5020` / 2FA 提示与 `SAPSigner` 阶段诊断；未购免费应用首次获取许可后自动刷新缓存并退避重试加载历史版本；修复「应用包」批量导入中途跳进详情打断队列的问题，新增实时计数与批量提示。详见 [更新说明](RELEASE_NOTES.md)。
-
-## 2.3.4 更新
-
-- **TestFlight 同步下载、后台续传、自动安装与灵动岛实时同步**：TestFlight 实际开始下载后实时同步到「下载」页顶部与底部角标，接入后台传输、`resumeData` 真暂停/断点续传、CDN 链接过期自动刷新、全部暂停/继续及「下载完成后自动安装」；同步接入灵动岛与锁屏实时活动并修复后台百分比停滞问题，移除会话级「已安装」残留。
-- **全应用统一列表/极简单色 TestFlight 图标与状态切换动效**：「下载」与「应用包」取消多余的 TestFlight 分组并统一前置单色 TestFlight 图标，全面补齐「已解密」「解密详情/记录」「Wi‑Fi 传输」与「存储空间」的覆盖与持久标识；重构 `AppStoreActionButton` 与下载页/TestFlight 列表详情页按钮，实现获取 → 加载弧 → 进度环 → 暂停/继续胶囊 → 完成打钩 → 安装全链路弹性形变动效。
-- **根治切号反复弹验证码、多手机号 2FA 与 0 应用账号卡顿**：切号与启动优先静默恢复本地会话与 Cookie 快照不再误触发系统验证码；新增多受信任手机号选择器、修复 2FA 弹窗竞态与瞬时 `503` 重试，优化 0 应用缓存 0ms 切换与 `TFDoh` 2 秒并发探测。
-- **应用包侧滑撤销、居中弹窗、配对优化与 iOS 17.4+ 防护**：专业模式「应用包」5 类列表项左滑删除统一接入 5 秒原子撤销，长按/批量删除与全应用二次确认升级为原生居中 Alert，精简「账号」页冗余入口；本机配对左上角对称放置「取消配对」并修复 6 位配对码提醒与换行；新增 App Store 账单/条款报错引导（`3038 / 5111 / 2022 / 3002 / 5062 / 5304`）、原生安装 iOS 17.4+ 前置校验与 Bonjour 跨设备端口隔离。详见 [更新说明](RELEASE_NOTES.md)。
-
-## 2.3.3 更新
-
-- **修复下载/获取偶发「Apple 暂时无法完成该操作」与诊断盲区**：补齐 `1008` 会话过期自动刷新、`-128`（`CountryMismatch`）账号商店地区自动纠偏、`buyProductFailure` 新版条款（`termsPage`）明确提示及密码变更/账号停用文案；Apple HTTP 200 业务失败现自动写入严格脱敏的 `RequestFailureLog`，未知数字错误码同步显示在提示中便于快速定位。
-- **「下载」页多选升级与统一撤销**：就地勾选交互对齐「应用包」，纳入 TestFlight 任务全选与批量删除，并合并常规下载与 TestFlight 的 5 秒撤销倒计时栈。
-- **SDK / Xcode 版本速查与左滑遮罩修复**：在包体与 TestFlight 详情新增构建 SDK / Xcode 版本速查；修复专业模式「应用包」与「解密记录」左滑时整行变灰遮罩的问题。
-- **全量安全、性能与 11 语言体验加固**：加固日志脱敏、TestFlight 多账号 Cookie 隔离与 `TFSINF` `cryptid` 校验；移除主线程磁盘 I/O 提升长列表滚动帧率；补齐 11 语言本地化、RTL、深浅色对比度与头像质感打磨。详见 [更新说明](RELEASE_NOTES.md)。
-
-## 2.3.2 更新
-
-- **完整同步「已购项目」历史与已下架应用**：在原有 DMAP 目录之外接入 Apple 完整购买历史接口（`/commerce/account/purchases`）并与 DMAP 合并，补齐多年历史与已下架应用及多语言购买日期；首次全量同步采用 **6 路并发**（顶部显示年份进度），后续日常刷新仅增量扫描当年，几秒即可完成，右上角菜单亦支持手动触发「同步完整购买历史」。
-- **修复切换账号后已购图标卡在灰色占位**：消除切号后防抖更新地区时误中止图标拉取的竞态，改为按 `地区|AppID` 去重并以每批 50 个稳定拉取，保留已有缓存不闪烁。
-- **修复 TestFlight 登录误报与设备身份缓存失效**：自动清理触发 `rinfo=67437824` 的过期 `iphone` 设备槽并重新配置；修复错误分类误将 `"iphone"` 匹配为 `"phone"` 导致提示「暂不支持选择多个受信任号码」的问题。
-- **修复深色模式「可更新」标签看不清**：「账号 › 设置」行右侧更新胶囊前景色改为自适应 `UX.onAccent`，深浅色模式下均清晰可辨。
-
-## 2.3.1 更新
-
-- **修复 iOS 16 闪退并恢复完整兼容（感谢 [@tageniu](https://github.com/tageniu) 在 PR #108 的贡献）**：将最低部署目标恢复为 **iOS 16.0**，对 `Symbols` / `Translation` / `ActivityKit` 保持弱链接与可用性防护，修复 iOS 16 PKCS#12 证书导入兼容性、Xcode `SigningCapability.swift` 工程引用与 `ipazsLiveActivity` 扩展双端编译问题。
-- **优化历史版本快速滚动与账号切换流畅度（已缓存与未缓存长列表）**：抽取独立无锁缩略图缓存 `VersionIconCache`，将 IPA Range 请求改写为无锁竞争的分块 `URLSessionDataDelegate` 传输、`RemoteZip` 解析移出主线程并按字节前缀过滤，扁平化详情页单层 `LazyVStack` 并隔离 `AccountsView` 与 `NoticeCenter`（账号页内切换就地即时反馈、全局提示改轻量化胶囊），消除快速滑动卡死白屏与切号卡顿。
-- **跨区下载失败诊断与一键切换账号（`2059` / `1010`）**：仅在下载实际失败后核验账号地区与搜索商店区差异（绝不预拦截可下载应用），在弹窗中提示精简地区原因，并提供 **「切换并重试」** 或 **「切换账号」** 快捷按钮。
-- **TestFlight / CI 稳定性提升**：自适应放宽冷启动 `SAPSigner` 初始化超时上限。
-
-## 2.3.0 更新
-
-> **从 v2.2.1 到 v2.3.0 的跨度说明**：自 GitHub 上一个正式版 **v2.2.1** 发布以来，我们在本地持续完成了 **20+ 次功能研发与底层重构迭代**，现统一合并发布 **v2.3.0**。除了从零打造的 **TestFlight 模块**，也囊括了应用内更新选择器、本地化名称展示与社区体系迁移。
-
-- **🆕 TestFlight 主页、下载与原生安装（实验性新功能）**：在「账号 › TestFlight」从零构建原生 Store 风格页面，按「测试中 / 平台不兼容 / 以往测试」分类浏览、搜索并多账号切换；支持实时速度与 ETA 进度条下载、SINF 注入与 `InstallCoordinator` 统一安装（原生安装可免解密免重签直装运行），并接入专业模式「应用包」与 `FairPlayCore` 解密定位；内置 `TFNet` 网络三模式、代理失败自动直连旁路、DoH/Fake-IP 预检及严格脱敏的轮转诊断日志。
-- **⬆️ 应用内更新弹窗升级（`AppUpdateView`）**：当发现 ipazs 新版本时，直接在应用内提示并支持一键切换 **标准版 / 精简版**、核对体积与更新说明后下载。
-- **🌏 本地化名称与界面打磨**：TestFlight、商店列表、「下载」及专业模式「应用包」列表全面支持中文等本地化应用名称显示；补充包体详情元数据与一键复制 `Bundle ID`，优化滚动性能与视觉质感。
-- **反馈渠道**：使用问题与 BUG 反馈请在 GitHub Issues 提交。
-- ⚠️ **实验性与免责提醒**：TestFlight 为全新开发功能，受 Apple 服务端策略、测试资格与网络规则影响，存在一定不稳定性；仅建议管理个人合法授权的测试应用，建议先用备用账号体验，详见下方 [TestFlight 实验性新功能](#testflight-实验性新功能) 说明。
-- 继续提供标准版和精简版，支持 iOS / iPadOS 16 及更新版本。
-
-> 更早版本的更新记录请查看 [GitHub Releases](https://github.com/xiaoyun1995314/ipazs/releases) 与 [更新说明](RELEASE_NOTES.md)。
-
 ## 能做什么
 
 | | |
