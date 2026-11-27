@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>ipazs</string>
 	<key>CFBundleDisplayName</key>
 	<string>ipazs</string>
 	<key>CFBundlePackageType</key>
@@ -50,10 +50,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>app.local.iPadn</string>
+			<string>app.local.ipazs</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ipadn</string>
+				<string>ipazs</string>
 			</array>
 		</dict>
 	</array>
@@ -68,7 +68,7 @@
 	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>app.local.iPadn.update-check</string>
+		<string>app.local.ipazs.update-check</string>
 	</array>
 	<key>NSSupportsLiveActivities</key>
 	<true/>

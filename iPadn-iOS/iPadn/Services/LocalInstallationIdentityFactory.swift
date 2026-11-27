@@ -14,14 +14,14 @@ enum LocalInstallationIdentityFactory {
         func profile() throws -> Data {
             let root: [String: Any] = [
                 "PayloadType": "com.apple.security.root", "PayloadVersion": 1,
-                "PayloadIdentifier": "app.local.iPadn.installation.root." + identifier.uuidString,
+                "PayloadIdentifier": "app.local.ipazs.installation.root." + identifier.uuidString,
                 "PayloadUUID": identifier.uuidString, "PayloadDisplayName": AppText.text("ipazs 本机安装 CA"),
                 "PayloadDescription": AppText.text("仅用于信任此设备上 ipazs 创建的安装服务器。"),
-                "PayloadCertificateFileName": "iPadn-local-root.cer", "PayloadContent": rootCertificate
+                "PayloadCertificateFileName": "ipazs-local-root.cer", "PayloadContent": rootCertificate
             ]
             return try PropertyListSerialization.data(fromPropertyList: [
                 "PayloadType": "Configuration", "PayloadVersion": 1,
-                "PayloadIdentifier": "app.local.iPadn.installation." + identifier.uuidString,
+                "PayloadIdentifier": "app.local.ipazs.installation." + identifier.uuidString,
                 "PayloadUUID": UUID().uuidString, "PayloadDisplayName": AppText.text("ipazs 本机安装证书"),
                 "PayloadDescription": AppText.text("由此设备上的 ipazs 创建。安装后在设置中为该 CA 启用完全信任，才能使用本机 HTTPS 安装。"),
                 "PayloadContent": [root]

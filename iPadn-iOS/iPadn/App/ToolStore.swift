@@ -2781,7 +2781,7 @@ final class ToolStore: ObservableObject {
         if url.isFileURL {
             selectTab(.downloads)
             Task { do { try await downloads.importFile(url) } catch { errorMessage = error.localizedDescription } }
-        } else if url.scheme == "ipadn" {
+        } else if url.scheme == "ipazs" {
             let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
             let items = components?.queryItems ?? []
             if url.host == "open", let value = items.first(where: { $0.name == "tab" })?.value {

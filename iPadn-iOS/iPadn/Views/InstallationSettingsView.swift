@@ -124,7 +124,7 @@ struct InstallationSettingsView: View {
                     Button { checkCertificate() } label: { actionLabel("检查证书", systemImage: "checkmark.shield", action: .check) }
                         .disabled(busy)
                 } header: { Text("本机证书") } footer: {
-                    Text("首次使用需创建证书并安装描述文件，然后在「设置 › 通用 › 关于本机 › 证书信任设置」中开启信任。使用代理工具时，请为 ipadn.localtest.me 添加直连（DIRECT）规则。")
+                    Text("首次使用需创建证书并安装描述文件，然后在「设置 › 通用 › 关于本机 › 证书信任设置」中开启信任。使用代理工具时，请为 ipazs.localtest.me 添加直连（DIRECT）规则。")
                 }
             } else {
                 Section {

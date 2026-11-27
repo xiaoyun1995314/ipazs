@@ -184,7 +184,7 @@ struct PackageInstallationView: View {
     /// Shown while a proxy or VPN is on: the address this method needs to reach directly.
     private var proxyHint: String {
         let host = store.settings.automaticInstallation ? "api.palera.in"
-            : store.settings.localInstallation ? "ipadn.localtest.me" : nil
+            : store.settings.localInstallation ? "ipazs.localtest.me" : nil
         guard let host else { return "" }
         return "\n" + AppText.text("已开启代理：如果无法安装，请为 \(host) 添加直连（DIRECT）规则。")
     }
@@ -323,7 +323,7 @@ struct PackageInstallationView: View {
                                 if InstallLog.shared.manifestCount == served {
                                     message = nil; started = false; openingSystem = false
                                     issue = proxied
-                                        ? AppText.text("系统没能连接到 iPadn 的本机安装服务。开启代理或 VPN 时，请在代理规则中为 ipadn.localtest.me 添加直连（DIRECT）规则，或暂时关闭代理；也可以改用一键安装。")
+                                        ? AppText.text("系统没能连接到 iPadn 的本机安装服务。开启代理或 VPN 时，请在代理规则中为 ipazs.localtest.me 添加直连（DIRECT）规则，或暂时关闭代理；也可以改用一键安装。")
                                         : AppText.text("系统没能连接到 iPadn 的本机安装服务。请在「设置 › 通用 › 关于本机 › 证书信任设置」中确认已开启 iPadn 本机安装 CA；也可以改用一键安装。")
                                     return
                                 }

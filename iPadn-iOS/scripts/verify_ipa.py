@@ -10,7 +10,7 @@ import zipfile
 from pathlib import Path
 
 ALTERNATE_ICONS = ['AppIconAuto', 'AppIconFlat', 'AppIconLight', 'AppIconDark', 'AppIconFlatLight', 'AppIconFlatDark']
-DEFAULT_ALLOWED_BUNDLE_IDS = ('app.local.iPadn', 'app.local.iPadn.fp')
+DEFAULT_ALLOWED_BUNDLE_IDS = ('app.local.ipazs', 'app.local.ipazs.fp', 'app.local.iPadn', 'app.local.iPadn.fp')
 PROHIBITED_SECRET_EXTENSIONS = ('.p12', '.mobileprovision', '.key', '.pem', '.profraw', '.dll', '.exe', '.dylib', '.a')
 PROHIBITED_SECRET_BASENAMES = {'signing.json'}
 STRICT_OSS_EXTENSIONS = ('.so', '.wasm')

@@ -177,11 +177,11 @@ enum ManifestBuilder {
     /// address or "localhost". These public names resolve to 127.0.0.1, so
     /// the link carries a real domain while the connection stays on this
     /// device. The generated certificate covers all of them.
-    /// The install prompt names this host ("ipadn.localtest.me 想要安装…").
-    static let defaultLocalHost = "ipadn.localtest.me"
+    /// The install prompt names this host ("ipazs.localtest.me 想要安装…").
+    static let defaultLocalHost = "ipazs.localtest.me"
     /// Tried in order when the default is set: the first that resolves to
     /// this device on the current network is used.
-    static let fallbackLocalHosts = [defaultLocalHost, "ipadn.lvh.me", "127.0.0.1.sslip.io"]
+    static let fallbackLocalHosts = [defaultLocalHost, "ipazs.lvh.me", "127.0.0.1.sslip.io"]
     static let localHostNames = ["127.0.0.1.sslip.io", "localtest.me", "*.localtest.me", "lvh.me", "*.lvh.me", "localhost", LocalHostRecord.host]
     /// Hosts that earlier versions used; they are replaced by the default.
     static func migratedLocalHost(_ value: String) -> String {

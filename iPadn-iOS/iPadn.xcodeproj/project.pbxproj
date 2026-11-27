@@ -2204,7 +2204,7 @@
 		F8402A14F28B0D7E5C2F1CF9 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadn;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2253,7 +2253,7 @@
 		B77A2964E67CEC00F098935C = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadn;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2308,7 +2308,7 @@
 		FFCF2052198FB39C6972134D = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadnTests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2339,7 +2339,7 @@
 		A38DFF1D652F9EDE21F290BB = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadnTests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2465,7 +2465,7 @@
 		985F8090218516D8753FD452 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadnUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2495,7 +2495,7 @@
 		A886F3335DEEAEE77A300CC2 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadnUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2666,7 +2666,7 @@
 		4162F030F80DA64AC10BE48A = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadn.LiveActivity;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs.LiveActivity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -2694,7 +2694,7 @@
 		602C8E4536EEF68969E0EA47 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_BUNDLE_IDENTIFIER = app.local.iPadn.LiveActivity;
+				PRODUCT_BUNDLE_IDENTIFIER = app.local.ipazs.LiveActivity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";

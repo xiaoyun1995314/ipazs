@@ -5,7 +5,7 @@ import UserNotifications
 /// version, price and removal changes, while iPadn is in the background.
 /// iOS decides when the check actually runs.
 enum UpdateCheckScheduler {
-    static let identifier = "app.local.iPadn.update-check"
+    static let identifier = "app.local.ipazs.update-check"
 
     /// Must run before the app finishes launching.
     static func register() {

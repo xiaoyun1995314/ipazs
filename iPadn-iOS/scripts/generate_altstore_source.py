@@ -83,16 +83,16 @@ def source(releases):
     latest = versions[0]
     return {
         "name": "iPadn",
-        "identifier": "app.local.iPadn.source",
+        "identifier": "app.local.ipazs.source",
         "subtitle": "Search, download and install the apps you own",
         "description": DESCRIPTION,
         "iconURL": RAW + "docs/images/icon.png",
         "website": "https://github.com/" + REPO,
         "tintColor": "#111111",
-        "featuredApps": ["app.local.iPadn"],
+        "featuredApps": ["app.local.ipazs"],
         "apps": [{
             "name": "iPadn",
-            "bundleIdentifier": "app.local.iPadn",
+            "bundleIdentifier": "app.local.ipazs",
             "developerName": "mengangs",
             "subtitle": "Search, download and install the apps you own",
             "localizedDescription": DESCRIPTION,

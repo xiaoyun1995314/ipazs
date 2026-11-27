@@ -223,7 +223,7 @@ final class WiFiTransferServer: @unchecked Sendable {
         let empty = items.isEmpty ? "<p>\(Self.escape(AppText.text("没有已完成的安装包。")))</p>" : ""
         return """
         <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-        <meta name="robots" content="noindex"><title>iPadn</title>
+        <meta name="robots" content="noindex"><title>ipazs</title>
         <style>body{font:15px -apple-system,system-ui,sans-serif;max-width:860px;margin:32px auto;padding:0 16px;color:#111}
         h1{font-size:22px}table{width:100%;border-collapse:collapse}td{padding:10px 6px;border-bottom:1px solid #ddd;vertical-align:top}
         a{color:#0a66d8;text-decoration:none;font-weight:600}.s{color:#777;font-size:12px;margin-top:2px}.r{text-align:right;white-space:nowrap}

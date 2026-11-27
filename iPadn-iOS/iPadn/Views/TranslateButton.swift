@@ -190,7 +190,7 @@ private struct TranslationLanguageResources: View {
                     .id(source + "|" + target.maximalIdentifier)
             }
         } header: { Text("翻译语言包") } footer: {
-            Text("译文使用 iPadn 的界面语言。选择需要翻译的原文语言，再准备语言包；其他语言首次使用时仍可能需要下载。")
+            Text("译文使用 ipazs 的界面语言。选择需要翻译的原文语言，再准备语言包；其他语言首次使用时仍可能需要下载。")
         }
         .id("settings.translation.resources")
         .task {

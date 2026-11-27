@@ -136,7 +136,7 @@ base = {"IPHONEOS_DEPLOYMENT_TARGET": "16.0", "SDKROOT": "iphoneos", "SWIFT_VERS
         "GCC_C_LANGUAGE_STANDARD": "gnu17", "CLANG_CXX_LANGUAGE_STANDARD": "gnu++20",
         "SWIFT_STRICT_CONCURRENCY": "targeted", "ENABLE_USER_SCRIPT_SANDBOXING": "YES"}
 project_configs = configs("Project", base, {"SWIFT_COMPILATION_MODE": "wholemodule", "VALIDATE_PRODUCT": "YES"})
-app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.iPadn", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
+app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazs", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
                 "DEVELOPMENT_TEAM": "", "TARGETED_DEVICE_FAMILY": "1,2", "INFOPLIST_FILE": "iPadn/Info.plist",
                 "GENERATE_INFOPLIST_FILE": "NO", "MARKETING_VERSION": "2.3.5", "CURRENT_PROJECT_VERSION": "41",
                 "SWIFT_EMIT_LOC_STRINGS": "YES", "LOCALIZATION_PREFERS_STRING_CATALOGS": "YES",
@@ -152,7 +152,7 @@ app_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.iPadn", "PRODUCT_NAME": 
                 # Empty unless scripts/build_unsigned_ipa.sh built the native installation library.
                 "IPADN_NATIVE_LDFLAGS": "",
                 "OTHER_LDFLAGS": ["$(inherited)", "-weak_framework", "Translation", "$(IPADN_MACPKG_LDFLAGS)", "$(IPADN_NATIVE_LDFLAGS)"]}
-test_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.iPadnTests", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
+test_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazsTests", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
                  "DEVELOPMENT_TEAM": "", "TARGETED_DEVICE_FAMILY": "1,2", "GENERATE_INFOPLIST_FILE": "YES",
                  "TEST_HOST": "$(BUILT_PRODUCTS_DIR)/iPadn.app/iPadn", "BUNDLE_LOADER": "$(TEST_HOST)",
                  "SWIFT_INCLUDE_PATHS": ["$(inherited)", "$(SRCROOT)/FairPlayCore/include"],
@@ -177,7 +177,7 @@ objects[products]["children"].append(ui_product)
 ui_build = add("UITestBuild", "PBXBuildFile", fileRef=ui_file)
 ui_sources = add("UITestSources", "PBXSourcesBuildPhase", buildActionMask="2147483647", files=[ui_build], runOnlyForDeploymentPostprocessing="0")
 ui_settings = {k: v for k, v in test_settings.items() if k not in ["TEST_HOST", "BUNDLE_LOADER"]}
-ui_settings.update({"PRODUCT_BUNDLE_IDENTIFIER": "app.local.iPadnUITests", "TEST_TARGET_NAME": "iPadn"})
+ui_settings.update({"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazsUITests", "TEST_TARGET_NAME": "iPadn"})
 ui_configs = configs("UITests", ui_settings)
 add("UITestTarget", "PBXNativeTarget", buildConfigurationList=ui_configs, buildPhases=[ui_sources], buildRules=[], dependencies=[dependency], name="iPadnUITests", productName="iPadnUITests", productReference=ui_product, productType="com.apple.product-type.bundle.ui-testing")
 # Live Activity extension: the pairing steps and code on the Lock Screen and in the Dynamic Island.
@@ -197,7 +197,7 @@ extension_resources = add("ExtensionResources", "PBXResourcesBuildPhase", buildA
                           files=[add("ExtensionBuild/Localizable.xcstrings", "PBXBuildFile", fileRef=extension_catalog)], runOnlyForDeploymentPostprocessing="0")
 objects[root_group]["children"].append(add("ExtensionGroup", "PBXGroup", children=extension_files, path="iPadnLiveActivity", sourceTree="<group>"))
 extension_phase = add("ExtensionSources", "PBXSourcesBuildPhase", buildActionMask="2147483647", files=extension_sources, runOnlyForDeploymentPostprocessing="0")
-extension_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.iPadn.LiveActivity", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
+extension_settings = {"PRODUCT_BUNDLE_IDENTIFIER": "app.local.ipazs.LiveActivity", "PRODUCT_NAME": "$(TARGET_NAME)", "CODE_SIGN_STYLE": "Automatic",
                       "DEVELOPMENT_TEAM": "", "TARGETED_DEVICE_FAMILY": "1,2", "INFOPLIST_FILE": "iPadnLiveActivity/Info.plist",
                       "GENERATE_INFOPLIST_FILE": "NO", "MARKETING_VERSION": app_settings["MARKETING_VERSION"],
                       "CURRENT_PROJECT_VERSION": app_settings["CURRENT_PROJECT_VERSION"], "SKIP_INSTALL": "YES",
@@ -270,10 +270,10 @@ info = {"CFBundleDevelopmentRegion": "$(DEVELOPMENT_LANGUAGE)", "CFBundleExecuta
         "UIApplicationSceneManifest": {"UIApplicationSupportsMultipleScenes": False},
         "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait", "UIInterfaceOrientationLandscapeLeft", "UIInterfaceOrientationLandscapeRight"],
         "UISupportedInterfaceOrientations~ipad": ["UIInterfaceOrientationPortrait", "UIInterfaceOrientationPortraitUpsideDown", "UIInterfaceOrientationLandscapeLeft", "UIInterfaceOrientationLandscapeRight"],
-        "CFBundleURLTypes": [{"CFBundleURLName": "app.local.iPadn", "CFBundleURLSchemes": ["ipadn"]}],
+        "CFBundleURLTypes": [{"CFBundleURLName": "app.local.ipazs", "CFBundleURLSchemes": ["ipazs"]}],
         "LSApplicationQueriesSchemes": ["itms-services"],
         # audio keeps iPadn answering while the user pairs in Settings (on-device pairing only).
-        "UIBackgroundModes": ["fetch", "audio"], "BGTaskSchedulerPermittedIdentifiers": ["app.local.iPadn.update-check"],
+        "UIBackgroundModes": ["fetch", "audio"], "BGTaskSchedulerPermittedIdentifiers": ["app.local.ipazs.update-check"],
         "NSSupportsLiveActivities": True,
         "NSSupportsLiveActivitiesFrequentUpdates": True,
         "CADisableMinimumFrameDurationOnPhone": True,

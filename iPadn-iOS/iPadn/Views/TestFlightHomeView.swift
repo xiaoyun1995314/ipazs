@@ -352,7 +352,7 @@ struct TestFlightHomeView: View {
         Section {
             EmptyState(
                 title: "连接 TestFlight",
-                message: "将复用当前 iPadn 账号凭据建立持久化会话，验证一次后无需重复登录。",
+                message: "将复用当前 ipazs 账号凭据建立持久化会话，验证一次后无需重复登录。",
                 symbol: "airplane",
                 actionTitle: "验证并连接 TestFlight",
                 action: { model.start(storeAccountDsid: selectedAppleAccount?.dsid ?? "") }

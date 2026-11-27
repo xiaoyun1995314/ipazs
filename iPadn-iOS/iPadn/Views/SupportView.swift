@@ -6,6 +6,7 @@ import CoreImage.CIFilterBuiltins
 enum SupportLinks {
     static let releases = URL(string: "https://github.com/xiaoyun1995314/ipazs/releases")!
     static let repository = URL(string: "https://github.com/xiaoyun1995314/ipazs")!
+    static let sourceHome = URL(string: "https://xiaoyun1995314.github.io/my-source/index.html")!
 }
 
 struct SupportView: View {

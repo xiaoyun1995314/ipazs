@@ -4,7 +4,7 @@ import dnssd
 
 /// Makes `ipadn.local` answer 127.0.0.1 for programs on this device only.
 ///
-/// With a proxy or VPN on, a public name such as ipadn.localtest.me is sent
+/// With a proxy or VPN on, a public name such as ipazs.localtest.me is sent
 /// through the proxy (or answered with a stand-in address), so the installer
 /// never reaches this device. Proxy apps leave `*.local` alone, and a
 /// local-only multicast DNS record never leaves the device, so the installer

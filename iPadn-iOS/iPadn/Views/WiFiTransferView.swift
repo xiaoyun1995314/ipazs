@@ -116,7 +116,7 @@ struct WiFiTransferView: View {
                 }
             }
             Section {
-                Label("只在这个页面打开时运行。切到后台后会在系统允许的时间内继续运行，被系统暂停后回到 iPadn 会在原地址自动恢复；离开页面或闲置 10 分钟会停止。", systemImage: "clock")
+                Label("只在这个页面打开时运行。切到后台后会在系统允许的时间内继续运行，被系统暂停后回到 ipazs 会在原地址自动恢复；离开页面或闲置 10 分钟会停止。", systemImage: "clock")
                 Label("地址里带有随机密钥，每次开启都不同；多次错误访问会自动停止。", systemImage: "key")
                 Label("只能下载已完成的安装包，不能上传或修改；只接受局域网内的设备。", systemImage: "lock")
                 Label("传输不加密，请只在信任的网络中使用。", systemImage: "exclamationmark.shield")
