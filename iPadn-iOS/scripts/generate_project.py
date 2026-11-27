@@ -264,7 +264,7 @@ workspace.mkdir(exist_ok=True)
 
 info = {"CFBundleDevelopmentRegion": "$(DEVELOPMENT_LANGUAGE)", "CFBundleExecutable": "$(EXECUTABLE_NAME)",
         "CFBundleIdentifier": "$(PRODUCT_BUNDLE_IDENTIFIER)", "CFBundleInfoDictionaryVersion": "6.0",
-        "CFBundleName": "$(PRODUCT_NAME)", "CFBundleDisplayName": "iPadn", "CFBundlePackageType": "APPL",
+        "CFBundleName": "$(PRODUCT_NAME)", "CFBundleDisplayName": "ipazs", "CFBundlePackageType": "APPL",
         "CFBundleShortVersionString": "$(MARKETING_VERSION)", "CFBundleVersion": "$(CURRENT_PROJECT_VERSION)",
         "LSRequiresIPhoneOS": True, "UILaunchScreen": {}, "UIFileSharingEnabled": True, "LSSupportsOpeningDocumentsInPlace": True,
         "UIApplicationSceneManifest": {"UIApplicationSupportsMultipleScenes": False},

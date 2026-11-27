@@ -102,7 +102,7 @@ with zipfile.ZipFile(ipa) as archive:
     assert parse_version_tuple(info['MinimumOSVersion']) <= (16, 0, 0), (
         f"Main app requires iOS {info['MinimumOSVersion']}, expected iOS 16.0 support"
     )
-    assert info['CFBundleDisplayName'] == 'iPadn', 'Unexpected application name'
+    assert info['CFBundleDisplayName'] == 'ipazs', 'Unexpected application name'
     assert info['CFBundleIdentifier'] in allowed_bundle_ids, f"Unexpected bundle identifier: {info['CFBundleIdentifier']}"
     assert set(info['UIDeviceFamily']) == {1, 2}, 'Both iPhone and iPad must be supported'
     for key in ['CFBundleIcons', 'CFBundleIcons~ipad']:
