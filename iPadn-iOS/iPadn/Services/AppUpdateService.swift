@@ -74,7 +74,7 @@ struct AppRelease: Codable, Equatable {
 }
 
 enum AppUpdateService {
-    static let repository = "mengangs/ipadn"
+    static let repository = "xiaoyun1995314/ipazs"
     static var currentVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"
     }

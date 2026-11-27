@@ -15,7 +15,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-REPO = "mengangs/ipadn"
+REPO = "xiaoyun1995314/ipazs"
 RAW = "https://raw.githubusercontent.com/" + REPO + "/main/"
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "altstore-source.json"

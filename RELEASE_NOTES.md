@@ -26,10 +26,9 @@
 
 ---
 
-### 📢 官方频道与反馈说明
+### 📢 反馈说明
 
-- **官方 Telegram 频道**：👉 [**https://t.me/ipadn_official**](https://t.me/ipadn_official)
-- **GitHub Issues 仅保留只读归档**：新版安装包与源码优先在官方 Telegram 频道发布；使用问题、排障与 Bug 反馈请直接前往频道**对应版本贴文评论区**提交。
+- **GitHub Issues 仅保留只读归档**：使用问题、排障与 Bug 反馈请在 GitHub Issues 提交。
 
 ### ⚠️ TestFlight 实验性说明与免责声明
 
@@ -40,7 +39,7 @@
 
 - `iPadn-2.3.5-unsigned.ipa`：标准版，含实时活动（灵动岛、锁屏进度）与桌面小组件扩展，签名需要 2 个 App ID。
 - `iPadn-2.3.5-lite-unsigned.ipa`：精简版，移除扩展，只需 1 个 App ID；不提供实时活动或小组件，其他功能完全一致。
-- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`。
+- SideStore、AltStore、Feather 等签名工具可添加源：`https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`。
 
 ---
 
@@ -68,9 +67,8 @@
   - Automatically invalidates stale version caches and performs short backoff retries after acquiring a free app license so first-time older-version fetches no longer fail on transient `9610` delays.
   - Fixes multi-IPA batch import in **Packages** prematurely opening a detail sheet mid-batch, adding live `(done/total)` progress, batch completion toast, and a dismissible error banner.
 
-#### Official Telegram Channel & GitHub Issues Archive
-- **Official Telegram Channel**: [**https://t.me/ipadn_official**](https://t.me/ipadn_official) (new builds & source archives land here first).
-- **GitHub Issues Read-Only**: Please post support questions, TestFlight diagnostics, and bug reports under the matching release post in our Telegram channel.
+#### GitHub Issues Archive
+- **GitHub Issues Read-Only**: Please post support questions, TestFlight diagnostics, and bug reports on GitHub Issues.
 
 #### TestFlight Experimental Notice & Disclaimer
 - TestFlight download and native installation in `v2.3.x` are **experimental** and depend on Apple server behavior, active per-account invitations, proxy/DNS setup, and device pairing state. Testing with a secondary Apple Account first is recommended, and never share pairing files, tokens, or unencrypted backups (see [README_EN — TestFlight Experimental](README_EN.md#testflight-experimental)).
@@ -79,6 +77,6 @@
 #### Packages
 - `iPadn-2.3.5-unsigned.ipa`: Standard build with Live Activities & Widgets (requires 2 App IDs).
 - `iPadn-2.3.5-lite-unsigned.ipa`: Lite build without extensions (requires 1 App ID; identical core features).
-- AltStore / SideStore / Feather repo: `https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json`.
+- AltStore / SideStore / Feather repo: `https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json`.
 
-更早版本的更新内容见 [Releases](https://github.com/mengangs/ipadn/releases)。
+更早版本的更新内容见 [Releases](https://github.com/xiaoyun1995314/ipazs/releases)。

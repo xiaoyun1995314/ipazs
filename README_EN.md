@@ -7,13 +7,12 @@
 **Search, download and install the apps you own, on iPhone and iPad.**
 Works with iPhone, iPad, Apple TV and Mac apps, including older versions and apps removed from sale.
 
-✨ **New in v2.3.5: iOS 16/27 & iPadOS fixes · TestFlight Apple TV support & validation fixes · Customizable 177 Storefront regions · FairPlay/license/batch import fixes** · 📢 **Prefer [Official Telegram Channel](https://t.me/ipadn_official) for first releases & feedback**
+✨ **New in v2.3.5: iOS 16/27 & iPadOS fixes · TestFlight Apple TV support & validation fixes · Customizable 177 Storefront regions · FairPlay/license/batch import fixes** · 📢 **Report feedback and issues on GitHub Issues**
 
-[![Latest release](https://img.shields.io/github/v/release/mengangs/ipadn?label=latest&logo=github&logoColor=white&labelColor=2E3136&color=3A6EA5)](https://github.com/mengangs/ipadn/releases/latest)
-[![Telegram Channel](https://img.shields.io/badge/Telegram-%40ipadn__official-2C82A9?logo=telegram&logoColor=white&labelColor=2E3136)](https://t.me/ipadn_official)
-[![Downloads](https://img.shields.io/github/downloads/mengangs/ipadn/total?label=downloads&logo=icloud&logoColor=white&labelColor=2E3136&color=2D8A68)](https://github.com/mengangs/ipadn/releases)
+[![Latest release](https://img.shields.io/github/v/release/xiaoyun1995314/ipazs?label=latest&logo=github&logoColor=white&labelColor=2E3136&color=3A6EA5)](https://github.com/xiaoyun1995314/ipazs/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/xiaoyun1995314/ipazs/total?label=downloads&logo=icloud&logoColor=white&labelColor=2E3136&color=2D8A68)](https://github.com/xiaoyun1995314/ipazs/releases)
 ![Requires](https://img.shields.io/badge/iOS%20%2F%20iPadOS-16%2B-525D73?logo=apple&logoColor=white&labelColor=2E3136)
-[![License](https://img.shields.io/github/license/mengangs/ipadn?label=license&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
+[![License](https://img.shields.io/github/license/xiaoyun1995314/ipazs?label=license&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
 
 <p>
   <a href="#support-ipadn"><img src="https://img.shields.io/badge/Support%20ipazs-Free%20%26%20Open%20Source%20%C2%B7%20Buy%20a%20Coffee-B0436E?style=for-the-badge&logo=githubsponsors&logoColor=white&labelColor=2E3136" alt="Support ipazs"></a>
@@ -22,12 +21,12 @@ Works with iPhone, iPad, Apple TV and Mac apps, including older versions and app
 
 [简体中文](README.md) · **English**
 
-[Download](https://github.com/mengangs/ipadn/releases/latest) · [Official Telegram](https://t.me/ipadn_official) · ❤️ [**Support ipazs**](#support-ipadn) · [TestFlight Guide](#testflight-experimental) · [Install a download](#installing-a-downloaded-app) · [FAQ](#frequently-asked-questions)
+[Download](https://github.com/xiaoyun1995314/ipazs/releases/latest) · ❤️ [**Support ipazs**](#support-ipadn) · [TestFlight Guide](#testflight-experimental) · [Install a download](#installing-a-downloaded-app) · [FAQ](#frequently-asked-questions)
 
 </div>
 
 > [!IMPORTANT]
-> **Join Telegram & GitHub Issues Archive**: To focus limited maintainer bandwidth on core engineering and faster user support, **new builds and source archives are now released first in our [Official Telegram Channel (`@ipadn_official`)](https://t.me/ipadn_official)** (with GitHub synced slightly later). **GitHub Issues are now closed to new reports** while existing issues remain as a read-only searchable archive — please post questions and bug reports **under the matching version post** in Telegram.
+> **Feedback Note**: New builds and source archives are published on GitHub Releases. Please post questions and bug reports on GitHub Issues.
 
 <p align="center">
   <img src="docs/images/en/01-search.jpg" width="24%" alt="Search">
@@ -87,11 +86,11 @@ Works with iPhone, iPad, Apple TV and Mac apps, including older versions and app
 - **🆕 TestFlight Hub, SINF Downloads & Unified Install (Experimental)**: Built a dedicated Store-styled **Account › TestFlight** page separating builds into **Testing**, **Incompatible**, and **Previously Tested**, with keyword filtering, localized app titles, and multi-account avatar switching. Supports live speed/ETA cards, injected SINF for zero-decrypt **Native Install** via `InstallCoordinator`, read-only projection into **Downloads** & Pro mode **Packages** (with `FairPlayCore` decryption resolution), and `TFNet` networking controls (Follow System / Force Direct / Force Proxy), automatic single direct bypass, DoH/fake-IP preflight diagnostics, and strictly redacted rotating logs.
 - **⬆️ In-App Update Variant Picker (`AppUpdateView`)**: Surface timely release alerts and pick **Standard** or **Lite** builds directly inside the update sheet with size and changelog preview.
 - **🌏 Localized Names & Polish**: Prefer localized app names across TestFlight, Store, Downloads, and Pro mode Packages, plus quick Bundle ID copy and responsive UI refinements.
-- **📢 Official Telegram Channel (All 11 Languages)**: Adds direct links to [https://t.me/ipadn_official](https://t.me/ipadn_official) in Account › Settings › Support ipazs and SupportView. ipazs stays free and open source, publishes new releases to Telegram first, and archives GitHub Issues as read-only.
+- **Feedback channel**: Report issues and bugs on GitHub Issues.
 - ⚠️ **Experimental Notice & Disclaimer**: TestFlight is newly developed and subject to Apple server behavior, active invite eligibility, and network rules—treat it as experimental and test with a secondary account first. See the [TestFlight Experimental](#testflight-experimental) guide.
 - Standard and lite packages remain available for iOS / iPadOS 16 and later.
 
-> For earlier releases, see [GitHub Releases](https://github.com/mengangs/ipadn/releases) and [release notes](RELEASE_NOTES.md).
+> For earlier releases, see [GitHub Releases](https://github.com/xiaoyun1995314/ipazs/releases) and [release notes](RELEASE_NOTES.md).
 
 ## What it does
 
@@ -122,13 +121,13 @@ Works with iPhone, iPad, Apple TV and Mac apps, including older versions and app
 
 The interface follows the App Store's design. Appearance follows the system and the icon is dark by default (both can be changed in Settings), with Dynamic Type, the iPad sidebar and alternate app icons.
 
-**Languages:** English, Simplified Chinese, Traditional Chinese, Japanese, Korean, Russian, Spanish, French, German, Portuguese (Brazil) and Arabic, with a right-to-left layout for Arabic. ipazs follows the system language; to choose a different one for ipazs only, use Settings › ipazs › Language. English was refined by a community contributor and the other languages are machine-assisted translations; corrections are welcome in our [Official Telegram Channel](https://t.me/ipadn_official) or a pull request.
+**Languages:** English, Simplified Chinese, Traditional Chinese, Japanese, Korean, Russian, Spanish, French, German, Portuguese (Brazil) and Arabic, with a right-to-left layout for Arabic. ipazs follows the system language; to choose a different one for ipazs only, use Settings › ipazs › Language. English was refined by a community contributor and the other languages are machine-assisted translations; corrections are welcome on GitHub Issues or a pull request.
 
 ## Getting started
 
 > Requires **iOS / iPadOS 16** or later.
 
-1. Download the latest `ipazs-<version>-unsigned.ipa` from [Releases](https://github.com/mengangs/ipadn/releases/latest). If your signing tool or free account has few App IDs left, use the lite package `ipazs-<version>-lite-unsigned.ipa` instead: it needs one App ID but has no Dynamic Island progress or widgets.
+1. Download the latest `ipazs-<version>-unsigned.ipa` from [Releases](https://github.com/xiaoyun1995314/ipazs/releases/latest). If your signing tool or free account has few App IDs left, use the lite package `ipazs-<version>-lite-unsigned.ipa` instead: it needs one App ID but has no Dynamic Island progress or widgets.
 2. Sign it with your usual signing tool and install it on your device.
 3. Open ipazs and sign in to your Apple Account under Account. If two-factor authentication is on, enter the 6-digit code shown on your trusted device.
 
@@ -139,7 +138,7 @@ The interface follows the App Store's design. Appearance follows the system and 
 SideStore, AltStore, Feather and other tools that support AltStore sources can add the address below. You can then install ipazs from the tool and update it there when a new version is out, without downloading the package by hand.
 
 ```
-https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
+https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json
 ```
 
 The source is updated automatically after every release and only lists packages from this repository's Releases.
@@ -220,7 +219,7 @@ The first Mac download fetches about 47 MB of extra components, which are reused
 1. Open **Account › TestFlight** and sign in or switch accounts via the top-right avatar (TestFlight sessions are stored per DSID and intentionally isolated from iOS App Store sessions, so TF may ask for its own initial sign-in).
 2. Apps are grouped into three buckets: **Testing** (active downloadable builds; apps offering multiple platforms such as iOS and Apple TV can be switched and downloaded directly on the detail page), **Incompatible** (macOS / visionOS / iPad-only builds), and **Previously Tested** (expired or retired builds shown read-only).
 3. Tap download for live speed/ETA progress. Downloaded builds include injected SINF bound to your `ApplicationDSID` and run directly via **Native Install** (with device pairing + LocalDevVPN) **without needing decryption or re-signing**, or can be exported/shared and inspected/decrypted under Pro mode › **Packages** when App Group access is available.
-4. If catalog loading stalls or fails with network/401 errors, open **Network & Diagnostics** inside TestFlight to switch between **Follow System / Force Direct / Force Proxy**, check DNS/fake-IP preflight results, and copy strictly redacted logs when reporting under the release post in [Official Telegram](https://t.me/ipadn_official).
+4. If catalog loading stalls or fails with network/401 errors, open **Network & Diagnostics** inside TestFlight to switch between **Follow System / Force Direct / Force Proxy**, check DNS/fake-IP preflight results, and copy strictly redacted logs and report on GitHub Issues.
 
 ## Pro mode
 
@@ -345,7 +344,7 @@ Due to Apple TestFlight server rules, only active **iOS / iPadOS** builds that y
 <details>
 <summary><b>Why does TestFlight ask to sign in again, or hit 401 / loading errors?</b></summary>
 
-TestFlight uses an isolated Mac/akd session store scoped per DSID and separated from iOS App Store decryption sessions, so TF may request its own initial sign-in (testing with a secondary account first is recommended). If loading stalls or throws 401/network errors, open **Network & Diagnostics** inside TestFlight to switch between Follow System / Force Direct / Force Proxy, inspect DoH/fake-IP preflight status, and copy redacted diagnostics to our [Official Telegram Channel](https://t.me/ipadn_official).
+TestFlight uses an isolated Mac/akd session store scoped per DSID and separated from iOS App Store decryption sessions, so TF may request its own initial sign-in (testing with a secondary account first is recommended). If loading stalls or throws 401/network errors, open **Network & Diagnostics** inside TestFlight to switch between Follow System / Force Direct / Force Proxy, inspect DoH/fake-IP preflight status, and copy redacted diagnostics to GitHub Issues.
 </details>
 
 <details>
@@ -381,23 +380,22 @@ Your support keeps the updates coming.
 
 </div>
 
-## Official Channel & Feedback
+## Feedback
 
-- **Official Telegram Channel**: 👉 [**https://t.me/ipadn_official**](https://t.me/ipadn_official)
-- **Open-Source & Release Cadence**: ipazs remains **free and open source**, and GitHub continues to publish source code and releases. New builds and source archives are posted first in our official Telegram channel, with GitHub updates following slightly behind.
-- **Why GitHub Issues Are Archived (Read-Only)**: Because maintainer time is limited and troubleshooting network/pairing/account behavior works much faster in one thread per release, **GitHub Issues are closed to new submissions while existing historical issues (#1–#106) stay preserved as a read-only archive**. Please post questions, TestFlight feedback, and bug reports **under the matching version post** in Telegram, including your device, OS version, steps, and optionally the redacted diagnostic file from Account › Settings › Backup & Maintenance › Export diagnostics.
-- **Translations & Building**: Every interface string lives in [`Localizable.xcstrings`](ipazs-iOS/ipazs/Resources/Localizable.xcstrings); pull requests improving translations are welcome. For building from source, see [BUILDING.md](ipazs-iOS/BUILDING.md).
+- **Open-Source & Release Cadence**: ipazs remains **free and open source**, and GitHub publishes source code and releases.
+- **Feedback Channel**: Post questions, TestFlight feedback, and bug reports on GitHub Issues, including your device, OS version, steps, and optionally the redacted diagnostic file from Account › Settings › Backup & Maintenance › Export diagnostics.
+- **Translations & Building**: Every interface string lives in [`Localizable.xcstrings`](iPadn-iOS/iPadn/Resources/Localizable.xcstrings); pull requests improving translations are welcome. For building from source, see [BUILDING.md](iPadn-iOS/BUILDING.md).
 
 ## Acknowledgements
 
-- [kylefmohr](https://github.com/kylefmohr) contributed the English translation ([#35](https://github.com/mengangs/ipadn/pull/35)).
-- Thanks to everyone who reported problems and suggested ideas, and to the open-source projects ipazs uses, listed in [Third-party components and licenses](ipazs-iOS/THIRD_PARTY_NOTICES.md).
+- [kylefmohr](https://github.com/kylefmohr) contributed the English translation ([#35](https://github.com/xiaoyun1995314/ipazs/pull/35)).
+- Thanks to everyone who reported problems and suggested ideas, and to the open-source projects ipazs uses, listed in [Third-party components and licenses](iPadn-iOS/THIRD_PARTY_NOTICES.md).
 
 ## More
 
 - [Release notes](RELEASE_NOTES.md)
-- [Building from source](ipazs-iOS/BUILDING.md)
-- [Third-party components and licenses](ipazs-iOS/THIRD_PARTY_NOTICES.md)
+- [Building from source](iPadn-iOS/BUILDING.md)
+- [Third-party components and licenses](iPadn-iOS/THIRD_PARTY_NOTICES.md)
 
 ## License
 

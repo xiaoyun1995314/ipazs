@@ -7,9 +7,8 @@ enum SupportLinks {
     static let afdian = URL(string: "https://afdian.com/a/mengangs")!
     /// USDT on BNB Smart Chain (BEP20) only.
     static let usdtAddress = "0x5f0cff7587b9fc305f9fa626135789bd5100818e"
-    static let telegram = URL(string: "https://t.me/ipadn_official")!
-    static let releases = URL(string: "https://github.com/mengangs/ipadn/releases")!
-    static let repository = URL(string: "https://github.com/mengangs/ipadn")!
+    static let releases = URL(string: "https://github.com/xiaoyun1995314/ipazs/releases")!
+    static let repository = URL(string: "https://github.com/xiaoyun1995314/ipazs")!
 }
 
 /// The settings row that opens the support page: a heart on a soft pink tile.
@@ -68,45 +67,6 @@ struct SupportView: View {
                 .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
 
             Section {
-                Link(destination: SupportLinks.telegram) {
-                    HStack(spacing: 12) {
-                        Image(systemName: "paperplane.fill")
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundStyle(.white)
-                            .frame(width: 30, height: 30)
-                            .background(
-                                LinearGradient(colors: [Color(red: 0.24, green: 0.67, blue: 0.96), Color(red: 0.11, green: 0.52, blue: 0.88)],
-                                               startPoint: .topLeading, endPoint: .bottomTrailing),
-                                in: RoundedRectangle(cornerRadius: 9, style: .continuous)
-                            )
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("加入官方 Telegram 频道")
-                                .font(.body.weight(.medium))
-                                .foregroundStyle(.primary)
-                            Text(verbatim: "t.me/ipadn_official")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                        Spacer()
-                        Image(systemName: "arrow.up.forward")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(.tertiary)
-                    }
-                    .padding(.vertical, 2)
-                }
-                .accessibilityIdentifier("support.telegram")
-
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("v2.3.0 更新与反馈说明")
-                        .font(.subheadline.weight(.semibold))
-                    Text("iPadn 继续保持免费开源，GitHub 仍会同步更新与发布源码，但新版本会优先在官方 Telegram 频道推送（GitHub 略慢一步）。GitHub Issues 现已关闭，使用讨论与 BUG 反馈请前往频道对应版本贴文下方。")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(.vertical, 4)
-            } header: { Text("官方频道与发布说明") }
-            Section {
                 Button { openURL(SupportLinks.afdian) } label: {
                     HStack(spacing: 14) {
                         tile("cup.and.saucer.fill", colors: [Color(red: 0.98, green: 0.6, blue: 0.3), Color(red: 0.95, green: 0.42, blue: 0.24)])
@@ -163,7 +123,6 @@ struct SupportView: View {
             Section {
                 Link(destination: SupportLinks.releases) { Label("GitHub 版本发布页", systemImage: "shippingbox") }
                 Link(destination: SupportLinks.repository) { Label("在 GitHub 上点个 Star", systemImage: "star") }
-                Link(destination: SupportLinks.telegram) { Label("在 Telegram 频道对应版本下反馈 BUG", systemImage: "bubble.left.and.text.bubble.right") }
             } header: { Text("其他支持方式") }
         }
         .toolPage().navigationTitle("支持 iPadn").navigationBarTitleDisplayMode(.inline)

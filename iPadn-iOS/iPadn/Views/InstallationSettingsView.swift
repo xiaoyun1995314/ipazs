@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 
 struct InstallationSettingsView: View {
     // Encode the fragment explicitly because iOS 16 URL parsing requires it.
-    static let helpURL = URL(string: "https://github.com/mengangs/ipadn#%E5%AE%89%E8%A3%85%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%BA%94%E7%94%A8")
+    static let helpURL = URL(string: "https://github.com/xiaoyun1995314/ipazs#%E5%AE%89%E8%A3%85%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%BA%94%E7%94%A8")
 
     @EnvironmentObject private var store: ToolStore
     @Environment(\.openURL) private var openURL

@@ -56,7 +56,7 @@ enum AppNameCatalog {
         configuration.timeoutIntervalForResource = 15
         let session = URLSession(configuration: configuration)
         defer { session.invalidateAndCancel() }
-        let url = URL(string: "https://raw.githubusercontent.com/mengangs/ipadn/main/iPadn-iOS/iPadn/Resources/app-name-directory.json")!
+        let url = URL(string: "https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/iPadn-iOS/iPadn/Resources/app-name-directory.json")!
         let (data, response) = try await session.data(from: url)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw ToolError.message(AppText.text("名称目录暂时无法更新")) }
         return try decode(data)

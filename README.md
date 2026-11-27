@@ -7,13 +7,12 @@
 **在 iPhone 和 iPad 上搜索、下载、安装你拥有的 App。**
 支持 iPhone、iPad、Apple TV 与 Mac 应用，包括历史版本与已下架应用。
 
-✨ **v2.3.5 修复 iOS 16/27 闪退与 iPadOS 导航 · TestFlight 支持 Apple TV 多平台与校验修复 · 自定义 177 商店地区 · FairPlay/登录/批量导入修复** · 📢 **反馈与新版优先前往 [官方 Telegram 频道](https://t.me/ipadn_official)**
+✨ **v2.3.5 修复 iOS 16/27 闪退与 iPadOS 导航 · TestFlight 支持 Apple TV 多平台与校验修复 · 自定义 177 商店地区 · FairPlay/登录/批量导入修复** · 📢 **反馈与问题请在 GitHub Issues 提交**
 
-[![最新版本](https://img.shields.io/github/v/release/mengangs/ipadn?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC&logo=github&logoColor=white&labelColor=2E3136&color=3A6EA5)](https://github.com/mengangs/ipadn/releases/latest)
-[![Telegram 频道](https://img.shields.io/badge/Telegram-%40ipadn__official-2C82A9?logo=telegram&logoColor=white&labelColor=2E3136)](https://t.me/ipadn_official)
-[![下载量](https://img.shields.io/github/downloads/mengangs/ipadn/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&logo=icloud&logoColor=white&labelColor=2E3136&color=2D8A68)](https://github.com/mengangs/ipadn/releases)
+[![最新版本](https://img.shields.io/github/v/release/xiaoyun1995314/ipazs?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC&logo=github&logoColor=white&labelColor=2E3136&color=3A6EA5)](https://github.com/xiaoyun1995314/ipazs/releases/latest)
+[![下载量](https://img.shields.io/github/downloads/xiaoyun1995314/ipazs/total?label=%E4%B8%8B%E8%BD%BD%E9%87%8F&logo=icloud&logoColor=white&labelColor=2E3136&color=2D8A68)](https://github.com/xiaoyun1995314/ipazs/releases)
 ![系统要求](https://img.shields.io/badge/iOS%20%2F%20iPadOS-16%2B-525D73?logo=apple&logoColor=white&labelColor=2E3136)
-[![许可证](https://img.shields.io/github/license/mengangs/ipadn?label=%E8%AE%B8%E5%8F%AF%E8%AF%81&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
+[![许可证](https://img.shields.io/github/license/xiaoyun1995314/ipazs?label=%E8%AE%B8%E5%8F%AF%E8%AF%81&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAzYTEgMSAwIDAgMC0xIDF2MUg1LjVhMSAxIDAgMSAwIDAgMmguMzhsLTIuNiA1LjJBMy41IDMuNSAwIDAgMCA2LjUgMTZhMy41IDMuNSAwIDAgMCAzLjIyLTMuOEw3LjEyIDdIMTF2MTJIN2ExIDEgMCAxIDAgMCAyaDEwYTEgMSAwIDEgMCAwLTJoLTRWN2gzLjg4bC0yLjYgNS4yQTMuNSAzLjUgMCAwIDAgMTcuNSAxNmEzLjUgMy41IDAgMCAwIDMuMjItMy44TDE4LjEyIDdoLjM4YTEgMSAwIDEgMCAwLTJIMTNWNGExIDEgMCAwIDAtMS0xeiIvPjwvc3ZnPg%3D%3D&labelColor=2E3136&color=525D73)](LICENSE)
 
 <p>
   <a href="#支持-ipadn"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81%20ipazs-%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%20%C2%B7%20%E8%AF%B7%E4%BD%9C%E8%80%85%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-B0436E?style=for-the-badge&logo=githubsponsors&logoColor=white&labelColor=2E3136" alt="支持 ipazs"></a>
@@ -22,12 +21,12 @@
 
 **简体中文** · [English](README_EN.md)
 
-[下载](https://github.com/mengangs/ipadn/releases/latest) · [Telegram 官方频道](https://t.me/ipadn_official) · ❤️ [**支持 ipazs**](#支持-ipadn) · [TestFlight 说明](#testflight-实验性新功能) · [安装下载的应用](#安装下载的应用) · [常见问题](#常见问题)
+[下载](https://github.com/xiaoyun1995314/ipazs/releases/latest) · ❤️ [**支持 ipazs**](#支持-ipadn) · [TestFlight 说明](#testflight-实验性新功能) · [安装下载的应用](#安装下载的应用) · [常见问题](#常见问题)
 
 </div>
 
 > [!IMPORTANT]
-> **加入官方频道 & Issues 归档说明**：为了将有限的维护精力集中在核心开发与更及时的交互支持上，**新版本（标准版、精简版及源码包）现优先发布在 [官方 Telegram 频道 (`@ipadn_official`)](https://t.me/ipadn_official)**（GitHub 同步略慢一步）。同时 **GitHub Issues 已停止受理新提问**（历史 Issues 保留只读归档以供检索），所有使用交流、TestFlight 排障与 BUG 反馈请直接前往频道**对应版本贴文评论区**提交。
+> **反馈说明**：新版本发布在 GitHub Releases。使用交流、TestFlight 排障与 BUG 反馈请在 GitHub Issues 提交。
 
 <p align="center">
   <img src="docs/images/zh/01-search.jpg" width="24%" alt="搜索应用">
@@ -87,11 +86,11 @@
 - **🆕 TestFlight 主页、下载与原生安装（实验性新功能）**：在「账号 › TestFlight」从零构建原生 Store 风格页面，按「测试中 / 平台不兼容 / 以往测试」分类浏览、搜索并多账号切换；支持实时速度与 ETA 进度条下载、SINF 注入与 `InstallCoordinator` 统一安装（原生安装可免解密免重签直装运行），并接入专业模式「应用包」与 `FairPlayCore` 解密定位；内置 `TFNet` 网络三模式、代理失败自动直连旁路、DoH/Fake-IP 预检及严格脱敏的轮转诊断日志。
 - **⬆️ 应用内更新弹窗升级（`AppUpdateView`）**：当发现 ipazs 新版本时，直接在应用内提示并支持一键切换 **标准版 / 精简版**、核对体积与更新说明后下载。
 - **🌏 本地化名称与界面打磨**：TestFlight、商店列表、「下载」及专业模式「应用包」列表全面支持中文等本地化应用名称显示；补充包体详情元数据与一键复制 `Bundle ID`，优化滚动性能与视觉质感。
-- **📢 接入官方 Telegram 频道（11 种语言同步）**：在「账号 › 设置 › 支持 ipazs」下方及支持详情页加入 [官方 Telegram 频道](https://t.me/ipadn_official) 入口；继续保持免费开源，新版优先于频道发布，GitHub Issues 停止受理并保留历史只读归档。
+- **反馈渠道**：使用问题与 BUG 反馈请在 GitHub Issues 提交。
 - ⚠️ **实验性与免责提醒**：TestFlight 为全新开发功能，受 Apple 服务端策略、测试资格与网络规则影响，存在一定不稳定性；仅建议管理个人合法授权的测试应用，建议先用备用账号体验，详见下方 [TestFlight 实验性新功能](#testflight-实验性新功能) 说明。
 - 继续提供标准版和精简版，支持 iOS / iPadOS 16 及更新版本。
 
-> 更早版本的更新记录请查看 [GitHub Releases](https://github.com/mengangs/ipadn/releases) 与 [更新说明](RELEASE_NOTES.md)。
+> 更早版本的更新记录请查看 [GitHub Releases](https://github.com/xiaoyun1995314/ipazs/releases) 与 [更新说明](RELEASE_NOTES.md)。
 
 ## 能做什么
 
@@ -122,13 +121,13 @@
 
 界面参考 App Store 设计，外观默认跟随系统、图标默认深色（都可在设置中更改），支持动态字体和 iPad 侧栏，还可以在设置中更换应用图标。
 
-**界面语言**：简体中文、繁體中文、English、日本語、한국어、Русский、Español、Français、Deutsch、Português (Brasil)、العربية，阿拉伯语使用从右到左的排版。ipazs 跟随系统语言，也可以在「设置 › ipazs › 语言」中单独设置。英文由社区贡献者完善，其他语言为机器辅助翻译，欢迎在 [官方 Telegram 频道](https://t.me/ipadn_official) 或 Pull Request 中纠错。
+**界面语言**：简体中文、繁體中文、English、日本語、한국어、Русский、Español、Français、Deutsch、Português (Brasil)、العربية，阿拉伯语使用从右到左的排版。ipazs 跟随系统语言，也可以在「设置 › ipazs › 语言」中单独设置。英文由社区贡献者完善，其他语言为机器辅助翻译，欢迎在 GitHub Issues 或 Pull Request 中纠错。
 
 ## 开始使用
 
 > 需要 **iOS / iPadOS 16** 或更新版本。
 
-1. 在 [Releases](https://github.com/mengangs/ipadn/releases/latest) 下载最新的 `ipazs-版本号-unsigned.ipa`。签名工具或免费账号的 App ID 数量有限时，可以改用精简版 `ipazs-版本号-lite-unsigned.ipa`：只需 1 个 App ID，但没有灵动岛进度和小组件。
+1. 在 [Releases](https://github.com/xiaoyun1995314/ipazs/releases/latest) 下载最新的 `ipazs-版本号-unsigned.ipa`。签名工具或免费账号的 App ID 数量有限时，可以改用精简版 `ipazs-版本号-lite-unsigned.ipa`：只需 1 个 App ID，但没有灵动岛进度和小组件。
 2. 用你常用的签名工具签名后安装到设备上。
 3. 打开 ipazs，在「账号」中登录 Apple 账号。需要双重认证时，输入受信任设备上显示的 6 位验证码。
 
@@ -139,7 +138,7 @@
 SideStore、AltStore、Feather 等支持 AltStore 源的签名工具，可以添加下面的地址。添加后在工具里就能安装 ipazs，有新版本时也能直接在工具里更新，不用再手动下载安装包。
 
 ```
-https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
+https://raw.githubusercontent.com/xiaoyun1995314/ipazs/main/altstore-source.json
 ```
 
 源文件在每次发布后自动更新，只列出本仓库 Releases 中的安装包。
@@ -220,7 +219,7 @@ https://raw.githubusercontent.com/mengangs/ipadn/main/altstore-source.json
 1. 打开 **账号 › TestFlight**，登录或通过右上角头像切换你已加入 TestFlight 测试的 Apple 账号（TestFlight 与主站 iOS 解密会话按 DSID 各自独立持久化，不串号，因此首次进入 TF 可能需要单独完成一次认证）。
 2. 列表自动归类为三栏：**测试中**（活跃可下载构建，若应用同时提供 iOS 与 Apple TV 等平台测试包，可在详情页切换平台直接下载）、**平台不兼容**（如仅限 Mac / visionOS / 仅限 iPad 的测试版）与 **以往测试**（已过期或已移除的旧列表，只读展示）。
 3. 点按下载可实时查看下载速度与剩余时间；带有注入 SINF 的加密包体通过 **原生安装**（需完成本机配对并开启 LocalDevVPN）可直接安装运行，**无需解密或重签**。你也可以将其导出/分享，或在开启「专业模式」后于 **应用包** 页进行本地查看与 `FairPlayCore` 解密。
-4. 若遇到无法加载目录、卡在加载或 401/网络异常，点开 TF 页内的 **网络与诊断**：可在 **跟随系统 / 强制直连 / 强制代理** 间切换，查看 DNS 路径与 Fake-IP 预检，并一键复制严格脱敏的诊断日志到 [官方 Telegram 频道](https://t.me/ipadn_official) 对应版本贴文下反馈。
+4. 若遇到无法加载目录、卡在加载或 401/网络异常，点开 TF 页内的 **网络与诊断**：可在 **跟随系统 / 强制直连 / 强制代理** 间切换，查看 DNS 路径与 Fake-IP 预检，并一键复制严格脱敏的诊断日志到 GitHub Issues 反馈。
 
 ## 专业模式
 
@@ -345,7 +344,7 @@ Apple 只允许下载你的账号拥有许可的应用。版本也可能已经�
 <details>
 <summary><b>为什么 TestFlight 要重新登录，或者遇到 401 / 加载失败怎么办？</b></summary>
 
-为了防串号与安全隔离，TestFlight 会话（Mac/akd 作用域）与主站解密会话（iOS 作用域）按账号 DSID 分开持久化保存，因此首次使用或会话过期时可能需要单独认证一次（建议先用备用/测试号体验）。若遇到卡在加载、401 或代理不通，可在 TF 页面内点开「网络与诊断」，切换 **跟随系统 / 强制直连 / 强制代理**，查看 DoH 与 Fake-IP 预检，并复制脱敏日志到 [官方 Telegram 频道](https://t.me/ipadn_official) 反馈。
+为了防串号与安全隔离，TestFlight 会话（Mac/akd 作用域）与主站解密会话（iOS 作用域）按账号 DSID 分开持久化保存，因此首次使用或会话过期时可能需要单独认证一次（建议先用备用/测试号体验）。若遇到卡在加载、401 或代理不通，可在 TF 页面内点开「网络与诊断」，切换 **跟随系统 / 强制直连 / 强制代理**，查看 DoH 与 Fake-IP 预检，并复制脱敏日志到 GitHub Issues 反馈。
 </details>
 
 <details>
@@ -381,23 +380,22 @@ ipazs **免费、开源、没有广告**。<br>
 
 </div>
 
-## 官方频道与反馈说明
+## 反馈说明
 
-- **官方 Telegram 频道**：👉 [**https://t.me/ipadn_official**](https://t.me/ipadn_official)
-- **开源与发布节奏**：ipazs 继续保持**免费开源**，GitHub 仍会同步更新与发布源码；新版本安装包与源码归档会优先发布在官方 Telegram 频道（GitHub 同步略慢一步）。
-- **为什么关闭 GitHub Issues（仅保留历史归档）**：由于作者个人维护精力有限，分散在 GitHub Issues 与社区之间回复容易遗漏，也较难实时核对网络/配对/账号上下文。因此 **GitHub Issues 已停止受理新提交，原有历史 Issues（#1–#106）完整保留为只读归档以便检索参考**；所有新版本交流、TestFlight 问题排查与 BUG 反馈请前往官方 Telegram 频道**对应版本贴文评论区**提交（反馈时建议附上设备型号、系统版本、复现步骤，以及「账号 › 设置 › 备份与维护 › 导出诊断信息」生成的文件——内含严格脱敏处理，不含密码与凭据）。
-- **参与翻译与自编译**：界面文字位于 [`Localizable.xcstrings`](ipazs-iOS/ipazs/Resources/Localizable.xcstrings)，欢迎提交 Pull Request 改进翻译；自行编译步骤见 [BUILDING.md](ipazs-iOS/BUILDING.md)。
+- **开源与发布节奏**：ipazs 继续保持**免费开源**，GitHub 同步更新与发布源码。
+- **反馈渠道**：使用问题、TestFlight 排障与 BUG 反馈请在 GitHub Issues 提交（建议附上设备型号、系统版本、复现步骤，以及「账号 › 设置 › 备份与维护 › 导出诊断信息」生成的文件——内含严格脱敏处理，不含密码与凭据）。
+- **参与翻译与自编译**：界面文字位于 [`Localizable.xcstrings`](iPadn-iOS/iPadn/Resources/Localizable.xcstrings)，欢迎提交 Pull Request 改进翻译；自行编译步骤见 [BUILDING.md](iPadn-iOS/BUILDING.md)。
 
 ## 致谢
 
-- [kylefmohr](https://github.com/kylefmohr) 贡献了英文翻译（[#35](https://github.com/mengangs/ipadn/pull/35)）。
-- 感谢所有提交问题和建议的用户，以及 ipazs 使用的开源项目，详见[第三方组件与许可](ipazs-iOS/THIRD_PARTY_NOTICES.md)。
+- [kylefmohr](https://github.com/kylefmohr) 贡献了英文翻译（[#35](https://github.com/xiaoyun1995314/ipazs/pull/35)）。
+- 感谢所有提交问题和建议的用户，以及 ipazs 使用的开源项目，详见[第三方组件与许可](iPadn-iOS/THIRD_PARTY_NOTICES.md)。
 
 ## 更多
 
 - [更新内容](RELEASE_NOTES.md)
-- [自行编译](ipazs-iOS/BUILDING.md)
-- [第三方组件与许可](ipazs-iOS/THIRD_PARTY_NOTICES.md)
+- [自行编译](iPadn-iOS/BUILDING.md)
+- [第三方组件与许可](iPadn-iOS/THIRD_PARTY_NOTICES.md)
 
 ## 许可证
 
