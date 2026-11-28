@@ -50,6 +50,8 @@ jobs:
         run: |
           set -o pipefail
           bash scripts/build_unsigned_ipa.sh 2>&1 | tee build/build.log
+          echo "===== LAST 100 LINES OF LOG ====="
+          tail -n 100 build/build.log
 
       - name: Upload IPA Artifact
         id: ipa
