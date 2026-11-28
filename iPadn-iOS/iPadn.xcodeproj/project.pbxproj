@@ -501,6 +501,12 @@
 			path = "Services/PackageKindInspector.swift";
 			sourceTree = "<group>";
 		};
+		A72000100000000000000B1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = "Services/SigningGateway.swift";
+			sourceTree = "<group>";
+		};
 		9C7165EF870A84BE8C05FD9F = {
 			isa = PBXBuildFile;
 			fileRef = 3883336C6654D547EEC00DB6;
@@ -508,6 +514,10 @@
 		A710000100000000000000A1 = {
 			isa = PBXBuildFile;
 			fileRef = A710000200000000000000A2;
+		};
+		A72000110000000000000B2 = {
+			isa = PBXBuildFile;
+			fileRef = A72000100000000000000B1;
 		};
 		DE2B00F9D1374F49D8D7B778 = {
 			isa = PBXFileReference;
@@ -1776,14 +1786,27 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = TestFlightKit;
 		};
+		A720000100000000000000A1 = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Zsign;
+		};
 		A1966647F322B78313D4AA7A = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE4AA7BC2A1B9AFE2FC641F1;
 			productName = TestFlightKit;
 		};
+		A720000200000000000000A2 = {
+			isa = XCSwiftPackageProductDependency;
+			package = A720000100000000000000A1;
+			productName = ZsignSwift;
+		};
 		FBB0AAA487F509339967ECCE = {
 			isa = PBXBuildFile;
 			productRef = A1966647F322B78313D4AA7A;
+		};
+		A720000300000000000000A3 = {
+			isa = PBXBuildFile;
+			productRef = A72000020000000000000A2;
 		};
 		A5660BF89DD2D657048780AB = {
 			isa = PBXGroup;
@@ -1837,6 +1860,7 @@
 				6FD3FF480779FC13F78B2062,
 				3883336C6654D547EEC00DB6,
 				A710000200000000000000A2,
+				A72000100000000000000B1,
 				DE2B00F9D1374F49D8D7B778,
 				BD7B9C3FE2E498A370E73F90,
 				7A217757AC93BE1C1F3A2658,
@@ -2048,6 +2072,7 @@
 				5FDDCE29B86AB47F87041EDD,
 				9C7165EF870A84BE8C05FD9F,
 				A710000100000000000000A1,
+				A72000110000000000000B2,
 				947A4B9739DE11F25F172D4C,
 				4224CFC96649DC5892361532,
 				26DD24F92003FD87260C4945,
@@ -2163,6 +2188,7 @@
 			files = (
 				0E2952C57168E56459E1915B,
 				FBB0AAA487F509339967ECCE,
+				A720000300000000000000A3,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2492,6 +2518,7 @@
 			packageProductDependencies = (
 				0507EAB0D89D8F0B76FF0550,
 				A1966647F322B78313D4AA7A,
+				A720000200000000000000A2,
 			);
 			productName = iPadn;
 			productReference = DEF93E8F8AC229A0D98BBEFA;
@@ -2908,6 +2935,7 @@
 			packageReferences = (
 				9BC77B6C9BFAFB5749CF4757,
 				EE4AA7BC2A1B9AFE2FC641F1,
+				A720000100000000000000A1,
 			);
 		};
 	};
