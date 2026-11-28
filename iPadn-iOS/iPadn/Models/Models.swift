@@ -244,6 +244,8 @@ struct DownloadJob: Codable, Identifiable {
     var appleTVArtwork: Bool?
     // Non-IPA downloads are saved as raw Mac files, never processed as an IPA.
     var rawFormat: String?
+    /// 下载完成后嗅探出的文件种类（应用 / dylib插件 / deb插件 / 压缩包）。
+    var packageKind: String?
     // Mac App Store package that must be processed by StoreAgent on device;
     // its dpInfo lives in MacPackageSecrets until processing succeeds.
     var protectedMacPackage: Bool?

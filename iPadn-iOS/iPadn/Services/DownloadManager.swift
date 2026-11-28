@@ -1416,6 +1416,10 @@ final class DownloadManager: NSObject, ObservableObject {
                 self.jobs[index].status = .completed
                 self.jobs[index].downloaded = result.1.size; self.jobs[index].expected = result.1.size
                 self.jobs[index].error = nil
+                // 下载完成后嗅探文件种类（应用 / dylib插件 / deb插件 / 压缩包），供应用包页分组。
+                if let onDisk = LocalResources.packageURL(result.0) {
+                    self.jobs[index].packageKind = PackageKindInspector.inspect(url: onDisk).rawValue
+                }
                 try? FileManager.default.removeItem(at: LocalResources.stagingURL(id))
                 try? FileManager.default.removeItem(at: LocalResources.resumeURL(id))
                 if job.protectedMacPackage == true { MacPackageSecrets.delete(id) }

@@ -77,9 +77,35 @@ struct PackagesView: View {
         manager.jobs.filter { $0.rawFormat == nil && $0.status == .completed && manager.fileURL($0) != nil }
     }
 
+    /// 当前任务嗅探出的文件种类；未识别时按应用处理。
+    private func kind(of job: DownloadJob) -> PackageKind {
+        PackageKind(rawValue: job.packageKind ?? "") ?? .app
+    }
+
+    /// 插件（dylib / deb），归入插件库分组。
+    private var pluginJobs: [DownloadJob] {
+        allOriginals.filter { kind(of: $0).isPlugin }
+    }
+
+    /// 应用（IPA）与未明确归类的包，走原有原始 IPA 流程。
+    private var appJobs: [DownloadJob] {
+        allOriginals.filter { !kind(of: $0).isPlugin }
+    }
+
     private var originals: [DownloadJob] {
-        allOriginals.filter {
+        appJobs.filter {
             matches([$0.app.name, $0.app.version, $0.app.bundleID, $0.localFilename ?? ""])
+        }.sorted {
+            sort == 1 ? $0.app.name.localizedStandardCompare($1.app.name) == .orderedAscending
+                : sort == 2 ? $0.app.size > $1.app.size
+                : $0.createdAt > $1.createdAt
+        }
+    }
+
+    /// 插件库列表（按搜索词过滤、同排序）。
+    private var filteredPlugins: [DownloadJob] {
+        pluginJobs.filter {
+            matches([$0.app.name, $0.app.version, $0.app.bundleID, $0.localFilename ?? "", kind(of: $0).label])
         }.sorted {
             sort == 1 ? $0.app.name.localizedStandardCompare($1.app.name) == .orderedAscending
                 : sort == 2 ? $0.app.size > $1.app.size
@@ -541,7 +567,7 @@ struct PackagesView: View {
             }
             return entries
         }()
-        if unifiedOriginals.isEmpty && currentStandalone.isEmpty {
+        if unifiedOriginals.isEmpty && currentStandalone.isEmpty && filteredPlugins.isEmpty {
             Section {
                 if term.isEmpty {
                     EmptyState(
@@ -587,6 +613,17 @@ struct PackagesView: View {
                     if !unifiedOriginals.isEmpty { Text("本地文件") }
                 } footer: {
                     Text("原始 IPA 是处理来源，可能已加密，也可能本来就未加密。")
+                }
+            }
+            if !filteredPlugins.isEmpty {
+                Section {
+                    ForEach(filteredPlugins, id: \.id) { job in
+                        pluginRow(job)
+                    }
+                } header: {
+                    Label("插件库", systemImage: "puzzlepiece.extension")
+                } footer: {
+                    Text("动态库 / Deb 插件保存在此，后续签名时可勾选注入到应用。")
                 }
             }
         }
@@ -766,6 +803,49 @@ struct PackagesView: View {
                             .disabled(ui.protects(job.id))
                     }
             }
+        }
+    }
+
+    /// 插件库行：dylib / deb 插件，只做查看、分享、删除，不走解密。
+    @ViewBuilder
+    private func pluginRow(_ job: DownloadJob) -> some View {
+        let kind = kind(of: job)
+        if let url = manager.fileURL(job) {
+            let sizeText = job.app.size > 0 ? job.app.size.byteLabel : ""
+            let metadata = [kind.label, job.conciseVersionLabel, sizeText]
+                .filter { !$0.isEmpty }.joined(separator: " · ")
+            let rowName = PackageStage.displayName(job.app.name)
+            let ext = kind == .deb ? "deb" : "dylib"
+            let row = PackageLibraryRow(
+                name: rowName,
+                icon: manager.packageIconURL(job) ?? job.app.iconURL,
+                metadata: metadata,
+                status: kind.label,
+                symbol: kind == .dylib ? "puzzlepiece" : "doc.zipper",
+                color: .purple
+            )
+            packageNavRow(route: .source(job.id)) { row }
+                .revealActions(
+                    id: "pkg.plugin." + job.id.uuidString,
+                    enabled: !ui.protects(job.id) && !swipingDeleteJobs.contains(job.id),
+                    restored: manager.recentlyRestoredIDs.contains(job.id),
+                    [
+                        .delete(fills: true) { swipeDeleteOriginalJob(job) },
+                        RevealAction(title: "分享", systemImage: "square.and.arrow.up", tint: .blue, role: nil) {
+                            exportFile(url, suggestedName: rowName + ".\(ext)", kind: .share)
+                        }
+                    ]
+                )
+                .contextMenu {
+                    Button("保存插件", systemImage: "folder") {
+                        exportFile(url, suggestedName: rowName + ".\(ext)", kind: .save)
+                    }
+                    Button("分享插件", systemImage: "square.and.arrow.up") {
+                        exportFile(url, suggestedName: rowName + ".\(ext)", kind: .share)
+                    }
+                    Button("删除插件", systemImage: "trash", role: .destructive) { requestDeleteOriginalJob(job) }
+                        .disabled(ui.protects(job.id))
+                }
         }
     }
 
@@ -1265,7 +1345,7 @@ struct PackagesView: View {
         #if canImport(TestFlightKit)
         tfProducts.refresh()
         #endif
-        for job in allOriginals {
+        for job in appJobs {
             if let url = manager.fileURL(job) { await ui.detect(url) }
         }
         #if canImport(TestFlightKit)
