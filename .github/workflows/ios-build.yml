@@ -1,86 +1,80 @@
 name: Build ipazs
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       publish_release:
-        description: 打包完成后自动发布 Release
-        required: true
+        description: 打包后自动发布 Release
         default: false
         type: boolean
 
-permissions:
-  contents: read
-concurrency:
-  group: ios-build-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
-    runs-on: macos-latest
-    timeout-minutes: 60
+    runs-on: macos‑15
+    timeout‑minutes: 60
     defaults:
       run:
-        working-directory: iPadn-iOS
+        working‑directory: iPadn‑iOS
         shell: bash
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Select Xcode
+        run: |
+          sudo xcode‑select -s /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup‑go@v5
         with:
-          go-version: '1.23'
+          go‑version: "1.23"
           cache: false
 
       - name: Setup Rust
         run: |
-          rustup toolchain install stable --profile minimal
-          rustup default stable
-          rustup target add aarch64-apple-ios
-
-      - name: Select Xcode
-        run: |
-          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-          xcodebuild -version
-          mkdir -p build
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          source "$HOME/.cargo/env"
+          rustup target add aarch64‑apple‑ios
 
       - name: Build unsigned IPA
         run: |
           set -o pipefail
           bash scripts/build_unsigned_ipa.sh 2>&1 | tee build/build.log
-          echo "===== LAST 100 LINES OF LOG ====="
-          tail -n 100 build/build.log
+          echo "==================== 编译错误尾部日志 ===================="
+          tail -n 200 build/build.log
+        env:
+          CODE_SIGNING_ALLOWED: "NO"
+          CODE_SIGN_IDENTITY: ""
 
       - name: Upload IPA Artifact
         id: ipa
-        uses: actions/upload-artifact@v4
+        uses: actions/upload‑artifact@v4
         with:
-          name: ipazs-unsigned-ipa
-          path: |
-            iPadn-iOS/build/*.ipa
-          if-no-files-found: error
-          retention-days: 14
+          name: ipazs‑unsigned
+          path: iPadn‑iOS/build/*.ipa
+          retention‑days: 14
 
-  publish-release:
+  publish‑release:
     needs: build
-    if: github.event_name == 'workflow_dispatch' && inputs.publish_release
-    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.publish_release == 'true' && github.event_name == 'workflow_dispatch' }}
+    runs‑on: ubuntu‑latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - name: Download build artifact
+        uses: actions/download‑artifact@v4
         with:
-          name: ipazs-unsigned-ipa
+          name: ipazs‑unsigned
           path: release
-
-      - name: Publish Release
+      - name: GitHub Release
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd release
-          gh release create "v$(date +%y%m%d%H%M)" *.ipa \
-            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-            --title "ipazs 构建包" --notes "自动打包，未签名 IPA"
+          gh release create "v$(date +%Y%m%d%H%M)" *.ipa \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "ipazs 未签名构建包" \
+            --notes "Actions自动构建，下载后自行签名使用。"
