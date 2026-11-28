@@ -40,7 +40,7 @@ enum PackageKindInspector {
         let header = readHeader(url, count: 16)
 
         // deb: ar 归档魔数 "!<arch>\n" (0x213C617263683E0A)。
-        if header.hasPrefix("!<arch>") { return .deb }
+        if header.starts(with: Data("!<arch>".utf8)) { return .deb }
 
         // Mach-O：thin/fat magic。
         if let magic = magicLE(header) {
@@ -53,7 +53,7 @@ enum PackageKindInspector {
         }
 
         // ZIP / IPA：魔数 PK\x03\x04（或空包 PK\x05\x06）。
-        if header.hasPrefix("PK") {
+        if header.starts(with: Data("PK".utf8)) {
             if zipContainsPayload(url) { return .app }
             // zip 内若打包了 deb / dylib / framework / 越狱插件目录，归为插件。
             if let kind = zipPluginKind(url) { return kind }
