@@ -1404,10 +1404,11 @@ final class DownloadManager: NSObject, ObservableObject {
                     }
                     // 插件直链（zip 插件包 / deb / dylib）：不是 IPA，跳过 IPA 校验，
                     // 直接落包并标记为插件，供应用包页「插件库」分组使用。
+                    // staging 临时名无扩展名，必须按原始下载 URL 的后缀判定。
                     let staging = LocalResources.stagingURL(id)
-                    let ext = staging.pathExtension.lowercased()
-                    if ["zip", "deb", "dylib"].contains(ext) {
-                        return try Self.finishPluginFile(staging: staging, id: id, job: job, ext: ext)
+                    let sourceExt = job.sourceURL?.pathExtension.lowercased() ?? staging.pathExtension.lowercased()
+                    if ["zip", "deb", "dylib"].contains(sourceExt) {
+                        return try Self.finishPluginFile(staging: staging, id: id, job: job, ext: sourceExt)
                     }
                     let result = try PackageService.finish(staging: LocalResources.stagingURL(id), id: id, asset: job.asset)
                     _ = try? PackageIconService.save(from: LocalResources.packages.appendingPathComponent(result.0), id: id)
