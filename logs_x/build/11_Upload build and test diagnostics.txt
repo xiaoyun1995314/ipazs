@@ -1,0 +1,31 @@
+﻿2026-11-28T00:31:30.4553190Z ##[group]Run actions/upload-artifact@v4
+2026-11-28T00:31:30.4554150Z with:
+2026-11-28T00:31:30.4554560Z   name: iPadn-build-diagnostics
+2026-11-28T00:31:30.4556080Z   path: iPadn-iOS/build/*.log
+iPadn-iOS/build/test-summary.json
+iPadn-iOS/build/ipa-verification.json
+iPadn-iOS/build/TestResults.xcresult
+iPadn-iOS/build/verification.json
+
+2026-11-28T00:31:30.4556920Z   if-no-files-found: warn
+2026-11-28T00:31:30.4557140Z   retention-days: 14
+2026-11-28T00:31:30.4557300Z   compression-level: 6
+2026-11-28T00:31:30.4557460Z   overwrite: false
+2026-11-28T00:31:30.4557650Z   include-hidden-files: false
+2026-11-28T00:31:30.4557830Z env:
+2026-11-28T00:31:30.4557960Z   GOTOOLCHAIN: local
+2026-11-28T00:31:30.4558110Z ##[endgroup]
+2026-11-28T00:31:31.1627060Z (node:14929) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-28T00:31:31.1628810Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-28T00:31:31.1743410Z With the provided path, there will be 2 files uploaded
+2026-11-28T00:31:31.1744740Z Artifact name is valid!
+2026-11-28T00:31:31.1745350Z Root directory input is valid!
+2026-11-28T00:31:31.5406780Z (node:14929) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-28T00:31:31.5612100Z Beginning upload of artifact content to blob storage
+2026-11-28T00:31:31.5950240Z Uploaded bytes 57507
+2026-11-28T00:31:31.6051470Z Finished uploading artifact content to blob storage!
+2026-11-28T00:31:31.6153710Z SHA256 digest of uploaded artifact zip is 83d6cd67c75facdc0bc9fe16604835e16c072da3cce6ae6b86c8f99bdd368281
+2026-11-28T00:31:31.6255840Z Finalizing artifact upload
+2026-11-28T00:31:31.9260810Z Artifact iPadn-build-diagnostics.zip successfully finalized. Artifact ID 15240326620
+2026-11-28T00:31:31.9268350Z Artifact iPadn-build-diagnostics has been successfully uploaded! Final size is 57507 bytes. Artifact ID is 15240326620
+2026-11-28T00:31:31.9451490Z Artifact download URL: https://github.com/xiaoyun1995314/ipazs/actions/runs/46087891921/artifacts/15240326620

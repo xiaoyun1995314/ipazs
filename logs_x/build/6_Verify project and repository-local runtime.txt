@@ -1,0 +1,51 @@
+﻿2026-11-28T00:27:12.0828370Z ##[group]Run python3 scripts/assemble_runtime.py
+2026-11-28T00:27:12.0828910Z [36;1mpython3 scripts/assemble_runtime.py[0m
+2026-11-28T00:27:12.0829240Z [36;1mpython3 scripts/verify_project.py[0m
+2026-11-28T00:27:12.0829740Z [36;1mpython3 -I scripts/compile_reveal_animations.py --check[0m
+2026-11-28T00:27:12.0830170Z [36;1mnode scripts/runtime_smoke_test.cjs[0m
+2026-11-28T00:27:12.0830680Z [36;1mpython3 ../tools/run_record_store_checks.py[0m
+2026-11-28T00:27:12.0831570Z [36;1mswiftc iPadn/Views/DiagnosticRedactor.swift iPadn/Views/PackageOutputPolicy.swift ../tools/tests/fairplay_redaction_checks.swift -o build/fp_redact_check[0m
+2026-11-28T00:27:12.0832420Z [36;1m./build/fp_redact_check[0m
+2026-11-28T00:27:12.0872130Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-28T00:27:12.0872540Z env:
+2026-11-28T00:27:12.0872850Z   GOTOOLCHAIN: local
+2026-11-28T00:27:12.0873090Z ##[endgroup]
+2026-11-28T00:27:12.4301010Z Verified 9 local runtime resources; no upstream download required
+2026-11-28T00:27:13.6435150Z {
+2026-11-28T00:27:13.6473320Z   "passed": true,
+2026-11-28T00:27:13.6480190Z   "app_swift_files": 113,
+2026-11-28T00:27:13.6481020Z   "project_objects": 410,
+2026-11-28T00:27:13.6481570Z   "checks": [
+2026-11-28T00:27:13.6482100Z     "OpenStep project graph",
+2026-11-28T00:27:13.6482840Z     "referenced files",
+2026-11-28T00:27:13.6483720Z     "FairPlayCore target & modulemap",
+2026-11-28T00:27:13.6484400Z     "plist parsing",
+2026-11-28T00:27:13.6485730Z     "icon filenames and opaque square dimensions",
+2026-11-28T00:27:13.6486640Z     "shared scheme targets",
+2026-11-28T00:27:13.6487600Z     "three-part semver & build number alignment",
+2026-11-28T00:27:13.6488470Z     "Swift lexical delimiters",
+2026-11-28T00:27:13.6489420Z     "bundled runtime hashes & licenses",
+2026-11-28T00:27:13.6490860Z     "string catalogs (zh-Hans, en, zh-Hant, ja, ko, ru, es, fr, de, pt-BR, ar; placeholders)"
+2026-11-28T00:27:13.6491860Z   ],
+2026-11-28T00:27:13.6492420Z   "not_run": [
+2026-11-28T00:27:13.6493040Z     "Swift compilation/type checking",
+2026-11-28T00:27:13.6493730Z     "XCTest",
+2026-11-28T00:27:13.6494190Z     "iOS Simulator",
+2026-11-28T00:27:13.6494730Z     "real device",
+2026-11-28T00:27:13.6495320Z     "Apple account/server requests",
+2026-11-28T00:27:13.6496130Z     "IPA installation"
+2026-11-28T00:27:13.6496570Z   ],
+2026-11-28T00:27:13.6497000Z   "failures": []
+2026-11-28T00:27:13.6497440Z }
+2026-11-28T00:27:13.7749020Z trash.json: 2 tracks, 26 frames, 0.417s, 55,171 bytes
+2026-11-28T00:27:13.7750140Z share.json: 2 tracks, 40 frames, 0.650s, 21,054 bytes
+2026-11-28T00:27:13.7750950Z tab_search.json: 3 tracks, 31 frames, 0.500s, 18,176 bytes
+2026-11-28T00:27:13.7751920Z tab_downloads.json: 1 tracks, 32 frames, 0.517s, 71,420 bytes
+2026-11-28T00:27:13.7752830Z tab_purchased.json: 2 tracks, 33 frames, 0.533s, 21,579 bytes
+2026-11-28T00:27:13.7753710Z tab_account.json: 1 tracks, 35 frames, 0.567s, 105,425 bytes
+2026-11-28T00:27:21.4713660Z PASS: WASM validation, SAP + Store proof runtime initialization, JIT threshold loop, hook cleanup, and precondition checks
+2026-11-28T00:27:21.4729750Z SAP runtime load: cold 244.4 ms; warm 0.003 ms.
+2026-11-28T00:27:21.4730260Z Store proof load: cold 500.3 ms; warm 53.592 ms (Node offline).
+2026-11-28T00:27:21.4730810Z No Apple login, upstream signing handshake, valid KBSync generation, or WebKit execution was tested.
+2026-11-28T00:27:29.6850610Z PASS: 7 first-save, interruption recovery, retention and file-preservation checks
+2026-11-28T00:27:30.6116750Z PASS: 14 diagnostic privacy checks, 7 output collision/provenance checks, 5 symlink deduplication checks

@@ -1,0 +1,29 @@
+﻿2026-11-28T00:26:56.2532920Z ##[group]Run rustup toolchain install stable --profile minimal
+2026-11-28T00:26:56.2534320Z [36;1mrustup toolchain install stable --profile minimal[0m
+2026-11-28T00:26:56.2534740Z [36;1mrustup default stable[0m
+2026-11-28T00:26:56.2535040Z [36;1mrustup target add aarch64-apple-ios[0m
+2026-11-28T00:26:56.2535400Z [36;1mcargo --version[0m
+2026-11-28T00:26:56.2618710Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-28T00:26:56.2619970Z env:
+2026-11-28T00:26:56.2620640Z   GOTOOLCHAIN: local
+2026-11-28T00:26:56.2621500Z ##[endgroup]
+2026-11-28T00:26:57.1292680Z info: syncing channel updates for stable-aarch64-apple-darwin
+2026-11-28T00:26:57.4678150Z info: latest update on 2026-11-27 for version 1.100.1 (20ddd0171 2026-11-25)
+2026-11-28T00:26:57.4838870Z info: removing previous version of component rustfmt
+2026-11-28T00:26:57.4969310Z info: removing previous version of component clippy
+2026-11-28T00:26:57.5427330Z info: removing previous version of component cargo
+2026-11-28T00:26:57.5937650Z info: removing previous version of component rust-std
+2026-11-28T00:26:57.6084020Z info: removing previous version of component rustc
+2026-11-28T00:26:57.6263870Z info: downloading 5 components
+2026-11-28T00:27:04.7646010Z 
+2026-11-28T00:27:04.8175160Z   stable-aarch64-apple-darwin updated - rustc 1.100.1 (20ddd0171 2026-11-25) (from rustc 1.100.0 (0ef1bc386 2026-11-09))
+2026-11-28T00:27:04.8179450Z info: self-update is disabled for this build of rustup
+2026-11-28T00:27:04.8185770Z info: any updates to rustup will need to be fetched with your system package manager
+2026-11-28T00:27:04.8186610Z 
+2026-11-28T00:27:04.8449130Z info: using existing install for stable-aarch64-apple-darwin
+2026-11-28T00:27:04.8623140Z info: default toolchain set to stable-aarch64-apple-darwin
+2026-11-28T00:27:04.8623520Z 
+2026-11-28T00:27:04.8980630Z   stable-aarch64-apple-darwin unchanged - rustc 1.100.1 (20ddd0171 2026-11-25)
+2026-11-28T00:27:04.8981120Z 
+2026-11-28T00:27:04.9460370Z info: downloading component rust-std
+2026-11-28T00:27:07.5344140Z cargo 1.100.1 (3acc79c0c 2026-11-05)

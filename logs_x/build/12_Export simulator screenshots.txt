@@ -1,0 +1,11 @@
+﻿2026-11-28T00:31:31.9656350Z ##[group]Run if [ -f build/TestResults.xcresult/Info.plist ]; then
+2026-11-28T00:31:31.9657770Z [36;1mif [ -f build/TestResults.xcresult/Info.plist ]; then[0m
+2026-11-28T00:31:31.9659040Z [36;1m  xcrun xcresulttool export attachments --path build/TestResults.xcresult --output-path build/test-attachments[0m
+2026-11-28T00:31:31.9660330Z [36;1melse[0m
+2026-11-28T00:31:31.9661130Z [36;1m  echo "::notice::No complete result bundle to export; raw test logs are in diagnostics."[0m
+2026-11-28T00:31:31.9662110Z [36;1mfi[0m
+2026-11-28T00:31:32.1730090Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-28T00:31:32.1730880Z env:
+2026-11-28T00:31:32.1731410Z   GOTOOLCHAIN: local
+2026-11-28T00:31:32.1731910Z ##[endgroup]
+2026-11-28T00:31:32.2504470Z ##[notice]No complete result bundle to export; raw test logs are in diagnostics.

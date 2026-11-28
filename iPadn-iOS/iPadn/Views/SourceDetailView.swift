@@ -112,7 +112,7 @@ struct SourceDetailView: View {
     private func bannerSection(_ banners: [SourceBannerEntry]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("推荐").font(.headline)
-            ForEach(banners, id: \.text) { item in
+            ForEach(Array(banners.enumerated()), id: \.offset) { _, item in
                 BannerRow(item: item) {
                     openBanner(item)
                 }

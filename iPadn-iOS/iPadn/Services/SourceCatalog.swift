@@ -101,7 +101,7 @@ struct SourceApp: Identifiable, Hashable {
 
 // MARK: - AltStore appstore.json 解析（宽松兼容 SideStore / Feather 等同类格式）
 
-private struct SourceRoot: Decodable {
+struct SourceRoot: Decodable {
     let name: String?
     let identifier: String?
     let iconURL: String?
@@ -119,7 +119,7 @@ private struct SourceRoot: Decodable {
     let popup: SourcePopupEntry?
 }
 
-private struct SourceBannerEntry: Decodable, Hashable {
+struct SourceBannerEntry: Decodable, Hashable {
     let type: String?
     let icon: String?
     let text: String?
@@ -129,19 +129,19 @@ private struct SourceBannerEntry: Decodable, Hashable {
     let copy: Bool?
 }
 
-private struct SourceCategoryEntry: Decodable, Hashable {
+struct SourceCategoryEntry: Decodable, Hashable {
     let name: String?
     let icon: String?
 }
 
-private struct SourcePopupEntry: Decodable, Hashable {
+struct SourcePopupEntry: Decodable, Hashable {
     let on: Bool?
     let title: String?
     let body: String?
     let rightText: String?
 }
 
-private struct SourceAppEntry: Decodable {
+struct SourceAppEntry: Decodable {
     let name: String?
     let bundleIdentifier: String?
     let bundleID: String?
@@ -158,9 +158,7 @@ private struct SourceAppEntry: Decodable {
     let appID: String?
     let versions: [SourceVersionEntry]?
     // MARK: LCSign 私有格式扩展
-    let versionDate: String?
     let versionDescription: String?
-    let screenshots: [String]?
 }
 
 /// 源详情页聚合的元信息：公告、静态 banner、分类。
@@ -170,7 +168,7 @@ struct SourceExtra: Hashable {
     let categories: [String]
 }
 
-private struct SourceVersionEntry: Decodable {
+struct SourceVersionEntry: Decodable {
     let version: String?
     let size: Int64?
     let downloadURL: String?
@@ -178,7 +176,7 @@ private struct SourceVersionEntry: Decodable {
     let date: String?
 }
 
-private struct SourceNewsEntry: Decodable {
+struct SourceNewsEntry: Decodable {
     let title: String?
     let newsID: String?
     let caption: String?

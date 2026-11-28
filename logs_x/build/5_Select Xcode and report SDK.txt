@@ -1,0 +1,50 @@
+﻿2026-11-28T00:27:07.5428580Z ##[group]Run # 27.2 matches the newest simulators on the image (a newer runtime
+2026-11-28T00:27:07.5429220Z [36;1m# 27.2 matches the newest simulators on the image (a newer runtime[0m
+2026-11-28T00:27:07.5429760Z [36;1m# than the SDK makes UI tests hang); its SDK is newer than 27.1.[0m
+2026-11-28T00:27:07.5430210Z [36;1mif [ -d /Applications/Xcode_27.2.app ]; then[0m
+2026-11-28T00:27:07.5430730Z [36;1m  sudo xcode-select -s /Applications/Xcode_27.2.app/Contents/Developer[0m
+2026-11-28T00:27:07.5431190Z [36;1melif [ -d /Applications/Xcode_27.1.app ]; then[0m
+2026-11-28T00:27:07.5431580Z [36;1m  sudo xcode-select -s /Applications/Xcode_27.1.app/Contents/Developer[0m
+2026-11-28T00:27:07.5432130Z [36;1melif [ -d /Applications/Xcode_26.0.1.app ]; then[0m
+2026-11-28T00:27:07.5432560Z [36;1m  sudo xcode-select -s /Applications/Xcode_26.0.1.app/Contents/Developer[0m
+2026-11-28T00:27:07.5433020Z [36;1mfi[0m
+2026-11-28T00:27:07.5433260Z [36;1mxcodebuild -version[0m
+2026-11-28T00:27:07.5433580Z [36;1mxcodebuild -showsdks[0m
+2026-11-28T00:27:07.5433960Z [36;1mmkdir -p build[0m
+2026-11-28T00:27:07.5502000Z shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-28T00:27:07.5502460Z env:
+2026-11-28T00:27:07.5502700Z   GOTOOLCHAIN: local
+2026-11-28T00:27:07.5502970Z ##[endgroup]
+2026-11-28T00:27:11.1381190Z Xcode 27.2
+2026-11-28T00:27:11.1382370Z Build version 27B52
+2026-11-28T00:27:12.0616120Z DriverKit SDKs:
+2026-11-28T00:27:12.0716960Z 	DriverKit 27.2                	-sdk driverkit27.2
+2026-11-28T00:27:12.0752110Z 
+2026-11-28T00:27:12.0752630Z iOS SDKs:
+2026-11-28T00:27:12.0754770Z 	iOS 27.2                      	-sdk iphoneos27.2
+2026-11-28T00:27:12.0755340Z 
+2026-11-28T00:27:12.0755680Z iOS Simulator SDKs:
+2026-11-28T00:27:12.0756810Z 	Simulator - iOS 27.2          	-sdk iphonesimulator27.2
+2026-11-28T00:27:12.0757390Z 
+2026-11-28T00:27:12.0757540Z macOS SDKs:
+2026-11-28T00:27:12.0758110Z 	macOS 27.2                    	-sdk macosx27.2
+2026-11-28T00:27:12.0768470Z 	macOS 27.2                    	-sdk macosx27.2
+2026-11-28T00:27:12.0769500Z 
+2026-11-28T00:27:12.0769770Z tvOS SDKs:
+2026-11-28T00:27:12.0770330Z 	tvOS 27.2                     	-sdk appletvos27.2
+2026-11-28T00:27:12.0770500Z 
+2026-11-28T00:27:12.0770650Z tvOS Simulator SDKs:
+2026-11-28T00:27:12.0771780Z 	Simulator - tvOS 27.2         	-sdk appletvsimulator27.2
+2026-11-28T00:27:12.0772660Z 
+2026-11-28T00:27:12.0772980Z visionOS SDKs:
+2026-11-28T00:27:12.0773700Z 	visionOS 27.2                 	-sdk xros27.2
+2026-11-28T00:27:12.0774210Z 
+2026-11-28T00:27:12.0774530Z visionOS Simulator SDKs:
+2026-11-28T00:27:12.0775250Z 	Simulator - visionOS 27.2     	-sdk xrsimulator27.2
+2026-11-28T00:27:12.0775980Z 
+2026-11-28T00:27:12.0776250Z watchOS SDKs:
+2026-11-28T00:27:12.0776860Z 	watchOS 27.2                  	-sdk watchos27.2
+2026-11-28T00:27:12.0777390Z 
+2026-11-28T00:27:12.0777680Z watchOS Simulator SDKs:
+2026-11-28T00:27:12.0778620Z 	Simulator - watchOS 27.2      	-sdk watchsimulator27.2
+2026-11-28T00:27:12.0779120Z 

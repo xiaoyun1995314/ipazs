@@ -1,0 +1,15 @@
+﻿2026-11-28T00:31:32.2557420Z ##[group]Run actions/upload-artifact@v4
+2026-11-28T00:31:32.2557720Z with:
+2026-11-28T00:31:32.2557910Z   name: iPadn-test-screenshots
+2026-11-28T00:31:32.2558130Z   path: iPadn-iOS/build/test-attachments
+2026-11-28T00:31:32.2558440Z   if-no-files-found: warn
+2026-11-28T00:31:32.2558660Z   retention-days: 14
+2026-11-28T00:31:32.2558830Z   compression-level: 6
+2026-11-28T00:31:32.2559050Z   overwrite: false
+2026-11-28T00:31:32.2559220Z   include-hidden-files: false
+2026-11-28T00:31:32.2559420Z env:
+2026-11-28T00:31:32.2559580Z   GOTOOLCHAIN: local
+2026-11-28T00:31:32.2559740Z ##[endgroup]
+2026-11-28T00:31:32.5004400Z (node:14943) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-28T00:31:32.5104300Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-28T00:31:32.5811320Z ##[warning]No files were found with the provided path: iPadn-iOS/build/test-attachments. No artifacts will be uploaded.

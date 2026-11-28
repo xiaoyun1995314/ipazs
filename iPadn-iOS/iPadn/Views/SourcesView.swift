@@ -289,6 +289,50 @@ private struct SourceRowLabel: View {
     }
 }
 
+// MARK: - 聚合列表应用行（发现页所有源平铺）
+
+private struct SourceAppRow: View {
+    let app: SourceApp
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                AppIcon(url: app.iconURL, size: 52)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(app.name).font(.headline).foregroundStyle(.primary)
+                    if !app.developer.isEmpty {
+                        Text(app.developer).font(.caption).foregroundStyle(.secondary)
+                    }
+                    HStack(spacing: 6) {
+                        if !app.version.isEmpty { Text("v\(app.version)").font(.caption2) }
+                        if app.size > 0 { Text(app.size.byteLabel).font(.caption2) }
+                        Text(app.sourceTitle).font(.caption2).foregroundStyle(.tertiary)
+                    }
+                    .foregroundStyle(.secondary)
+                }
+                Spacer()
+                switch app.linkKind {
+                case .directIPA:
+                    VStack(spacing: 2) {
+                        Image(systemName: "arrow.down.circle.fill").font(.title3).foregroundStyle(.tint)
+                        Text("下载").font(.caption2).foregroundStyle(.secondary)
+                    }
+                case .webpage:
+                    VStack(spacing: 2) {
+                        Image(systemName: "globe").font(.title3).foregroundStyle(.tint)
+                        Text("访问").font(.caption2).foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .padding(12)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
+}
+
 /// 网页链接的 Identifiable 包装，供 sheet(item:) 使用。
 struct BrowserLink: Identifiable {
     let id = UUID()
