@@ -31,6 +31,8 @@ struct PackagesView: View {
     @State private var editing = false
     @State private var selection = Set<SelectionItem>()
     @State private var confirmingBatchDelete = false
+    @State private var showingSigningCertificates = false
+    @State private var signingJob: DownloadJob?
     #if canImport(TestFlightKit)
     @ObservedObject private var tfProducts = TFProductIndex.shared
     @ObservedObject private var tfModel = TFHomeModel.shared
@@ -227,6 +229,18 @@ struct PackagesView: View {
                     }
                     picking = false
                 }.ignoresSafeArea()
+            }
+            .sheet(isPresented: $showingSigningCertificates) {
+                SigningCertificatesView()
+                    .sheetNotice()
+                    .environmentObject(store)
+                    .environmentObject(store.downloads)
+            }
+            .sheet(item: $signingJob) { job in
+                SigningSignView(job: job)
+                    .sheetNotice()
+                    .environmentObject(store)
+                    .environmentObject(store.downloads)
             }
             .actionConfirmation(
                 isPresented: Binding(get: { pendingDelete != nil }, set: { if !$0 { pendingDelete = nil } }),
@@ -444,6 +458,12 @@ struct PackagesView: View {
                 }
                 Button { ui.push(.help) } label: {
                     Label("使用说明与兼容性", systemImage: "questionmark.circle")
+                }
+                Button {
+                    showingSigningCertificates = true
+                    UX.feedback()
+                } label: {
+                    Label("签名证书", systemImage: "key.fill")
                 }
             }
 
@@ -795,6 +815,10 @@ struct PackagesView: View {
                             Button("重新解密", systemImage: "arrow.clockwise") { ui.requestStart(url: url, job: job) }
                         } else if ui.detections[url]?.state != .plain {
                             Button("解密 IPA", systemImage: "lock.open") { ui.requestStart(url: url, job: job) }
+                        }
+                        Button("签名", systemImage: "signature") {
+                            signingJob = job
+                            UX.feedback()
                         }
                         Button("保存原始 IPA", systemImage: "folder") { exportFile(url, suggestedName: rowName + ".ipa", kind: .save) }
                         Button("分享原始 IPA", systemImage: "square.and.arrow.up") { exportFile(url, suggestedName: rowName + ".ipa", kind: .share) }
