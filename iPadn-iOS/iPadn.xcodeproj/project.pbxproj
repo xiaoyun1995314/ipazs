@@ -507,6 +507,24 @@
 			path = "Services/SigningGateway.swift";
 			sourceTree = "<group>";
 		};
+		A72002000000000000000C1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = "Services/Signing/CertImportLog.swift";
+			sourceTree = "<group>";
+		};
+		A72002020000000000000C3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = "Services/Signing/SigningStore.swift";
+			sourceTree = "<group>";
+		};
+		A72002040000000000000C5 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = "Services/Signing/SigningEngine.swift";
+			sourceTree = "<group>";
+		};
 		9C7165EF870A84BE8C05FD9F = {
 			isa = PBXBuildFile;
 			fileRef = 3883336C6654D547EEC00DB6;
@@ -518,6 +536,18 @@
 		A72000110000000000000B2 = {
 			isa = PBXBuildFile;
 			fileRef = A72000100000000000000B1;
+		};
+		A72002010000000000000C2 = {
+			isa = PBXBuildFile;
+			fileRef = A72002000000000000000C1;
+		};
+		A72002030000000000000C4 = {
+			isa = PBXBuildFile;
+			fileRef = A7200202000000000000C3;
+		};
+		A72002050000000000000C6 = {
+			isa = PBXBuildFile;
+			fileRef = A72002040000000000000C5;
 		};
 		DE2B00F9D1374F49D8D7B778 = {
 			isa = PBXFileReference;
@@ -1861,6 +1891,9 @@
 				3883336C6654D547EEC00DB6,
 				A710000200000000000000A2,
 				A72000100000000000000B1,
+				A72002000000000000000C1,
+				A72002020000000000000C3,
+				A72002040000000000000C5,
 				DE2B00F9D1374F49D8D7B778,
 				BD7B9C3FE2E498A370E73F90,
 				7A217757AC93BE1C1F3A2658,
@@ -2073,6 +2106,9 @@
 				9C7165EF870A84BE8C05FD9F,
 				A710000100000000000000A1,
 				A72000110000000000000B2,
+				A72002010000000000000C2,
+				A72002030000000000000C4,
+				A72002050000000000000C6,
 				947A4B9739DE11F25F172D4C,
 				4224CFC96649DC5892361532,
 				26DD24F92003FD87260C4945,

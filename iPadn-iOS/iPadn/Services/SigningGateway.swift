@@ -64,12 +64,18 @@ enum SigningGateway {
     ///   - password: p12 密码
     ///   - entitlementsPath: entitlements plist 路径，可空
     ///   - customIdentifier: 自定义 bundleID，可空
+    ///   - customName: 自定义显示名，可空
+    ///   - customVersion: 自定义版本号，可空
+    ///   - removeProvision: true 剔除内嵌 mobileprovision；设备安装一般用 false（内嵌）。
     static func signBundle(appPath: String,
                            profilePath: String,
                            p12Path: String,
                            password: String,
                            entitlementsPath: String = "",
-                           customIdentifier: String = "") throws {
+                           customIdentifier: String = "",
+                           customName: String = "",
+                           customVersion: String = "",
+                           removeProvision: Bool = false) throws {
         let box = ErrorBox()
         let semaphore = DispatchSemaphore(value: 0)
         DispatchQueue.global(qos: .userInitiated).async {
@@ -80,10 +86,10 @@ enum SigningGateway {
                 p12Password: password,
                 entitlementsPath: entitlementsPath,
                 customIdentifier: customIdentifier,
-                customName: "",
-                customVersion: "",
+                customName: customName,
+                customVersion: customVersion,
                 adhoc: false,
-                removeProvision: true,
+                removeProvision: removeProvision,
                 completion: { _, error in
                     box.set(error)
                 }
