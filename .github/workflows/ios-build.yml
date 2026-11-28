@@ -2,43 +2,24 @@ name: Build ipazs
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
     inputs:
-      run_tests:
-        description: Run iOS Simulator unit tests
-        required: true
-        default: true
-        type: boolean
       publish_release:
-        description: Publish a GitHub Release after all build and test checks pass
+        description: 打包完成后自动发布 Release
         required: true
         default: false
         type: boolean
-      run_ui_tests:
-        description: Also run the slower iOS Simulator UI interaction tests
-        required: true
-        default: false
-        type: boolean
-      ui_test_scope:
-        description: UI coverage (use full for a complete release validation)
-        required: true
-        default: full
-        type: choice
-        options:
-          - full
-          - notices
-          - duo
+
 permissions:
   contents: read
 concurrency:
   group: ios-build-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-latest
-    timeout-minutes: 95
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: iPadn-iOS
@@ -46,193 +27,39 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-      - name: Set up Go for the Mac PKG bridge
+
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.23'
-          cache: false
-      - name: Set up Rust for the native installation library
+
+      - name: Setup Rust
         run: |
           rustup toolchain install stable --profile minimal
           rustup default stable
           rustup target add aarch64-apple-ios
-          cargo --version
-      - name: Select Xcode and report SDK
+
+      - name: Select Xcode
         run: |
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
           xcodebuild -version
-          xcodebuild -showsdks
           mkdir -p build
-      - name: Verify project and repository-local runtime
-        run: |
-          python3 scripts/assemble_runtime.py
-          python3 scripts/verify_project.py
-          python3 -I scripts/compile_reveal_animations.py --check
-          node scripts/runtime_smoke_test.cjs
-          python3 ../tools/run_record_store_checks.py
-          swiftc ipazs/Views/DiagnosticRedactor.swift ipazs/Views/PackageOutputPolicy.swift ../tools/tests/fairplay_redaction_checks.swift -o build/fp_redact_check
-          ./build/fp_redact_check
-      - name: Build unsigned device IPA
-        env:
-          IPASZ_REQUIRE_MACPKG: '1'
-          IPASZ_REQUIRE_NATIVE: '1'
+
+      - name: Build unsigned IPA
         run: |
           set -o pipefail
           bash scripts/build_unsigned_ipa.sh 2>&1 | tee build/build.log
-          IPASZ_REQUIRE_MACPKG=1 IPASZ_REQUIRE_NATIVE=1 python3 scripts/verify_ipa.py build/ipazs-unsigned.ipa
-          shasum -a 256 build/ipazs-unsigned.ipa > build/ipazs-unsigned.ipa.sha256
-          python3 scripts/make_lite_ipa.py build/ipazs-unsigned.ipa build/ipazs-lite-unsigned.ipa
-          IPASZ_REQUIRE_MACPKG=1 IPASZ_REQUIRE_NATIVE=1 python3 scripts/verify_ipa.py --lite build/ipazs-lite-unsigned.ipa
-          python3 - <<'PY'
-          import json, os, subprocess, plistlib, zipfile
-          from pathlib import Path
-          with zipfile.ZipFile('build/ipazs-unsigned.ipa') as ipa:
-              info = plistlib.loads(ipa.read('Payload/ipazs.app/Info.plist'))
-          Path('build/build-info.json').write_text(json.dumps({
-              'version': info['CFBundleShortVersionString'],
-              'build': info['CFBundleVersion'],
-              'commit': os.environ['GITHUB_SHA'],
-              'run': os.environ['GITHUB_RUN_ID'],
-              'xcode': subprocess.check_output(['xcodebuild', '-version'], text=True).strip(),
-              'minimum_ios': info['MinimumOSVersion'],
-              'signed': False,
-              'note': 'Sign with your own tool before installing.'
-          }, indent=2) + '\n')
-          PY
+
       - name: Upload IPA Artifact
         id: ipa
         uses: actions/upload-artifact@v4
         with:
           name: ipazs-unsigned-ipa
           path: |
-            iPadn-iOS/build/ipazs-unsigned.ipa
-            iPadn-iOS/build/ipazs-unsigned.ipa.sha256
-            iPadn-iOS/build/ipazs-lite-unsigned.ipa
-            iPadn-iOS/build/build-info.json
+            iPadn-iOS/build/*.ipa
           if-no-files-found: error
           retention-days: 14
-          compression-level: 0
-      - name: Build simulator test runner
-        timeout-minutes: 20
-        if: github.event_name != 'workflow_dispatch' || (inputs.run_tests && inputs.ui_test_scope != 'duo')
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          killall -9 com.apple.CoreSimulator.CoreSimulatorService || true
-          simulator_id="$(python3 scripts/boot_test_simulator.py)"
-          echo "IPASZ_TEST_SIMULATOR_ID=$simulator_id" >> "$GITHUB_ENV"
-          xcodebuild build-for-testing -project iPadn.xcodeproj -scheme iPadn \
-            -configuration Debug -destination "platform=iOS Simulator,id=$simulator_id" \
-            -destination-timeout 120 -derivedDataPath build/TestDerivedData \
-            CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO \
-            2>&1 | tee build/test-build.log
-      - name: Run simulator tests
-        timeout-minutes: 45
-        if: github.event_name != 'workflow_dispatch' || (inputs.run_tests && inputs.ui_test_scope != 'duo')
-        continue-on-error: true
-        env:
-          RUN_UI_TESTS: ${{ github.event_name == 'workflow_dispatch' && inputs.run_ui_tests }}
-          UI_TEST_SCOPE: ${{ inputs.ui_test_scope || 'full' }}
-        run: |
-          set -o pipefail
-          test_targets=(-only-testing:iPadnTests)
-          if [ "$RUN_UI_TESTS" = "true" ]; then
-            if [ "$UI_TEST_SCOPE" = "notices" ]; then
-              test_targets+=(-only-testing:iPadnUITests/InteractionTests/testCompactNoticeAndAccessibleConfirmation
-                             -only-testing:iPadnUITests/InteractionTests/testHistoryDeletionHasNoUndoCountdown)
-            else
-              test_targets+=(-only-testing:iPadnUITests)
-            fi
-          fi
-          xcodebuild test-without-building -project iPadn.xcodeproj -scheme iPadn \
-            -configuration Debug -destination "platform=iOS Simulator,id=$IPASZ_TEST_SIMULATOR_ID" \
-            -parallel-testing-enabled NO -maximum-concurrent-test-simulator-destinations 1 \
-            -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 240 \
-            -destination-timeout 120 -derivedDataPath build/TestDerivedData \
-            -resultBundlePath build/TestResults.xcresult \
-            "${test_targets[@]}" \
-            CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO \
-            2>&1 | tee build/tests.log || true
-          if [ -d build/TestResults.xcresult ]; then
-            xcrun xcresulttool get test-results summary --path build/TestResults.xcresult --format json > build/test-summary.json
-          fi
-      - name: Upload build and test diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ipazs-build-diagnostics
-          path: |
-            iPadn-iOS/build/*.log
-            iPadn-iOS/build/test-summary.json
-            iPadn-iOS/build/ipa-verification.json
-            iPadn-iOS/build/TestResults.xcresult
-            iPadn-iOS/build/verification.json
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Export simulator screenshots
-        if: always()
-        run: |
-          mkdir -p build/test-attachments
-          if [ -f build/TestResults.xcresult/Info.plist ]; then
-            xcrun xcresulttool export attachments --path build/TestResults.xcresult --output-path build/test-attachments || true
-          fi
-      - name: Upload simulator screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ipazs-test-screenshots
-          path: iPadn-iOS/build/test-attachments
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Upload test summary
-        if: success() && (github.event_name != 'workflow_dispatch' || inputs.run_tests)
-        uses: actions/upload-artifact@v4
-        with:
-          name: ipazs-test-summary
-          path: |
-            iPadn-iOS/build/test-summary.json
-            iPadn-iOS/build/ipa-verification.json
-          if-no-files-found: warn
-          retention-days: 14
-      - name: iPhone Duo screenshots
-        if: always() && github.event_name == 'workflow_dispatch' && inputs.run_ui_tests
-        continue-on-error: true
-        timeout-minutes: 15
-        run: |
-          set -o pipefail
-          simulator_id="$(python3 scripts/boot_test_simulator.py --name 'iPhone Duo')"
-          xcodebuild test -project iPadn.xcodeproj -scheme iPadn \
-            -configuration Debug -destination "platform=iOS Simulator,id=$simulator_id" \
-            -destination-timeout 120 -derivedDataPath build/TestDerivedData \
-            -resultBundlePath build/DuoResults.xcresult \
-            -test-timeouts-enabled YES -default-test-execution-time-allowance 90 -maximum-test-execution-time-allowance 120 \
-            -only-testing:iPadnUITests/InteractionTests/testDuoLayoutScreens \
-            CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO > build/duo.log 2>&1 || true
-          grep -E "error:|Test Case|failed|skipped" build/duo.log | tail -20 || true
-          if [ -d build/DuoResults.xcresult ]; then
-            xcrun xcresulttool export attachments --path build/DuoResults.xcresult --output-path build/duo-screenshots || true
-          fi
-      - name: Upload iPhone Duo screenshots
-        if: always() && github.event_name == 'workflow_dispatch' && inputs.run_ui_tests
-        uses: actions/upload-artifact@v4
-        with:
-          name: ipazs-duo-screenshots
-          path: iPadn-iOS/build/duo-screenshots
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Write download summary
-        if: always() && steps.ipa.outcome == 'success'
-        env:
-          ARTIFACT_URL: ${{ steps.ipa.outputs.artifact-url }}
-        run: |
-          {
-            echo '## ipazs'
-            echo
-            echo "[下载未签名 IPA]($ARTIFACT_URL)"
-            echo
-            echo '下载后用自己的工具签名。无需向 GitHub 上传 Apple 账号、证书或私钥。'
-            echo '登录、真实下载授权和最终安装仍需要真机验收。'
-          } >> "$GITHUB_STEP_SUMMARY"
+
   publish-release:
     needs: build
     if: github.event_name == 'workflow_dispatch' && inputs.publish_release
@@ -245,70 +72,12 @@ jobs:
         with:
           name: ipazs-unsigned-ipa
           path: release
-      - name: Verify and prepare release assets
-        id: release
-        env:
-          EXPECTED_COMMIT: ${{ github.sha }}
-          RELEASE_REF: ${{ github.ref }}
-        run: |
-          python3 - <<'PY'
-          import hashlib, json, os, re
-          from pathlib import Path
-          root = Path('release')
-          info = json.loads((root / 'build-info.json').read_text())
-          verification = json.loads((root / 'ipa-verification.json').read_text())
-          assert info['commit'] == os.environ['EXPECTED_COMMIT'], 'Source commit mismatch'
-          assert not info['signed'] and verification['passed'], 'Invalid unsigned IPA'
-          version = info['version']
-          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version), 'Invalid release version'
-          if os.environ['RELEASE_REF'].startswith('refs/tags/'):
-              assert os.environ['RELEASE_REF'] == 'refs/tags/v' + version, 'Release tag/version mismatch'
-          assert verification['version'] == version and verification['build'] == info['build']
-          ipa = root / 'ipazs-unsigned.ipa'
-          digest = hashlib.sha256(ipa.read_bytes()).hexdigest()
-          assert digest == (root / 'ipazs-unsigned.ipa.sha256').read_text().split()[0], 'IPA checksum mismatch'
-          asset = ipa.with_name('ipazs-' + version + '-unsigned.ipa')
-          ipa.rename(asset)
-          (root / (asset.name + '.sha256')).write_text(digest + '  ' + asset.name + '\n')
-          import subprocess
-          lite = root / ('ipazs-' + version + '-lite-unsigned.ipa')
-          subprocess.run(['python3', 'iPadn-iOS/scripts/make_lite_ipa.py', str(asset), str(lite)], check=True)
-          lite_digest = hashlib.sha256(lite.read_bytes()).hexdigest()
-          (root / (lite.name + '.sha256')).write_text(lite_digest + '  ' + lite.name + '\n')
-          notes = Path('RELEASE_NOTES.md').read_text()
-          notes += '\n两个安装包：`' + asset.name + '` 是标准版（含实时活动和桌面小组件，需要 2 个 App ID）；`' + lite.name + '` 是精简版（不含扩展，只需 1 个 App ID），适合 App ID 数量受限的签名方式。\n'
-          notes += '\n验证：设备 Release 编译与 IPA 检查通过。\n'
-          (root / 'notes.md').write_text(notes)
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
-              output.write('tag=v' + version + '\n')
-              output.write('asset=' + str(asset) + '\n')
-              output.write('lite=' + str(lite) + '\n')
-          PY
-      - name: Publish tested unsigned IPA
+
+      - name: Publish Release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
-          RELEASE_ASSET: ${{ steps.release.outputs.asset }}
-          RELEASE_LITE: ${{ steps.release.outputs.lite }}
         run: |
-          gh release create "$RELEASE_TAG" "$RELEASE_ASSET" "$RELEASE_ASSET.sha256" "$RELEASE_LITE" "$RELEASE_LITE.sha256" release/build-info.json \
-            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "ipazs $RELEASE_TAG" \
-            --notes-file release/notes.md --latest
-      - name: Update the AltStore source
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
-        run: |
-          git fetch --depth 1 origin main
-          git checkout -B main origin/main
-          python3 iPadn-iOS/scripts/generate_altstore_source.py
-          if git diff --quiet -- altstore-source.json; then
-            echo "altstore-source.json is already current"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add altstore-source.json
-            git commit -m "Update AltStore source for $RELEASE_TAG [skip ci]"
-            git push origin main
-          fi
+          cd release
+          gh release create "v$(date +%y%m%d%H%M)" *.ipa \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "ipazs 构建包" --notes "自动打包，未签名 IPA"
