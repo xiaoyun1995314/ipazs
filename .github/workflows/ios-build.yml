@@ -41,7 +41,7 @@ jobs:
     timeout-minutes: 95
     defaults:
       run:
-        working-directory: ipazs-iOS
+        working-directory: iPadn-iOS
         shell: bash
     steps:
       - name: Checkout source
@@ -111,10 +111,10 @@ jobs:
         with:
           name: ipazs-unsigned-ipa
           path: |
-            ipazs-iOS/build/ipazs-unsigned.ipa
-            ipazs-iOS/build/ipazs-unsigned.ipa.sha256
-            ipazs-iOS/build/ipazs-lite-unsigned.ipa
-            ipazs-iOS/build/build-info.json
+            iPadn-iOS/build/ipazs-unsigned.ipa
+            iPadn-iOS/build/ipazs-unsigned.ipa.sha256
+            iPadn-iOS/build/ipazs-lite-unsigned.ipa
+            iPadn-iOS/build/build-info.json
           if-no-files-found: error
           retention-days: 14
           compression-level: 0
@@ -172,11 +172,11 @@ jobs:
         with:
           name: ipazs-build-diagnostics
           path: |
-            ipazs-iOS/build/*.log
-            ipazs-iOS/build/test-summary.json
-            ipazs-iOS/build/ipa-verification.json
-            ipazs-iOS/build/TestResults.xcresult
-            ipazs-iOS/build/verification.json
+            iPadn-iOS/build/*.log
+            iPadn-iOS/build/test-summary.json
+            iPadn-iOS/build/ipa-verification.json
+            iPadn-iOS/build/TestResults.xcresult
+            iPadn-iOS/build/verification.json
           if-no-files-found: warn
           retention-days: 14
       - name: Export simulator screenshots
@@ -192,7 +192,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ipazs-test-screenshots
-          path: ipazs-iOS/build/test-attachments
+          path: iPadn-iOS/build/test-attachments
           if-no-files-found: warn
           retention-days: 14
       - name: Upload test summary
@@ -201,8 +201,8 @@ jobs:
         with:
           name: ipazs-test-summary
           path: |
-            ipazs-iOS/build/test-summary.json
-            ipazs-iOS/build/ipa-verification.json
+            iPadn-iOS/build/test-summary.json
+            iPadn-iOS/build/ipa-verification.json
           if-no-files-found: error
           retention-days: 14
       - name: iPhone Duo screenshots
@@ -228,7 +228,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ipazs-duo-screenshots
-          path: ipazs-iOS/build/duo-screenshots
+          path: iPadn-iOS/build/duo-screenshots
           if-no-files-found: warn
           retention-days: 14
       - name: Write download summary
@@ -289,7 +289,7 @@ jobs:
           (root / (asset.name + '.sha256')).write_text(digest + '  ' + asset.name + '\n')
           import subprocess
           lite = root / ('ipazs-' + version + '-lite-unsigned.ipa')
-          subprocess.run(['python3', 'ipazs-iOS/scripts/make_lite_ipa.py', str(asset), str(lite)], check=True)
+          subprocess.run(['python3', 'iPadn-iOS/scripts/make_lite_ipa.py', str(asset), str(lite)], check=True)
           lite_digest = hashlib.sha256(lite.read_bytes()).hexdigest()
           (root / (lite.name + '.sha256')).write_text(lite_digest + '  ' + lite.name + '\n')
           notes = Path('RELEASE_NOTES.md').read_text()
@@ -319,7 +319,7 @@ jobs:
         run: |
           git fetch --depth 1 origin main
           git checkout -B main origin/main
-          python3 ipazs-iOS/scripts/generate_altstore_source.py
+          python3 iPadn-iOS/scripts/generate_altstore_source.py
           if git diff --quiet -- altstore-source.json; then
             echo "altstore-source.json is already current"
           else
