@@ -17,6 +17,8 @@ final class SourceManager: ObservableObject {
     static let builtinID = "builtin-source"
     @Published var builtin: AppStoreSource?
     @Published var builtinApps: [SourceApp] = []
+    /// 各源的公告/banner/分类等附加元信息，按 sourceID 索引。
+    @Published var sourceExtras: [String: SourceExtra] = [:]
 
     private weak var store: ToolStore?
 
@@ -93,6 +95,7 @@ final class SourceManager: ObservableObject {
             sources[index].syncError = nil
             sources[index].appCount = result.apps.count
             appsBySource[sourceID] = result.apps
+            sourceExtras[sourceID] = SourceExtra(message: result.message, banners: result.banners, categories: result.categories)
             lastSyncedAt = Date()
         } catch {
             sources[index].syncError = error.localizedDescription
@@ -125,6 +128,7 @@ final class SourceManager: ObservableObject {
             b.appCount = result.apps.count
             builtin = b
             builtinApps = result.apps
+            sourceExtras[Self.builtinID] = SourceExtra(message: result.message, banners: result.banners, categories: result.categories)
             lastSyncedAt = Date()
         } catch {
             var b = AppStoreSource(id: Self.builtinID, title: "内置软件源", url: url)
@@ -137,6 +141,17 @@ final class SourceManager: ObservableObject {
 
     var allApps: [SourceApp] {
         builtinApps + appsBySource.values.flatMap { $0 }
+    }
+
+    /// 指定源（外部源 source.id 或内置 builtinID）下的应用列表。
+    func apps(forSourceID id: String) -> [SourceApp] {
+        if id == Self.builtinID { return builtinApps }
+        return appsBySource[id] ?? []
+    }
+
+    /// 指定源的附加元信息（公告/banner/分类）。
+    func extras(forSourceID id: String) -> SourceExtra? {
+        sourceExtras[id]
     }
 
     var filteredApps: [SourceApp] {

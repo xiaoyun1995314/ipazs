@@ -452,8 +452,8 @@ struct ToolSettings: Codable, Equatable {
     var versionSourcesSchema = 2
     /// 用户添加的第三方软件源（AltStore appstore.json）。
     var sources: [AppStoreSource] = []
-    /// 内置软件源开关（默认开启）与可修改地址。
-    var builtinSourceEnabled = true
+    /// 内置软件源开关（默认关闭）与可修改地址。
+    var builtinSourceEnabled = false
     var builtinSourceURL = "https://xiaoyun1995314.github.io/my-source/appstore.json"
 
     init() { }

@@ -1,5 +1,6 @@
-// 「发现软件」软件源主页：对标签名工具的源管理界面。
-// 顶部统计卡片 + 全部软件源列表（添加/刷新/删除）+ 聚合搜索 + 源内应用列表下载。
+// 「发现软件」软件源主页：源管理界面。
+// 顶部统计卡片 + 全部软件源列表（添加/刷新/删除）+ 聚合搜索；
+// 点源行进入该源专属详情页（公告/静态banner/按分类平铺应用）。
 
 import SwiftUI
 
@@ -10,35 +11,42 @@ struct SourcesView: View {
     @State private var addURL = ""
     @State private var addError: String?
     @State private var adding = false
-    @State private var expandedSource: String?
     @State private var browsing: BrowserLink?
     @State private var showingBuiltinSettings = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 18) {
-                headerCard
-                sourcesSection
-                appsSection
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 18) {
+                    headerCard
+                    sourcesSection
+                    appsSection
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-        }
-        .background(Color(.systemGroupedBackground))
-        .navigationTitle("发现软件")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button { showingAdd = true } label: {
-                    Image(systemName: "plus")
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("发现软件")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button { showingAdd = true } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $showingAdd) {
-            addSourceSheet
-        }
-        .onAppear {
-            if !sources.sources.isEmpty {
-                Task { await sources.syncAll() }
+            .sheet(isPresented: $showingAdd) {
+                addSourceSheet
+            }
+            .sheet(item: $browsing) { link in
+                WebBrowserView(url: link.url)
+            }
+            .sheet(isPresented: $showingBuiltinSettings) {
+                BuiltinSourceSettingsView()
+            }
+            .onAppear {
+                if !sources.sources.isEmpty {
+                    Task { await sources.syncAll() }
+                }
             }
         }
     }
@@ -88,7 +96,7 @@ struct SourcesView: View {
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - 软件源列表
+    // MARK: - 软件源列表（点行进详情页）
 
     private var sourcesSection: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -99,38 +107,39 @@ struct SourcesView: View {
             }
             // 内置软件源置顶
             if let builtin = sources.builtin {
-                SourceRow(
-                    source: builtin,
-                    busy: sources.syncing.contains(SourceManager.builtinID),
-                    expanded: expandedSource == SourceManager.builtinID,
-                    onRefresh: { Task { await sources.syncBuiltin() } },
-                    onRemove: {},
-                    isBuiltin: true,
-                    onBuiltinSettings: { showingBuiltinSettings = true },
-                    onToggle: {
-                        withAnimation {
-                            expandedSource = (expandedSource == SourceManager.builtinID) ? nil : SourceManager.builtinID
-                        }
-                    }
-                )
+                NavigationLink {
+                    SourceDetailView(
+                        sources: sources,
+                        source: builtin,
+                        sourceID: SourceManager.builtinID,
+                        isBuiltin: true,
+                        onRefresh: { Task { await sources.syncBuiltin() } },
+                        onSettings: { showingBuiltinSettings = true },
+                        openLink: openLink
+                    )
+                } label: {
+                    SourceRowLabel(source: builtin, busy: sources.syncing.contains(SourceManager.builtinID))
+                }
+                .buttonStyle(.plain)
             }
             if sources.sources.isEmpty && sources.builtin == nil {
                 emptySources
             } else {
                 ForEach(sources.sources) { source in
-                    SourceRow(
-                        source: source,
-                        busy: sources.syncing.contains(source.id),
-                        expanded: expandedSource == source.id,
-                        onRefresh: { Task { await sources.sync(sourceID: source.id) } },
-                        onRemove: { sources.removeSource(source.id) },
-                        isBuiltin: false,
-                        onToggle: {
-                            withAnimation {
-                                expandedSource = (expandedSource == source.id) ? nil : source.id
-                            }
-                        }
-                    )
+                    NavigationLink {
+                        SourceDetailView(
+                            sources: sources,
+                            source: source,
+                            sourceID: source.id,
+                            isBuiltin: false,
+                            onRefresh: { Task { await sources.sync(sourceID: source.id) } },
+                            onDelete: { sources.removeSource(source.id) },
+                            openLink: openLink
+                        )
+                    } label: {
+                        SourceRowLabel(source: source, busy: sources.syncing.contains(source.id))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
@@ -154,7 +163,6 @@ struct SourcesView: View {
 
     private var appsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            // 应用聚合列表含内置源，搜索框/列表都基于 allApps。
             if !sources.allApps.isEmpty {
                 SearchInput(text: $sources.searchText, placeholder: "搜索所有软件源", capsule: true)
             }
@@ -166,25 +174,23 @@ struct SourcesView: View {
                     .padding(.vertical, 24)
             } else {
                 ForEach(list) { app in
-                    SourceAppRow(app: app) {
-                        switch app.linkKind {
-                        case .directIPA: sources.enqueue(app)
-                        case .webpage:
-                            if let url = app.resolvedWebURL {
-                                browsing = BrowserLink(url: url)
-                            } else {
-                                store.errorMessage = "该链接类型无法在应用内打开：\(app.downloadURL.absoluteString)"
-                            }
-                        }
-                    }
+                    SourceAppRow(app: app) { openLink(app) }
                 }
             }
         }
-        .sheet(item: $browsing) { link in
-            WebBrowserView(url: link.url)
-        }
-        .sheet(isPresented: $showingBuiltinSettings) {
-            BuiltinSourceSettingsView()
+    }
+
+    // MARK: - 链接打开 / 下载
+
+    private func openLink(_ app: SourceApp) {
+        switch app.linkKind {
+        case .directIPA: sources.enqueue(app)
+        case .webpage:
+            if let url = app.resolvedWebURL {
+                browsing = BrowserLink(url: url)
+            } else {
+                store.errorMessage = "该链接类型无法在应用内打开：\(app.downloadURL.absoluteString)"
+            }
         }
     }
 
@@ -242,68 +248,36 @@ struct SourcesView: View {
     }
 }
 
-// MARK: - 源行
+// MARK: - 源行标签（不再展开，整行是进入详情页的入口）
 
-private struct SourceRow: View {
+private struct SourceRowLabel: View {
     let source: AppStoreSource
     let busy: Bool
-    let expanded: Bool
-    let onRefresh: () -> Void
-    let onRemove: () -> Void
-    var isBuiltin = false
-    var onBuiltinSettings: (() -> Void)?
-    let onToggle: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Button(action: onToggle) {
-                HStack(spacing: 12) {
-                    AppIcon(url: source.iconURL, size: 48)
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(source.title).font(.headline)
-                        if busy {
-                            HStack(spacing: 6) {
-                                ProgressView().controlSize(.small)
-                                Text("同步中…").font(.caption).foregroundStyle(.secondary)
-                            }
-                        } else if let err = source.syncError {
-                            Text(err).font(.caption).foregroundStyle(.red).lineLimit(2)
-                        } else {
-                            Text(source.url).font(.caption).foregroundStyle(.secondary).lineLimit(1)
-                            Text("\(source.appCount) 个应用" + (source.lastSynced.map { " · \(relative($0))" } ?? ""))
-                                .font(.caption2).foregroundStyle(.secondary)
-                        }
+        HStack(spacing: 12) {
+            AppIcon(url: source.iconURL, size: 48)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(source.title).font(.headline).foregroundStyle(.primary)
+                if busy {
+                    HStack(spacing: 6) {
+                        ProgressView().controlSize(.small)
+                        Text("同步中…").font(.caption).foregroundStyle(.secondary)
                     }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.tertiary)
-                        .rotationEffect(.degrees(expanded ? 90 : 0))
+                } else if let err = source.syncError {
+                    Text(err).font(.caption).foregroundStyle(.red).lineLimit(2)
+                } else {
+                    Text(source.url).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                    Text("\(source.appCount) 个应用" + (source.lastSynced.map { " · \(relative($0))" } ?? ""))
+                        .font(.caption2).foregroundStyle(.secondary)
                 }
-                .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
-
-            if expanded {
-                HStack(spacing: 16) {
-                    Button(action: onRefresh) {
-                        Label("刷新", systemImage: "arrow.triangle.2.circlepath")
-                    }
-                    .disabled(busy)
-                    Spacer()
-                    if isBuiltin {
-                        Button { onBuiltinSettings?() } label: {
-                            Label("设置", systemImage: "gearshape")
-                        }
-                    } else {
-                        Button(role: .destructive, action: onRemove) {
-                            Label("删除", systemImage: "trash")
-                        }
-                    }
-                }
-                .font(.subheadline)
-            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.tertiary)
         }
+        .contentShape(Rectangle())
         .padding(14)
         .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
@@ -312,50 +286,6 @@ private struct SourceRow: View {
         let f = RelativeDateTimeFormatter()
         f.locale = Locale(identifier: "zh_CN")
         return f.localizedString(for: date, relativeTo: Date())
-    }
-}
-
-// MARK: - 应用行
-
-private struct SourceAppRow: View {
-    let app: SourceApp
-    let onDownload: () -> Void
-
-    var body: some View {
-        Button(action: onDownload) {
-            HStack(spacing: 12) {
-                AppIcon(url: app.iconURL, size: 52)
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(app.name).font(.headline)
-                    if !app.developer.isEmpty {
-                        Text(app.developer).font(.caption).foregroundStyle(.secondary)
-                    }
-                    HStack(spacing: 6) {
-                        if !app.version.isEmpty { Text("v\(app.version)").font(.caption2) }
-                        if app.size > 0 { Text(app.size.byteLabel).font(.caption2) }
-                        Text(app.sourceTitle).font(.caption2).foregroundStyle(.tertiary)
-                    }
-                    .foregroundStyle(.secondary)
-                }
-                Spacer()
-                switch app.linkKind {
-                case .directIPA:
-                    VStack(spacing: 2) {
-                        Image(systemName: "arrow.down.circle.fill").font(.title3).foregroundStyle(.tint)
-                        Text("下载").font(.caption2).foregroundStyle(.secondary)
-                    }
-                case .webpage:
-                    VStack(spacing: 2) {
-                        Image(systemName: "globe").font(.title3).foregroundStyle(.tint)
-                        Text("访问").font(.caption2).foregroundStyle(.secondary)
-                    }
-                }
-            }
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .padding(12)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 }
 

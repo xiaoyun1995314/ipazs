@@ -45,6 +45,10 @@ struct SourceApp: Identifiable, Hashable {
     let minimumOS: String?
     let sourceID: String
     let sourceTitle: String
+    /// LCSign 私有格式：版本日期（2026-11-24）。
+    let versionDate: String
+    /// LCSign 私有格式：长版本说明（versionDescription）。
+    let versionDescription: String
 
     /// 按 URL 后缀嗅探：http(s) 的 .ipa 结尾为直链，其余按网页处理。
     /// nsk-sign://web?url= 等自定义 scheme 解出嵌套网页地址后走内部浏览器。
@@ -104,6 +108,37 @@ private struct SourceRoot: Decodable {
     let sidebarIcon: String?
     let apps: [SourceAppEntry]?
     let news: [SourceNewsEntry]?
+    // MARK: LCSign / 全能签 私有格式扩展字段
+    /// 公告正文（message）。
+    let message: String?
+    /// 顶部静态/轮播 banner 条目。
+    let banner: [SourceBannerEntry]?
+    /// 分类列表。
+    let categories: [SourceCategoryEntry]?
+    /// 弹窗（本次默认不弹）。
+    let popup: SourcePopupEntry?
+}
+
+private struct SourceBannerEntry: Decodable, Hashable {
+    let type: String?
+    let icon: String?
+    let text: String?
+    let url: String?
+    let external: Bool?
+    let color: String?
+    let copy: Bool?
+}
+
+private struct SourceCategoryEntry: Decodable, Hashable {
+    let name: String?
+    let icon: String?
+}
+
+private struct SourcePopupEntry: Decodable, Hashable {
+    let on: Bool?
+    let title: String?
+    let body: String?
+    let rightText: String?
 }
 
 private struct SourceAppEntry: Decodable {
@@ -122,6 +157,17 @@ private struct SourceAppEntry: Decodable {
     let minOSVersion: String?
     let appID: String?
     let versions: [SourceVersionEntry]?
+    // MARK: LCSign 私有格式扩展
+    let versionDate: String?
+    let versionDescription: String?
+    let screenshots: [String]?
+}
+
+/// 源详情页聚合的元信息：公告、静态 banner、分类。
+struct SourceExtra: Hashable {
+    let message: String
+    let banners: [SourceBannerEntry]
+    let categories: [String]
 }
 
 private struct SourceVersionEntry: Decodable {
@@ -158,6 +204,9 @@ struct SourceSyncResult {
     let title: String
     let iconURL: URL?
     let apps: [SourceApp]
+    let message: String
+    let banners: [SourceBannerEntry]
+    let categories: [String]
 }
 
 enum SourceCatalog {
@@ -208,12 +257,29 @@ enum SourceCatalog {
                 category: entry.category ?? "",
                 minimumOS: minOS,
                 sourceID: root.identifier ?? host,
-                sourceTitle: root.name ?? host
+                sourceTitle: root.name ?? host,
+                versionDate: entry.versionDate ?? "",
+                versionDescription: entry.versionDescription ?? ""
             ))
         }
         guard !apps.isEmpty else { throw SourceCatalogError.noApps }
         let iconURL = (root.iconURL.flatMap { URL(string: $0, relativeTo: url) ?? URL(string: $0) })
             ?? (root.sidebarIcon.flatMap { URL(string: $0, relativeTo: url) ?? URL(string: $0) })
-        return SourceSyncResult(title: root.name ?? host, iconURL: iconURL, apps: apps)
+        // LCSign：公告优先 message，无则取 popup.body；news 作为兜底。
+        let message = root.message?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            ?? root.popup?.body?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            ?? (root.news?.first?.caption ?? "")
+        let banners = root.banner ?? []
+        let categories = (root.categories ?? []).compactMap { $0.name }.filter { !$0.isEmpty }
+        return SourceSyncResult(
+            title: root.name ?? host,
+            iconURL: iconURL,
+            apps: apps,
+            message: message,
+            banners: banners,
+            categories: categories
+        )
     }
 }
