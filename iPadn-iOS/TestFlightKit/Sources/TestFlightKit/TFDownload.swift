@@ -151,9 +151,10 @@ public enum TFDownload {
         guard let urlString, let url = URL(string: urlString) else {
             throw TFError.malformed("install: 元数据里没有 url")
         }
-        log("install: url host=" + (url.host ?? "-") + " dpInfo="
-            + (dpInfo.map { String($0.count) + " B" } ?? "null")
-            + " size=" + (declaredSize.map(String.init) ?? "-"))
+        let hostPart = url.host ?? "-"
+        let dpPart = dpInfo.map { String($0.count) + " B" } ?? "null"
+        let sizePart = declaredSize.map(String.init) ?? "-"
+        log("install: url host=\(hostPart) dpInfo=\(dpPart) size=\(sizePart)")
 
         // 2) CDN download: fresh, then resume, then one full retry. A rotated URL means the
         //    accessKey expired, which only a fresh download can survive.
