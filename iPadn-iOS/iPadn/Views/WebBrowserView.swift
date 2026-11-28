@@ -1,4 +1,5 @@
 // App 内网页浏览器：软件源里的网页链接用 WKWebView 打开，不跳出应用。
+// 网盘/蓝奏云等需要 JS 交互或外部下载的页面，可点工具栏「Safari 打开」跳系统浏览器。
 
 import SwiftUI
 import WebKit
@@ -19,6 +20,22 @@ struct WebBrowserView: View {
                 if loading {
                     ProgressView().controlSize(.large)
                 }
+                if let errorText, !loading {
+                    VStack(spacing: 12) {
+                        Image(systemName: "globe.badge.chevron.backward").font(.largeTitle)
+                        Text("页面加载失败").font(.headline)
+                        Text(errorText).font(.subheadline).foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 32)
+                        Button {
+                            openInSafari()
+                        } label: {
+                            Label("用 Safari 打开", systemImage: "safari")
+                                .padding(.horizontal, 16).padding(.vertical, 8)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
             }
             .navigationTitle(dynamicTitle ?? "网页")
             .navigationBarTitleDisplayMode(.inline)
@@ -27,12 +44,23 @@ struct WebBrowserView: View {
                     Button("关闭") { dismiss() }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if canGoBack {
-                        Button { /* 由桥接层处理返回 */ } label: { Image(systemName: "chevron.left") }
+                    Button {
+                        openInSafari()
+                    } label: {
+                        Image(systemName: "safari")
                     }
+                    .help("用 Safari 打开")
                 }
             }
         }
+    }
+
+    private func openInSafari() {
+        #if canImport(UIKit)
+        UIApplication.shared.open(url, options: [:]) { ok in
+            if !ok { errorText = "无法打开外部浏览器" }
+        }
+        #endif
     }
 }
 
@@ -47,7 +75,11 @@ private struct WebViewBridge: UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
+        // 开启 JavaScript（网盘/下载页依赖），允许弹窗与用户交互。
+        config.preferences.javaScriptCanOpenWindowsAutomatically = true
+        config.defaultWebpagePreferences.allowsContentJavaScript = true
         let web = WKWebView(frame: .zero, configuration: config)
+        web.allowsBackForwardNavigationGestures = true
         web.navigationDelegate = context.coordinator
         web.load(URLRequest(url: url))
         return web
