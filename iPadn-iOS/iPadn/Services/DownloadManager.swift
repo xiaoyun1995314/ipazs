@@ -1810,7 +1810,7 @@ final class DownloadManager: NSObject, ObservableObject {
     }
 
     /// 插件直链落包：zip 插件包 / deb / dylib，非 IPA，跳过 IPA 校验直接归档。
-    private static func finishPluginFile(staging: URL, id: UUID, job: DownloadJob, ext: String) throws -> (String, StoreApp) {
+    nonisolated private static func finishPluginFile(staging: URL, id: UUID, job: DownloadJob, ext: String) throws -> (String, StoreApp) {
         let fm = FileManager.default
         let length = (try? fm.attributesOfItem(atPath: staging.path)[.size] as? NSNumber)?.int64Value ?? 0
         try fm.createDirectory(at: LocalResources.packages, withIntermediateDirectories: true)
