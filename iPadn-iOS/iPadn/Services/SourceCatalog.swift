@@ -50,20 +50,23 @@ struct SourceApp: Identifiable, Hashable {
     /// LCSign 私有格式：长版本说明（versionDescription）。
     let versionDescription: String
 
-    /// 按 URL 后缀嗅探：http(s) 的 .ipa 结尾为直链，其余按网页处理。
-    /// nsk-sign://web?url= 等自定义 scheme 解出嵌套网页地址后走内部浏览器。
+    /// 按 URL 后缀嗅探：http(s) 的 .ipa/.zip/.deb/.dylib 结尾为直链，直接下载进队列；
+    /// 其余按网页处理。nsk-sign://web?url= 等自定义 scheme 解出嵌套网页地址后走内部浏览器。
     var linkKind: SourceLinkKind {
         let scheme = downloadURL.scheme?.lowercased() ?? ""
         // 非 http(s)（nsk-sign:// 等自定义 scheme）一律当网页，解出嵌套地址。
         guard scheme == "http" || scheme == "https" else { return .webpage }
         let absolute = downloadURL.absoluteString.lowercased()
-        if absolute.hasSuffix(".ipa") { return .directIPA }
+        if Self.directSuffixes.contains(where: { absolute.hasSuffix($0) }) { return .directIPA }
         if let q = absolute.lastIndex(of: "?") {
             let head = String(absolute[..<q])
-            if head.hasSuffix(".ipa") { return .directIPA }
+            if Self.directSuffixes.contains(where: { head.hasSuffix($0) }) { return .directIPA }
         }
         return .webpage
     }
+
+    /// 可直接下载的直链后缀：IPA 安装包 + 插件（zip 包、deb、dylib）。
+    private static let directSuffixes = [".ipa", ".zip", ".deb", ".dylib"]
 
     /// 真正用于打开/下载的 URL：解出 nsk-sign://web?url= 等 scheme 里的嵌套地址；
     /// http(s) 原样返回；其余返回 nil（无法直接打开）。

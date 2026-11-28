@@ -1402,6 +1402,13 @@ final class DownloadManager: NSObject, ObservableObject {
                     if job.rawFormat != nil {
                         return try MacPackageStorage.finish(staging: LocalResources.stagingURL(id), job: job)
                     }
+                    // 插件直链（zip 插件包 / deb / dylib）：不是 IPA，跳过 IPA 校验，
+                    // 直接落包并标记为插件，供应用包页「插件库」分组使用。
+                    let staging = LocalResources.stagingURL(id)
+                    let ext = staging.pathExtension.lowercased()
+                    if ["zip", "deb", "dylib"].contains(ext) {
+                        return try Self.finishPluginFile(staging: staging, id: id, job: job, ext: ext)
+                    }
                     let result = try PackageService.finish(staging: LocalResources.stagingURL(id), id: id, asset: job.asset)
                     _ = try? PackageIconService.save(from: LocalResources.packages.appendingPathComponent(result.0), id: id)
                     return result
@@ -1871,6 +1878,22 @@ enum MacPackageStorage {
         try FileManager.default.moveItem(at: staging, to: destination)
         var app = job.app
         app.size = length
+        return (filename, app)
+    }
+
+    /// 插件直链落包：zip 插件包 / deb / dylib，非 IPA，跳过 IPA 校验直接归档。
+    private static func finishPluginFile(staging: URL, id: UUID, job: DownloadJob, ext: String) throws -> (String, StoreApp) {
+        let fm = FileManager.default
+        let length = (try? fm.attributesOfItem(atPath: staging.path)[.size] as? NSNumber)?.int64Value ?? 0
+        try fm.createDirectory(at: LocalResources.packages, withIntermediateDirectories: true)
+        let base = PackageService.safeName(job.app.name.isEmpty ? "插件" : job.app.name)
+        let filename = "\(id.uuidString)-\(base.prefix(60)).\(ext)"
+        let destination = LocalResources.packages.appendingPathComponent(filename)
+        try? fm.removeItem(at: destination)
+        try fm.moveItem(at: staging, to: destination)
+        var app = job.app
+        app.size = length
+        app.category = "插件"
         return (filename, app)
     }
 }
